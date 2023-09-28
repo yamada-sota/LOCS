@@ -1,0 +1,29 @@
+:root {
+    --accent-color050: rgba(255, 251, 234, 1);
+    --accent-color200: rgba(255, 239, 170, 1);
+    --lightmain-80: rgba(136, 136, 136, 1);
+    --lightbackground: rgba(255, 255, 255, 1);
+    --accent-color500: rgba(253, 221, 95, 1);
+    --lightaccent: rgba(70, 144, 255, 1);
+    --lightmain-40: rgba(224, 224, 224, 1);
+    --lightmain: rgba(30, 30, 30, 1);
+    --system-gray000: rgba(255, 255, 255, 1);
+    --form-placeholder-font-family: "Inter-Regular", Helvetica;
+    --form-placeholder-font-weight: 400;
+    --form-placeholder-font-size: 13px;
+    --form-placeholder-letter-spacing: -0.005199999883770943px;
+    --form-placeholder-line-height: normal;
+    --form-placeholder-font-style: normal;
+    --text-default-med-font-family: "Inter-SemiBold", Helvetica;
+    --text-default-med-font-weight: 600;
+    --text-default-med-font-size: 13px;
+    --text-default-med-letter-spacing: 0px;
+    --text-default-med-line-height: normal;
+    --text-default-med-font-style: normal;
+    --form-label-font-family: "Inter-Medium", Helvetica;
+    --form-label-font-weight: 500;
+    --form-label-font-size: 13px;
+    --form-label-letter-spacing: 0px;
+    --form-label-line-height: normal;
+    --form-label-font-style: normal;
+}

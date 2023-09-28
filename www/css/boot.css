@@ -1,0 +1,256 @@
+.boot-without-account {
+    background-color: #fffbea;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.boot-without-account .div {
+    background-color: var(--accent-color050);
+    width: 390px;
+    height: 844px;
+    position: relative;
+}
+
+.boot-without-account .icon {
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    top: 195px;
+    left: 110px;
+}
+
+.boot-without-account .overlap-group {
+    position: relative;
+    height: 170px;
+    border-radius: 10px;
+}
+
+.boot-without-account .elevation-high {
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    top: 0;
+    left: 0;
+    background-color: var(--accent-color200);
+    border-radius: 10px;
+    box-shadow: 0px 9px 18px #00000073;
+    opacity: 0.6;
+}
+
+.boot-without-account .road {
+    position: absolute;
+    width: 169px;
+    height: 169px;
+    top: 0;
+    left: 0;
+}
+
+.boot-without-account .space {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    top: 130px;
+    left: 108px;
+    border-radius: 17.5px;
+    border: 5px solid;
+    border-color: #d4aaff80;
+}
+
+.boot-without-account .land {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: 43px;
+    left: 19px;
+    border-radius: 9px;
+    border: 3px solid;
+    border-color: #b0f8c480;
+}
+
+.boot-without-account .sea {
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    top: 24px;
+    left: 86px;
+    border-radius: 6.5px;
+    border: 3px solid;
+    border-color: #ade2ff80;
+}
+
+.boot-without-account .element {
+    position: absolute;
+    width: 50px;
+    height: 62px;
+    top: 85px;
+    left: 101px;
+}
+
+.boot-without-account .img {
+    position: absolute;
+    width: 30px;
+    height: 38px;
+    top: 15px;
+    left: 13px;
+}
+
+.boot-without-account .element-2 {
+    position: absolute;
+    width: 21px;
+    height: 26px;
+    top: 4px;
+    left: 82px;
+}
+
+.boot-without-account .LOCS-logo {
+    position: absolute;
+    width: 84px;
+    height: 66px;
+    top: 389px;
+    left: 153px;
+}
+
+.boot-without-account .nickname-input {
+    display: flex;
+    flex-direction: column;
+    width: 269px;
+    align-items: flex-start;
+    gap: 8px;
+    position: absolute;
+    top: 518px;
+    left: 27px;
+}
+
+.boot-without-account .nickname {
+    display: flex;
+    height: 36px;
+    align-items: center;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    background-color: var(--lightbackground);
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid;
+    border-color: var(--accent-color500);
+}
+
+.boot-without-account .nickname-2 {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0px 4px;
+    position: relative;
+    flex: 1;
+    flex-grow: 1;
+}
+
+.boot-without-account .value {
+    display: flex;
+    height: 36px;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px;
+    position: relative;
+    flex: 1;
+    flex-grow: 1;
+}
+
+.boot-without-account .text-wrapper {
+    position: relative;
+    flex: 1;
+    align-self: stretch;
+    margin-top: -1px;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: var(--lightmain-80);
+    font-size: 13px;
+    letter-spacing: -0.01px;
+    line-height: normal;
+}
+
+.boot-without-account .later {
+    position: relative;
+    align-self: stretch;
+    font-family: var(--form-placeholder-font-family);
+    font-weight: var(--form-placeholder-font-weight);
+    color: var(--lightmain-80);
+    font-size: var(--form-placeholder-font-size);
+    text-align: right;
+    letter-spacing: var(--form-placeholder-letter-spacing);
+    line-height: var(--form-placeholder-line-height);
+    font-style: var(--form-placeholder-font-style);
+}
+
+.boot-without-account .confirm {
+    display: inline-flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 16px;
+    position: absolute;
+    top: 518px;
+    left: 306px;
+    background-color: var(--lightaccent);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.boot-without-account .confirm-2 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: var(--text-default-med-font-family);
+    font-weight: var(--text-default-med-font-weight);
+    color: var(--lightbackground);
+    font-size: var(--text-default-med-font-size);
+    text-align: center;
+    letter-spacing: var(--text-default-med-letter-spacing);
+    line-height: var(--text-default-med-line-height);
+    font-style: var(--text-default-med-font-style);
+}
+
+.boot-without-account .skip {
+    display: inline-flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 16px;
+    position: absolute;
+    top: 738px;
+    left: 280px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid;
+    border-color: var(--lightmain-40);
+}
+
+.boot-without-account .skip-2 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: var(--text-default-med-font-family);
+    font-weight: var(--text-default-med-font-weight);
+    color: var(--lightmain-80);
+    font-size: var(--text-default-med-font-size);
+    text-align: center;
+    letter-spacing: var(--text-default-med-letter-spacing);
+    line-height: var(--text-default-med-line-height);
+    font-style: var(--text-default-med-font-style);
+}
+
+.boot-without-account .language {
+    position: absolute;
+    top: 793px;
+    left: 51px;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: var(--lightmain-80);
+    font-size: 13px;
+    text-align: center;
+    letter-spacing: 0.05px;
+    line-height: normal;
+    text-decoration: underline;
+}
