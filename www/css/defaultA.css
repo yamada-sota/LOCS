@@ -1,0 +1,10 @@
+/* デフォルトで非表示 */
+body {
+    opacity: 0;
+    transition: opacity 500ms linear;
+}
+
+/* ページ遷移時に表示 */
+body.loaded {
+    opacity: 1;
+}
