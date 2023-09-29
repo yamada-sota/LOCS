@@ -1,3 +1,14 @@
+/* ページが表示中の状態 */
+body {
+    opacity: 1;
+    transition: opacity 500ms linear;
+    background-color: var(--accent-color050);
+}
+/* ページ遷移時にフェードアウト */
+body.page-transitioning {
+    opacity: 0;
+}
+
 .icon {
     display: flex;
     flex-direction: row;
@@ -117,14 +128,4 @@
     letter-spacing: 0.05px;
     line-height: normal;
     text-decoration: underline;
-}
-
-/* ページが表示中の状態 */
-body {
-    opacity: 1;
-    transition: opacity 500ms linear;
-}
-/* ページ遷移時にフェードアウト */
-body.page-transitioning {
-    opacity: 0;
 }
