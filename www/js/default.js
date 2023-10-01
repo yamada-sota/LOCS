@@ -25,19 +25,3 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-
-// 時間と分の要素を取得
-const hourSelect = document.getElementById('hour');
-const minuteSelect = document.getElementById('minute');
-
-// 時間が変更されたときの処理
-hourSelect.addEventListener('change', updateTime);
-minuteSelect.addEventListener('change', updateTime);
-
-function updateTime() {
-    const selectedHour = hourSelect.value;
-    const selectedMinute = minuteSelect.value;
-    
-    // 選択された時間と分を表示するなど、必要な処理を追加できます
-    console.log(`選択された時間: ${selectedHour}:${selectedMinute}`);
-}
