@@ -53,7 +53,7 @@
     justify-content: center;
     align-items: flex-start;
     gap: 60px;
-    top: 35px;
+    top: 40px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -81,7 +81,7 @@
 
 .keyword {
     height: 32px;
-    top: 12%;
+    top: 14%;
     left: 50%;
     transform: translateX(-50%);
     border-bottom-width: 1px;
@@ -96,7 +96,7 @@
     justify-content: center;
     align-items: flex-start;
     gap: 60px;
-    top: 17%;
+    top: 19%;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -130,7 +130,7 @@
     justify-content: center;
     align-items: center;
     gap: 60px;
-    top: 32%;
+    top: 34%;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -162,7 +162,7 @@
     justify-content: center;
     align-items: center;
     width: 280px;
-    top: 38%;
+    top: 43%;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -228,7 +228,7 @@ input[type="time"] {
     justify-content: center;
     align-items: center;
     gap: 20px;
-    top: 45%;
+    top: 50%;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -293,7 +293,7 @@ input[type="time"] {
     display: flex;
     justify-content: center;
     position: absolute;
-    bottom: 30%;
+    bottom: 25%;
     box-sizing: border-box;
     width: 100%;
     left: 0;
@@ -348,7 +348,7 @@ input[type="time"] {
     gap: 10px;
     padding: 10px 16px;
     position: absolute;
-    bottom: 22%;
+    bottom: 15%;
     left: 50%;
     transform: translate(-50%,-0%);
     border-radius: 6px;
@@ -368,36 +368,4 @@ input[type="time"] {
     letter-spacing: var(--text-default-med-letter-spacing);
     line-height: var(--text-default-med-line-height);
     font-style: var(--text-default-med-font-style);
-}
-
-.bookmark {
-    position: absolute;
-    width: 296px;
-    height: 42px;
-    bottom: 15%;
-    left: 50%;
-    transform: translate(-50%,-0%);
-}
-.tip {
-    position: absolute;
-    width: 296px;
-    top: 23px;
-    font-weight: 400;
-    color: var(--lightmain-80);
-    font-size: 13px;
-    text-align: center;
-    letter-spacing: -0.13px;
-    line-height: normal;
-}
-.save-settings {
-    position: absolute;
-    width: 225px;
-    left: 35px;
-    font-weight: 400;
-    color: var(--lightmain);
-    font-size: 20px;
-    text-align: center;
-    letter-spacing: 0;
-    line-height: normal;
-    white-space: nowrap;
 }
