@@ -13,6 +13,9 @@ body.loaded {
     position: absolute;
     top: 7.2%;
     left: 0;
+    height: 84.8%;
+    width: 100%;
+    z-index: -1;
 }
 
 .search-bar {

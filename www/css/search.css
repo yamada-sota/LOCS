@@ -290,55 +290,35 @@ input[type="time"] {
 }
 
 .sort-wrapper {
+    position: absolute;
     display: flex;
     justify-content: center;
-    position: absolute;
-    bottom: 25%;
-    box-sizing: border-box;
-    width: 100%;
-    left: 0;
-    gap: 3%;
+    align-items: flex-start;
+    gap: 60px;
+    bottom: 28%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.sort,
+.sort-pull-down {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 110px;
+    border-color: var(--system-gray500);
 }
 .sort {
     height: 32px;
     border-bottom-width: 1px;
     border-bottom-style: solid;
-    border-color: var(--system-gray500);
-    position: absolute;
-    width: 110px;
-    margin-top: -10%;
 }
 .sort-pull-down {
-    display: flex;
-    height: 35px;
-    width: 110px;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 8px;
     padding: 8px 7px;
-    border-radius: 5px;
     border: 1px solid;
+    border-radius: 5px;
     border-color: var(--system-gray500);
     background-color: transparent;
-}
-.meal-checkbox {
-    display: flex;
-    width: 112px;
-    height: 35px;
-    align-items: center;
-    gap: 6px;
-    background-color: transparent;
-}
-.meal {
-    width: 86px;
-    height: 24px;
-    left: 24px;
-    font-weight: 400;
-    color: var(--lightmain);
-    font-size: 13px;
-    text-align: center;
-    letter-spacing: 0;
-    line-height: normal;
 }
 
 .search {

@@ -9,8 +9,8 @@
         <link rel="stylesheet" href="css/search.css">
     </head>
     <body>
-        <div class="map">
-        </div>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGEbac2sVu6rkK5CkPSQgHvUExjQGwbYg&libraries=places&callback=initMap" async defer></script>
+        <div class="map" id="map"></div>
         <div id="search-bar" class="search-bar">
             <img class="search-mark" src="img/search.svg">
             <div class="text-search">検索</div>
@@ -48,6 +48,43 @@
                     <div class="keywords-set-1">
                         <select class="keywords-pull-down-1">
                             <option value="">-</option>
+                            遊園地
+                            テーマパーク
+                            公園
+                            水族館
+                            博物館
+                            科学館
+                            動物園
+                            果樹園
+                            美術館
+                            植物園
+                            商業施設
+                            書店
+                            CD・DVDショップ
+                            レンタルCD・DVD
+                            映画館
+                            カラオケ
+                            インターネットカフェ
+                            まんが喫茶
+                            ゲームセンター
+                            ボウリング場
+                            ホビー
+                            バッティングセンター
+                            ビリヤード
+                            ダーツ
+                            インテリア
+                            パン
+                            電器
+                            スポーツショップ
+                            ファミレス
+                            レストラン
+                            ファーストフード
+                            カフェ
+                            飲食店(和)
+                            飲食店(洋)
+                            飲食店(中)
+                            ファッション
+                            ペットショップ
                         </select>
                         <select class="keywords-pull-down-3">
                             <option value="">-</option>
@@ -131,10 +168,6 @@
                         <option value="price">安さ重視</option>
                         <option value="distance">近さ重視</option>
                     </select>
-                    <div class="meal-checkbox">
-                        <input type="checkbox" name="meal" value="meal" class="checkbox" id="meal">
-                        <label for="meal" class="meal">飲食店の有無</label>
-                    </div>
                 </div>
 
                 <button class="search" onclick="redirectToSearchResult()">

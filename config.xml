@@ -5,7 +5,6 @@
   <author/>
   <content src="index.html"/>
   <allow-navigation href="*"/>
-  <preference name="DisallowOverscroll" value="true"/>
   <preference name="Orientation" value="default"/>
   <preference name="loglevel" value="DEBUG"/>
   <preference name="AndroidLaunchMode" value="singleTop"/>
@@ -15,14 +14,10 @@
   <preference name="SplashScreen" value="screen"/>
   <preference name="SplashScreenDelay" value="1000"/>
   <preference name="AllowInlineMediaPlayback" value="false"/>
-  <preference name="AutoHideSplashScreen" value="true"/>
   <preference name="BackupWebStorage" value="cloud"/>
-  <preference name="EnableViewportScale" value="false"/>
-  <preference name="FadeSplashScreen" value="true"/>
   <preference name="FadeSplashScreenDuration" value="250"/>
   <preference name="KeyboardDisplayRequiresUserAction" value="true"/>
   <preference name="MediaTypesRequiringUserActionForPlayback" value="none"/>
-  <preference name="ShowSplashScreenSpinner" value="false"/>
   <preference name="SuppressesIncrementalRendering" value="false"/>
   <preference name="TopActivityIndicator" value="gray"/>
   <preference name="GapBetweenPages" value="0"/>
@@ -34,7 +29,6 @@
   </feature>
   <preference name="UIWebViewDecelerationSpeed" value="normal"/>
   <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
-  <preference name="target-device" value="universal"/>
   <platform name="ios">
     <preference name="orientation" value="all"/>
     <icon src="/res/ios/icon/icon.png" width="57" height="57"/>
@@ -68,13 +62,13 @@
     <splash src="/res/ios/screen/Default-Landscape~ipad.png" width="1024" height="768"/>
     <splash src="/res/ios/screen/Default-Portrait@2x~ipad.png" width="1536" height="2048"/>
     <splash src="/res/ios/screen/Default-Landscape@2x~ipad.png" width="2048" height="1536"/>
+    <preference name="scheme" value="monaca-app"/>
+    <preference name="hostname" value="localhost"/>
     <config-file platform="ios" parent="CFBundleLocalizations" target="*-Info.plist">
       <array>
         <string>en</string>
       </array>
     </config-file>
-    <preference name="scheme" value="monaca-app"/>
-    <preference name="hostname" value="localhost"/>
   </platform>
   <platform name="android">
     <icon src="/res/android/icon/ldpi.png" density="ldpi"/>
@@ -100,4 +94,11 @@
   </platform>
   <preference name="WindowsStorePublisherName" value="My Name"/>
   <preference name="WindowsStoreIdentityName" value="7e104508-6e2c-45a1-c07c-5d96001585f3"/>
+  <preference name="target-device" value="universal"/>
+  <preference name="AutoHideSplashScreen" value="true"/>
+  <preference name="FadeSplashScreen" value="true"/>
+  <preference name="ShowSplashScreenSpinner" value="false"/>
+  <access origin=""/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="EnableViewportScale" value="false"/>
 </widget>
