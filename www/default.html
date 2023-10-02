@@ -36,8 +36,8 @@
                         <div class="text-titles">出発地</div>
                     </div>
                     <select class="list-departure">
-                        <option value="distance">現在地を取得</option>
-                        <option value="price">ピンで指定</option>
+                        <option value="current-loc">現在地を取得</option>
+                        <option value="pin">ピンで指定</option>
                     </select>
                 </div>
 
@@ -137,7 +137,7 @@
                     </div>
                 </div>
 
-                <button class="search">
+                <button class="search" onclick="redirectToSearchResult()">
                     <div class="text-wrapper">この条件で検索する</div>
                 </button>
 
