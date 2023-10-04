@@ -61,6 +61,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('#content-setting').style.display = 'none';
         document.querySelector('.text-globe').style.color = 'var(--accent-color800)';
         document.querySelector('.text-setting').style.color = 'var(--system-gray500)';
+        document.querySelector('.globe').style.fill = 'var(--accent-color800)';
+        document.querySelector('.setting').style.fill = 'var(--system-gray500)';
     });
 
     // 設定画面
@@ -69,6 +71,8 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('#content-globe').style.display = 'none';
         document.querySelector('.text-setting').style.color = 'var(--accent-color800)';
         document.querySelector('.text-globe').style.color = 'var(--system-gray500)';
+        document.querySelector('.globe').style.fill = 'var(--system-gray500)';
+        document.querySelector('.setting').style.fill = 'var(--accent-color800)';
     });
 });
 

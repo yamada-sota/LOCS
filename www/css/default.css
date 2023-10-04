@@ -91,8 +91,7 @@ body.loaded {
 }
 .setting {
     position: relative;
-    width: 35px;
-    height: 35px;
+    fill: var(--system-gray500);
 }
 .text-setting {
     position: relative;
@@ -118,9 +117,8 @@ body.loaded {
 }
 .globe {
     position: relative;
-    width: 30px;
-    height: 30px;
     padding-top: 3px;
+    fill: var(--accent-color800);
 }
 .text-globe {
     position: relative;
