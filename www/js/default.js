@@ -54,6 +54,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     initMap();
+
+    // マップ画面
+    document.querySelector('.item-globe').addEventListener('click', () => {
+        document.querySelector('#content-globe').style.display = 'block';
+        document.querySelector('#content-setting').style.display = 'none';
+        document.querySelector('.text-globe').style.color = 'var(--accent-color800)';
+        document.querySelector('.text-setting').style.color = 'var(--system-gray500)';
+    });
+
+    // 設定画面
+    document.querySelector('.item-setting').addEventListener('click', () => {
+        document.querySelector('#content-setting').style.display = 'block';
+        document.querySelector('#content-globe').style.display = 'none';
+        document.querySelector('.text-setting').style.color = 'var(--accent-color800)';
+        document.querySelector('.text-globe').style.color = 'var(--system-gray500)';
+    });
 });
 
 function redirectToSearchResult() {

@@ -9,6 +9,13 @@ body.loaded {
     opacity: 1;
 }
 
+.content-globe {
+    display: block;
+}
+.content-setting {
+    display: none;
+}
+
 .map {
     position: absolute;
     top: 7.2%;
