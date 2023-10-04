@@ -46,3 +46,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // ページ読み込み時にloadedクラスを追加
     document.body.classList.add("loaded");
 });
+
+screen.addEventListener("orientationchange", () => {
+  console.log(`The orientation of the screen is: ${screen.orientation}`);
+});
+

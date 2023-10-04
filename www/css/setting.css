@@ -1,0 +1,127 @@
+/* デフォルトで非表示 */
+body {
+    opacity: 1;
+    transition: opacity 500ms linear;
+}
+
+/* ページ遷移時に表示 */
+body.loaded {
+    opacity: 1;
+}
+
+.map {
+    position: absolute;
+    top: 7.2%;
+    left: 0;
+    height: 84.8%;
+    width: 100%;
+    z-index: -1;
+}
+
+.search-bar {
+    position: absolute;
+    width: 362px;
+    height: 50px;
+    bottom: 8.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--system-gray100);
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: var(--system-gray400);
+    opacity: 0.85;
+}
+.search-mark {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 12px;
+    left: 14px;
+}
+.text-search {
+    position: absolute;
+    height: 22px;
+    top: 14px;
+    left: 164px;
+    color: var(--system-gray500);
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 100;
+    text-align: center;
+    letter-spacing: 0;
+    white-space: nowrap;
+}
+
+.tab-bars {
+    position: absolute;
+    box-sizing: border-box;
+    width: 100%;
+    height: 8%;
+    bottom: 0;
+    left: 0;
+}
+.divider {
+    background-color: var(--system-gray400);
+    border: none;
+    position: absolute;
+    box-sizing: border-box;
+    width: 100%;
+    height: 1px;
+    bottom: 8%;
+    left: 0;
+    margin: 0;
+}
+.item-globe {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: 75px;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 20%;
+}
+.setting {
+    position: relative;
+    width: 35px;
+    height: 35px;
+}
+.text-setting {
+    position: relative;
+    width: fit-content;
+    margin-bottom: -2.5px;
+    color: var(--system-gray500);
+    line-height: 12px;
+    font-weight: 100;
+    text-align: center;
+    letter-spacing: 0;
+    white-space: nowrap;
+}
+.item-setting {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: 75px;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    right: 20%;
+}
+.globe {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    padding-top: 3px;
+}
+.text-globe {
+    position: relative;
+    width: fit-content;
+    color: var(--accent-color800);
+    line-height: 12px;
+    font-weight: 100;
+    text-align: center;
+    letter-spacing: 0;
+    white-space: nowrap;
+}

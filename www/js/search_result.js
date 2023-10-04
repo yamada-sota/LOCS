@@ -51,7 +51,6 @@ var trainParam       = getParameterByName("train");
 var carParam         = getParameterByName("car");
 var bicycleParam     = getParameterByName("bicycle");
 var sortParam        = getParameterByName("sort");
-var mealParam        = getParameterByName("meal");
 
 // 取得したパラメータを使う
 document.getElementById("departureParam").textContent   = departureParam;
@@ -68,4 +67,3 @@ document.getElementById("trainParam").textContent       = trainParam;
 document.getElementById("carParam").textContent         = carParam;
 document.getElementById("bicycleParam").textContent     = bicycleParam;
 document.getElementById("sortParam").textContent        = sortParam;
-document.getElementById("mealParam").textContent        = mealParam;

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/global.css">
+        <link rel="stylesheet" href="css/guide.css">
+        <link rel="stylesheet" href="css/default.css">
+        <link rel="stylesheet" href="css/search.css">
+    </head>
+    <body>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGEbac2sVu6rkK5CkPSQgHvUExjQGwbYg&libraries=places&callback=initMap" async defer></script>
+        <div class="map" id="map"></div>
+        <div id="search-bar" class="search-bar">
+            <img class="search-mark" src="img/search.svg">
+            <div class="text-search">検索</div>
+        </div>
+        <hr class="divider">
+        <div class="tab-bars">
+            <div class="item-globe">
+                <img class="globe" src="img/globe.svg">
+                <div class="text-globe">マップ</div>
+            </div>
+            <div class="item-setting">
+                <img class="setting" src="img/setting.svg">
+                <div class="text-setting">設定</div>
+            </div>
+        </div>
+
+        <div id="slide-in-content" class="slide-in-content">
+            <div class="overlap-group">
+                <div class="swipe-to-go-back">⇩スワイプで戻る</div>
+
+                <div class="departure-container">
+                    <div class="departure-wrapper">
+                        <div class="text-titles">出発地</div>
+                    </div>
+                    <select class="list-departure">
+                        <option value="current-loc">現在地を取得</option>
+                        <option value="pin">ピンで指定</option>
+                    </select>
+                </div>
+
+                <div class="keyword">
+                        <div class="text-titles">キーワード</div>
+                </div>
+                <div class="keywords-container">
+                    <div class="keywords-set-1">
+                        <select class="keywords-pull-down-1">
+                            <option value="">-</option>
+                            遊園地
+                            テーマパーク
+                            公園
+                            水族館
+                            博物館
+                            科学館
+                            動物園
+                            果樹園
+                            美術館
+                            植物園
+                            商業施設
+                            書店
+                            CD・DVDショップ
+                            レンタルCD・DVD
+                            映画館
+                            カラオケ
+                            インターネットカフェ
+                            まんが喫茶
+                            ゲームセンター
+                            ボウリング場
+                            ホビー
+                            バッティングセンター
+                            ビリヤード
+                            ダーツ
+                            インテリア
+                            パン
+                            電器
+                            スポーツショップ
+                            ファミレス
+                            レストラン
+                            ファーストフード
+                            カフェ
+                            飲食店(和)
+                            飲食店(洋)
+                            飲食店(中)
+                            ファッション
+                            ペットショップ
+                        </select>
+                        <select class="keywords-pull-down-3">
+                            <option value="">-</option>
+                        </select>
+                    </div>
+                    <div class="keywords-set-2">
+                        <select class="keywords-pull-down-2">
+                            <option value="">-</option>
+                        </select>
+                        <select class="keywords-pull-down-4">
+                            <option value="">-</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="budget-container">
+                    <div class="budget">
+                        <div class="text-titles">予算</div>
+                    </div>
+                    <select class="budget-picker">
+                        <option value="0">0円</option>
+                        <option value="1000">1,000円</option>
+                        <option value="2000">2,000円</option>
+                        <option value="3000">3,000円</option>
+                        <option value="4000">4,000円</option>
+                        <option value="5000">5,000円</option>
+                        <option value="6000">6,000円</option>
+                        <option value="7000">7,000円</option>
+                        <option value="8000">8,000円</option>
+                        <option value="9000">9,000円</option>
+                        <option value="10000">10,000円</option>
+                        <option value="11000">11,000円</option>
+                        <option value="12000">12,000円</option>
+                        <option value="13000">13,000円</option>
+                        <option value="14000">14,000円</option>
+                        <option value="15000">15,000円</option>
+                    </select>
+                </div>
+                
+                <div class="time-container">
+                    <div class="time-wrapper">
+                        <div class="text-titles">時間</div>
+                    </div>
+                    <div class="time-drum-roll">
+                        <input type="time" class="time-picker-1" value="00:00">
+                        <div class="text-tilde">～</div>
+                        <input type="time" class="time-picker-2" value="00:00">
+                    </div>
+                </div>
+                
+                <div class="transportation-container">
+                    <div class="transportation-wrapper">
+                        <div class="text-titles">移動手段</div>
+                    </div>
+                    <div class="checkbox-group">
+                        <div class="foot-checkbox">
+                            <input type="checkbox" name="foot" value="foot" class="checkbox" id="foot">
+                            <label for="foot" class="transportation">徒歩</label>
+                        </div>
+                        <div class="train-checkbox">
+                            <input type="checkbox" name="train" value="train" class="checkbox" id="train">
+                            <label for="train" class="transportation">電車</label>
+                        </div>
+                        <div class="car-checkbox">
+                            <input type="checkbox" name="car" value="car" class="checkbox" id="car">
+                            <label for="car" class="transportation">車</label>
+                        </div>
+                        <div class="bicycle-checkbox">
+                            <input type="checkbox" name="bicycle" value="bicycle" class="checkbox" id="bicycle">
+                            <label for="bicycle" class="transportation">自転車</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sort-wrapper">
+                    <div class="sort">
+                        <div class="text-titles">ソート</div>
+                    </div>
+                    <select class="sort-pull-down">
+                        <option value="">-</option>
+                        <option value="price">安さ重視</option>
+                        <option value="distance">近さ重視</option>
+                    </select>
+                </div>
+
+                <button class="search" onclick="redirectToSearchResult()">
+                    <div class="text-wrapper">この条件で検索する</div>
+                </button>
+            </div>
+        </div>
+        
+        <script src="js/default.js"></script>
+    </body>
+</html>

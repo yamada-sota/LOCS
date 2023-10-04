@@ -70,6 +70,7 @@ function redirectToSearchResult() {
     var carCheckboxValue     = document.querySelector("#car").checked;
     var bicycleCheckboxValue = document.querySelector("#bicycle").checked;
     var sortValue            = document.querySelector(".sort-pull-down").value;
+    var mealCheckboxValue    = document.querySelector("#meal").checked;
 
     // 差分計算
     var startTime = new Date("2023-10-02T" + timePicker1Value);
@@ -94,7 +95,8 @@ function redirectToSearchResult() {
                       "&train="       + trainCheckboxValue +
                       "&car="         + carCheckboxValue +
                       "&bicycle="     + bicycleCheckboxValue +
-                      "&sort="        + sortValue;
+                      "&sort="        + sortValue +
+                      "&meal="        + mealCheckboxValue;
 
     window.location.href = "search_result.html" + queryParams;
 }
