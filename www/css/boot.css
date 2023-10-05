@@ -26,25 +26,37 @@ body.page-transitioning {
     transform: translate(-50%,-50%);
 }
 
-.nickname-container {
+.user-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
     position: absolute;
-    bottom: 33%;
+    bottom: 20%;
     left: 0;
 }
-.nickname {
+.user-input {
     display: flex;
-    flex-direction: row;
-    width: 88%;
+    flex-direction: column;
+    width: 70%;
+    max-width: 400px;
     align-items: center;
     gap: 10px;
     position: relative;
 }
-.nickname-input-field {
+.user-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 70%;
+    max-width: 400px;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0 10px 32px;
+    position: relative;
+}
+.user-field {
     display: flex;
     width: 100%;
     height: auto;
@@ -56,7 +68,7 @@ body.page-transitioning {
 .confirm {
     display: inline-flex;
     align-items: flex-start;
-    justify-content: center;
+    width: auto;
     padding: 10px 16px;
     position: relative;
     background-color: var(--lightaccent);
@@ -78,9 +90,6 @@ body.page-transitioning {
     font-style: var(--text-default-med-font-style);
 }
 .later {
-    position: absolute;
-    bottom: -1.5rem;
-    right: 60px;
     font-weight: var(--form-placeholder-font-weight);
     color: var(--lightmain-80);
     font-size: var(--form-placeholder-font-size);
@@ -88,7 +97,6 @@ body.page-transitioning {
     line-height: var(--form-placeholder-line-height);
     font-style: var(--form-placeholder-font-style);
 }
-
 .skip {
     display: inline-flex;
     align-items: flex-start;

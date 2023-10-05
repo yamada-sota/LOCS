@@ -13,13 +13,17 @@
             <img src="img/Icon.svg" alt="Icon">
             <img class="LOCS-logo" src="img/LOCS_Logo.svg">
         </div>
-        <div class="nickname-container">
-            <div class="nickname">
-                <input type="text" class="nickname-input-field" placeholder="ニックネーム">
+        <div class="user-container">
+            <div class="user-input">
+                <input type="text" id="emailField" class="user-field" placeholder="メールアドレス">
+                <input type="password" minlength="8" id="passwordField" class="user-field" placeholder="パスワード">
+                <input type="password" minlength="8" id="confirmpasswordField" class="user-field" placeholder="パスワード（再入力）">             
+            </div>
+            <div class="user-button">
+                <div class="later">あとから設定・変更できます。</div>
                 <button id="confirm-button" class="confirm">
                     <div class="text-wrapper">確定</div>
                 </button>
-                <div class="later">あとから設定・変更できます。</div>
             </div>
         </div>
         <button class="skip" id="skip-button">

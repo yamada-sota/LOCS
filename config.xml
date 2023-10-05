@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" id="com.example.helloworld" version="1.0.0">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" id="com.locs" version="1.0.0">
   <name>LOCS</name>
   <description>Made with Monaca (http://monaca.mobi)</description>
   <author/>
   <content src="index.html"/>
   <allow-navigation href="*"/>
-  <preference name="Orientation" value="defaut"/>
   <preference name="loglevel" value="DEBUG"/>
   <preference name="AndroidLaunchMode" value="singleTop"/>
   <preference name="ErrorUrl" value=""/>
-  <preference name="Fullscreen" value="false"/>
-  <preference name="KeepRunning" value="true"/>
   <preference name="SplashScreen" value="screen"/>
-  <preference name="SplashScreenDelay" value="1000"/>
   <preference name="AllowInlineMediaPlayback" value="false"/>
   <preference name="BackupWebStorage" value="cloud"/>
   <preference name="FadeSplashScreenDuration" value="250"/>
@@ -28,7 +24,6 @@
     <param name="ios-package" value="CDVLocalStorage"/>
   </feature>
   <preference name="UIWebViewDecelerationSpeed" value="normal"/>
-  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
   <platform name="ios">
     <preference name="orientation" value="portrait"/>
     <icon src="/res/ios/icon/icon.png" width="57" height="57"/>
@@ -66,7 +61,6 @@
     <preference name="hostname" value="localhost"/>
     <config-file platform="ios" parent="CFBundleLocalizations" target="*-Info.plist">
       <array>
-        <string>en</string>
         <string>ja</string>
       </array>
     </config-file>
@@ -74,10 +68,11 @@
   <platform name="android">
     <icon src="/res/android/icon/ldpi.png" density="ldpi"/>
     <icon src="/res/android/icon/mdpi.png" density="mdpi"/>
-    <icon src="/res/android/icon/hdpi.png" density="hdpi"/>
     <icon src="/res/android/icon/xhdpi.png" density="xhdpi"/>
     <icon src="/res/android/icon/xxhdpi.png" density="xxhdpi"/>
     <icon src="/res/android/icon/xxxhdpi.png" density="xxxhdpi"/>
+    <icon src="/res/android/icon/hdpi.png" density="hdpi"/>
+    <preference name="AndroidWindowSplashScreenBackground" value="#468fff"/>
     <splash src="/res/android/screen/splash-port-ldpi.9.png" density="port-ldpi"/>
     <splash src="/res/android/screen/splash-port-mdpi.9.png" density="port-mdpi"/>
     <splash src="/res/android/screen/splash-port-hdpi.9.png" density="port-hdpi"/>
@@ -95,6 +90,11 @@
   </platform>
   <preference name="WindowsStorePublisherName" value="My Name"/>
   <preference name="WindowsStoreIdentityName" value="7e104508-6e2c-45a1-c07c-5d96001585f3"/>
+  <preference name="KeepRunning" value="true"/>
+  <preference name="monaca:AndroidIsPackageNameSeparate" value="false"/>
+  <preference name="Orientation" value="portrait"/>
+  <preference name="SplashScreenDelay" value="1000"/>
+  <preference name="Fullscreen" value="false"/>
   <preference name="target-device" value="universal"/>
   <preference name="AutoHideSplashScreen" value="true"/>
   <preference name="FadeSplashScreen" value="true"/>
