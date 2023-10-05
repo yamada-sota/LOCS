@@ -5,7 +5,8 @@
     "dependencies": {
         "cordova-plugin-splashscreen": "6.0.0",
         "monaca-plugin-monaca-core": "3.3.1",
-        "cordova-plugin-geolocation": "4.1.0"
+        "cordova-plugin-geolocation": "4.1.0",
+        "ncmb-push-monaca-plugin": "3.1.2"
     },
     "scripts": {
         "monaca:preview": "npm run dev",
@@ -15,7 +16,8 @@
         "plugins": {
             "cordova-plugin-splashscreen": {},
             "monaca-plugin-monaca-core": {},
-            "cordova-plugin-geolocation": {}
+            "cordova-plugin-geolocation": {},
+            "ncmb-push-monaca-plugin": {}
         }
     },
     "devDependencies": {
