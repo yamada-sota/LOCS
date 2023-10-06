@@ -33,8 +33,19 @@ body.page-transitioning {
     justify-content: center;
     width: 100%;
     position: absolute;
-    bottom: 20%;
+    bottom: 25%;
     left: 0;
+}
+.register-or-login-1 {
+    padding: 0 0 5px 0;
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    border-color: var(--lightmain-40);
+    background-color: transparent;
+    font-weight: var(--text-default-med-font-weight);
+    color: var(--accent-color900);
+    font-size: var(--text-large-regular-font-size);
 }
 .user-input {
     display: flex;
@@ -43,17 +54,6 @@ body.page-transitioning {
     max-width: 400px;
     align-items: center;
     gap: 10px;
-    position: relative;
-}
-.user-button {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    width: 70%;
-    max-width: 400px;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 0 10px 32px;
     position: relative;
 }
 .user-field {
@@ -65,29 +65,34 @@ body.page-transitioning {
     padding: 10px 16px;
     font-size: var(--text-default-med-font-size);
 }
+#passwordField {
+    display: none;
+}
+.user-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 70%;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0 0 0;
+    position: relative;
+}
 .confirm {
     display: inline-flex;
-    align-items: flex-start;
-    width: auto;
-    padding: 10px 16px;
+    align-items: center;
+    justify-content: center;
+    width: 53px;
+    height: 42px;
     position: relative;
     background-color: var(--lightaccent);
     border: none;
     border-radius: 6px;
     overflow: hidden;
-    white-space: nowrap;
-}
-.confirm .text-wrapper {
-    position: relative;
-    width: fit-content;
-    margin-top: -1px;
     font-weight: var(--text-default-med-font-weight);
     color: var(--lightbackground);
     font-size: var(--text-default-med-font-size);
-    text-align: center;
-    letter-spacing: var(--text-default-med-letter-spacing);
-    line-height: var(--text-default-med-line-height);
-    font-style: var(--text-default-med-font-style);
+    white-space: nowrap;
 }
 .later {
     font-weight: var(--form-placeholder-font-weight);
@@ -97,6 +102,22 @@ body.page-transitioning {
     line-height: var(--form-placeholder-line-height);
     font-style: var(--form-placeholder-font-style);
 }
+
+.register-or-login-2 {
+    position: absolute;
+    bottom: 4%;
+    left: 12%;
+    font-weight: 400;
+    color: var(--lightmain-80);
+    font-size: 13px;
+    text-align: center;
+    letter-spacing: 0.05px;
+    line-height: normal;
+    text-decoration: underline;
+    background-color: transparent;
+    border: none;
+}
+
 .skip {
     display: inline-flex;
     align-items: flex-start;
@@ -111,29 +132,7 @@ body.page-transitioning {
     border: 1px solid;
     border-color: var(--lightmain-40);
     background-color: transparent;
-}
-.skip .text-wrapper {
-    position: relative;
-    width: fit-content;
-    margin-top: -1px;
     font-weight: var(--text-default-med-font-weight);
     color: var(--lightmain-80);
     font-size: var(--text-default-med-font-size);
-    text-align: center;
-    letter-spacing: var(--text-default-med-letter-spacing);
-    line-height: var(--text-default-med-line-height);
-    font-style: var(--text-default-med-font-style);
-}
-
-.language {
-    position: absolute;
-    bottom: 4%;
-    left: 12%;
-    font-weight: 400;
-    color: var(--lightmain-80);
-    font-size: 13px;
-    text-align: center;
-    letter-spacing: 0.05px;
-    line-height: normal;
-    text-decoration: underline;
 }

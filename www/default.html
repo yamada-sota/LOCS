@@ -9,9 +9,22 @@
         <link rel="stylesheet" href="css/search.css">
         <link rel="stylesheet" href="css/setting.css">
     </head>
+    <script src="components/ncmb/ncmb.min.js"></script>
+    <script>
+        var applicationkey = "4dbb3d327127b2dec06b84deb304f3ce92a90fe3f413b160fbd7ad902ab74926";
+        var clientkey      = "dcd03e138124816b36a669ca227f97268de84662f737a23fc4a85aa2cd327d16"; 
+        var ncmb           = new NCMB(applicationkey, clientkey);
+        var currentUser = ncmb.User.getCurrentUser();
+        if (currentUser) {
+            console.log("ログイン中のユーザー: " + currentUser.get("userName"));
+        } else {
+            console.log("未ログインまたは取得に失敗");
+        }
+    </script>
     <body>
         <script src="https://maps.googleapis.com/maps/api/js?key=[APIKEY]&libraries=places&callback=initMap" async defer></script>
         <!-- AIzaSyDGEbac2sVu6rkK5CkPSQgHvUExjQGwbYg -->
+        <script src="components/ncmb/ncmb.min.js"></script>
         <div id="content-globe" class="content-globe">
             <div class="map" id="map"></div>
             <div id="search-bar" class="search-bar">
