@@ -15,7 +15,7 @@
         var applicationkey = "4dbb3d327127b2dec06b84deb304f3ce92a90fe3f413b160fbd7ad902ab74926";
         var clientkey      = "dcd03e138124816b36a669ca227f97268de84662f737a23fc4a85aa2cd327d16"; 
         var ncmb           = new NCMB(applicationkey, clientkey);
-        var currentUser = ncmb.User.getCurrentUser();
+        var currentUser    = ncmb.User.getCurrentUser();
         if (currentUser) {
             console.log("ログイン中のユーザー: " + currentUser.get("userName"));
         } else {
@@ -34,10 +34,65 @@
         </div>
 
         <div id="content-setting" class="content-setting">
-            <div></div>
+            <div class="user-info">
+                <div class="icon"></div>
+                <div class="nickname"></div>
+                <div class="locs-id"></div>
+                <div class="edit"></div>
+            </div>
+            <hr class="divider-top">
+            <div class="saved-plan">
+                <div class="saved-plan-title">保存プラン一覧</div>
+                <table>
+                    <colgroup>
+                        <col style="width: 50%;">
+                        <col style="width: 50%;">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>保存時間</th>
+                            <th>保存名</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         
-        <hr class="divider">
+        <hr class="divider-bottom">
         <div class="tab-bars">
             <div class="item-globe">
                 <svg class="globe" width="30" height="30" viewBox="0 0 29 29" xmlns="http://www.w3.org/2000/svg">

@@ -12,9 +12,6 @@ body.loaded {
 .content-globe {
     display: block;
 }
-.content-setting {
-    display: none;
-}
 
 .map {
     position: absolute;
@@ -67,7 +64,7 @@ body.loaded {
     bottom: 0;
     left: 0;
 }
-.divider {
+.divider-bottom {
     background-color: var(--system-gray400);
     border: none;
     position: absolute;
