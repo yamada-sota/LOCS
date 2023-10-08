@@ -13,10 +13,43 @@
 
 .user-info {
     position: absolute;
-    top: 7%;
+    display: flex;
     box-sizing: border-box;
+    align-items: center;
     width: 100%;
+    top: 7%;
     left: 0;
+    gap: 4%;
+    padding-top: 1%;
+}
+.icon {
+    display: inline-block;
+    width: 90px;
+    height: 90px;
+    padding-left: 1%;
+}
+.name-and-id {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: right;
+    justify-content: flex-end;
+    position: relative;
+    right: 0;
+}
+.user-name {
+    text-align: left;
+}
+.locs-id {
+    text-align: left;
+}
+
+.edit {
+    position: absolute;
+    bottom: 80%;
+    right: 0;
+    color: var(--accent-color900);
+    text-decoration: underline;
+    text-align: right;
 }
 
 .divider-top {
@@ -66,7 +99,7 @@ th {
     color: var(--accent-color900);
 }
 td {
-    color: var(--accent-color700);
+    color: var(--accent-color900);
     background-color: var(--lightbackground);
     text-decoration: underline;
 }
