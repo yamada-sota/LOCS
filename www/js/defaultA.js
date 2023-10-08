@@ -1,34 +1,34 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function() {
     // 下からスライドインする要素と戻るボタンの要素を取得
-    const slideInContent = document.getElementById('slide-in-content');
+    const slideInContent = document.getElementById("slide-in-content");
 
     // ボタンをクリックしたときのアクションを定義
-    document.getElementById('search-bar').addEventListener('click', () => {
-        slideInContent.style.transform = 'translateY(0%)'; // 下からスライドイン
+    document.getElementById("search-bar").addEventListener("click", () => {
+        slideInContent.style.transform = "translateY(0%)"; // 下からスライドイン
     });
 
     // スワイプ（タッチ）イベントを処理するための変数
     let touchStartY = 0;
 
     // タッチ開始時のY座標を記録
-    document.addEventListener('touchstart', (e) => {
+    document.addEventListener("touchstart", (e) => {
         touchStartY = e.touches[0].clientY;
     });
 
     // タッチ終了時と開始時のY座標を比較
-    document.addEventListener('touchend', (e) => {
+    document.addEventListener("touchend", (e) => {
         const touchEndY = e.changedTouches[0].clientY;
         const deltaY    = touchEndY - touchStartY;
 
         if (deltaY > 50) {
-            slideInContent.style.transform = 'translateY(100%)'; // 下にスワイプして戻る
+            slideInContent.style.transform = "translateY(100%)"; // 下にスワイプして戻る
         }
     });
 
     // 初期マップ表示
     let map;
     function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById("map"), {
             center: { lat: 0, lng: 0 }, // マップの初期位置
             zoom: 15 // ズームレベル (1〜20)
         });
@@ -45,34 +45,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 new google.maps.Marker({
                     position: userLocation,
                     map: map,
-                    title: '現在位置'
+                    title: "現在位置"
                 });
             });
         } else {
-            alert('Geolocationがサポートされていません。');
+            alert("Geolocationがサポートされていません。");
         }
     }
 
     initMap();
 
     // マップ画面
-    document.querySelector('.item-globe').addEventListener('click', () => {
-        document.querySelector('#content-globe').style.display = 'block';
-        document.querySelector('#content-setting').style.display = 'none';
-        document.querySelector('.text-globe').style.color = 'var(--accent-color800)';
-        document.querySelector('.text-setting').style.color = 'var(--system-gray500)';
-        document.querySelector('.globe').style.fill = 'var(--accent-color800)';
-        document.querySelector('.setting').style.fill = 'var(--system-gray500)';
+    document.querySelector(".item-globe").addEventListener("click", () => {
+        document.querySelector("#content-globe").style.display   = "block";
+        document.querySelector("#content-setting").style.display = "none";
+        document.querySelector(".text-globe").style.color        = "var(--accent-color800)";
+        document.querySelector(".text-setting").style.color      = "var(--system-gray500)";
+        document.querySelector(".globe").style.fill              = "var(--accent-color800)";
+        document.querySelector(".setting").style.fill            = "var(--system-gray500)";
     });
 
     // 設定画面
-    document.querySelector('.item-setting').addEventListener('click', () => {
-        document.querySelector('#content-setting').style.display = 'block';
-        document.querySelector('#content-globe').style.display = 'none';
-        document.querySelector('.text-setting').style.color = 'var(--accent-color800)';
-        document.querySelector('.text-globe').style.color = 'var(--system-gray500)';
-        document.querySelector('.globe').style.fill = 'var(--system-gray500)';
-        document.querySelector('.setting').style.fill = 'var(--accent-color800)';
+    document.querySelector(".item-setting").addEventListener("click", () => {
+        document.querySelector("#content-setting").style.display          = "block";
+        document.querySelector("#content-globe").style.display            = "none";
+        document.querySelector(".text-setting").style.color               = "var(--accent-color800)";
+        document.querySelector(".text-globe").style.color                 = "var(--system-gray500)";
+        document.querySelector(".globe").style.fill                       = "var(--system-gray500)";
+        document.querySelector(".setting").style.fill                     = "var(--accent-color800)";
     });
 });
 
@@ -93,8 +93,8 @@ function redirectToSearchResult() {
 
     // 差分計算
     var startTime = new Date("2023-10-02T" + timePicker1Value);
-    var endTime = new Date("2023-10-02T" + timePicker2Value);
-    var timeDiff = endTime - startTime;
+    var endTime   = new Date("2023-10-02T" + timePicker2Value);
+    var timeDiff  = endTime - startTime;
 
     if (timeDiff < 3600000 || timeDiff >= 18000001) {
         alert("時間の差分は1時間以上 5時間以下に設定してください。");
@@ -118,13 +118,3 @@ function redirectToSearchResult() {
 
     window.location.href = "search_resultA.html" + queryParams;
 }
-
-// function setMaxHeight() {
-//     const windowHeight   = window.innerHeight;
-//     const tabbarHeight   = document.querySelector(".tab-bars").offsetHeight;
-//     const maxTableHeight = windowHeight - tabbarHeight;
-//     document.querySelector(".saved-plan-list").style.maxHeight = maxTableHeight + "px";
-// }
-
-// window.addEventListener("load", setMaxHeight);
-// window.addEventListener("resize", setMaxHeight);
