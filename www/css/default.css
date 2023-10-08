@@ -63,6 +63,7 @@ body.loaded {
     height: 8%;
     bottom: 0;
     left: 0;
+    background-color: var(--accent-color200);
 }
 .divider-bottom {
     background-color: var(--system-gray400);

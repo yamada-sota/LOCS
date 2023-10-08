@@ -118,3 +118,13 @@ function redirectToSearchResult() {
 
     window.location.href = "search_resultA.html" + queryParams;
 }
+
+// function setMaxHeight() {
+//     const windowHeight   = window.innerHeight;
+//     const tabbarHeight   = document.querySelector(".tab-bars").offsetHeight;
+//     const maxTableHeight = windowHeight - tabbarHeight;
+//     document.querySelector(".saved-plan-list").style.maxHeight = maxTableHeight + "px";
+// }
+
+// window.addEventListener("load", setMaxHeight);
+// window.addEventListener("resize", setMaxHeight);
