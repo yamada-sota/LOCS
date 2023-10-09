@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             setTimeout(function () {
                                 document.body.classList.add("page-transitioning");
                                 setTimeout(function () {
-                                    window.location.href = "defaultA.html";
+                                    window.location.href = "default.html";
                                 }, 250);
                                 // ページ読み込み時にloadedクラスを追加
                                 document.body.classList.add("loaded");

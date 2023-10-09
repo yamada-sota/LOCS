@@ -1,0 +1,133 @@
+.content-setting {
+    display: none;
+}
+
+.background {
+    position: absolute;
+    top: 7%;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 100vh * 0.15);
+    background-color: var(--accent-color050);
+}
+
+.user-info {
+    position: absolute;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    width: 100%;
+    top: 7%;
+    left: 0;
+    gap: 4%;
+    padding-top: 1%;
+}
+.icon {
+    display: inline-block;
+    width: 90px;
+    height: 90px;
+    padding-left: 1%;
+}
+.name-and-id {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: right;
+    justify-content: flex-end;
+    position: relative;
+    right: 0;
+}
+.user-name {
+    text-align: left;
+}
+.locs-id {
+    text-align: left;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.overlay-image {
+    display: block;
+    margin: 0 auto;
+}
+
+.edit {
+    position: absolute;
+    bottom: 80%;
+    right: 0;
+    color: var(--accent-color900);
+    text-decoration: underline;
+    text-align: right;
+}
+
+.divider-top {
+    background-color: var(--system-gray400);
+    border: none;
+    position: absolute;
+    box-sizing: border-box;
+    width: 100%;
+    height: 1px;
+    top: 20%;
+    left: 0;
+    margin: 0;
+}
+
+.saved-plan {
+    position: absolute;
+    box-sizing: border-box;
+    width: 100%;
+    left: 0;
+    top: 23%;
+}
+.saved-plan-title {
+    padding-left: 2%;
+    font-size: 1.3rem;
+}
+.saved-plan-list {
+    max-height: calc(100vh - 100vh * 0.35);
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.saved-plan-list::-webkit-scrollbar{
+    display: none;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    height: 50px;
+    padding: 0;
+    font-size: 1.2rem;
+    text-align: center;
+    border: 1px solid var(--system-gray400);
+}
+th {
+    color: var(--accent-color900);
+}
+td {
+    color: var(--accent-color900);
+    background-color: var(--lightbackground);
+    text-decoration: underline;
+}
+td:first-child {
+    color: var(--system-gray1000);
+    background-color: var(--lightbackground);
+    text-decoration: none;
+}
+thead {
+    position: sticky;
+    top: 0;
+    background-color: var(--accent-color500);
+}
+   
