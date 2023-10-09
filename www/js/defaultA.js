@@ -84,6 +84,29 @@ document.addEventListener("DOMContentLoaded", function() {
         document.querySelector(".globe").style.fill                       = "var(--system-gray500)";
         document.querySelector(".setting").style.fill                     = "var(--accent-color800)";
     });
+
+    var icon 　　　　　= document.getElementById("icon");
+    var overlay 　　　= document.getElementById("overlay");
+    var overlayImage = document.getElementById("overlay-image");
+
+    icon.addEventListener("click", function() {
+        var iconSrc = this.getAttribute("src");
+        // オーバーレイの画像にアイコンのsrcを設定
+        overlayImage.setAttribute("src", iconSrc);
+        // オーバーレイ内の画像をクリック⇒非表示にしない
+        overlayImage.addEventListener("click", function(event) {
+            event.stopPropagation(); // イベントの伝播を停止
+        });
+        // オーバーレイを表示
+        overlay.style.display     = "flex";
+        overlayImage.style.width  = "150px";
+        overlayImage.style.height = "150px";
+    });
+    // オーバーレイをクリック⇒非表示
+    overlay.addEventListener("click", function() {
+        overlay.style.display = "none";
+    });
+
 });
 
 function redirectToSearchResult() {
