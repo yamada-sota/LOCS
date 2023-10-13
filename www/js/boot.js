@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", function() {
         userContainer.style.bottom       = "28%";
         skipButton.style.display         = "none";
         registerOrLogin2.style.display   = "none";
+        var tipsDiv = document.querySelector(".tips");
+        tipsDiv.style.display = "flex";
         const tips = [
             "ユーザー名はマイページで変更できます。",
             "ユーザー名・LOCS IDは全体に公開されます。",
@@ -25,14 +27,14 @@ document.addEventListener("DOMContentLoaded", function() {
         const spanElement       = document.querySelector(".random-tips");
         spanElement.textContent = randomTip;
         spanElement.style.color = "var(--lightmain-80)";
-        // setTimeout(function () {
-        //     document.body.classList.add("page-transitioning");
-        //     setTimeout(function () {
-        //         window.location.href = "default.html";
-        //     }, 250);
-        //     // ページ読み込み時にloadedクラスを追加
-        //     document.body.classList.add("loaded");
-        // }, 1000);
+        setTimeout(function () {
+            document.body.classList.add("page-transitioning");
+            setTimeout(function () {
+                window.location.href = "default.html";
+            }, 250);
+            // ページ読み込み時にloadedクラスを追加
+            document.body.classList.add("loaded");
+        }, 1000);
     }
 
     registerOrLogin2.addEventListener("click", function () {

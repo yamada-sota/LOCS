@@ -138,7 +138,7 @@ body.page-transitioning {
 }
 
 .tips {
-    display: flex;
+    display: none;
     position: absolute;
     justify-content: center;
     align-items: center;

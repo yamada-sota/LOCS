@@ -1,4 +1,23 @@
 document.addEventListener("DOMContentLoaded", function() {
+    var applicationkey = "4dbb3d327127b2dec06b84deb304f3ce92a90fe3f413b160fbd7ad902ab74926";
+    var clientkey      = "dcd03e138124816b36a669ca227f97268de84662f737a23fc4a85aa2cd327d16"; 
+    var ncmb           = new NCMB(applicationkey, clientkey);
+    var userName       = document.getElementById("user-name");
+    var locsId         = document.getElementById("locs-id");
+    var currentUser    = ncmb.User.getCurrentUser();
+    if (currentUser) {
+        userName.textContent = currentUser.get("userName");
+        ncmb.User.fetchById(currentUser.get("objectId"))
+            .then(function(user){
+                currentUser = user;
+                locsId.textContent = currentUser.get("locsId");
+            })
+            .catch(function(error){
+                currentUser = null;
+                console.log(error.code);
+            });
+    }
+
     // 下からスライドイン
     const slideInContent = document.getElementById("slide-in-content");
     document.getElementById("search-bar").addEventListener("click", () => {
