@@ -9,6 +9,32 @@ document.addEventListener("DOMContentLoaded", function() {
     var skipButton       = document.getElementById("skip-button");
     var later            = document.querySelector(".later");
 
+    var currentUser = ncmb.User.getCurrentUser();
+    if (currentUser) {
+        userContainer.innerHTML          = '<p><span>ようこそ、</span><span style="font-weight: 700; font-size: 25px">' + currentUser.get("userName") + '</span></p>';
+        userContainer.style.bottom       = "28%";
+        skipButton.style.display         = "none";
+        registerOrLogin2.style.display   = "none";
+        const tips = [
+            "ユーザー名はマイページで変更できます。",
+            "ユーザー名・LOCS IDは全体に公開されます。",
+            "LOCS IDはあなただけのIDです。",
+            "作成したプランはマイページに保存できます。",
+        ];
+        const randomTip         = tips[Math.floor(Math.random() * tips.length)];
+        const spanElement       = document.querySelector(".random-tips");
+        spanElement.textContent = randomTip;
+        spanElement.style.color = "var(--lightmain-80)";
+        // setTimeout(function () {
+        //     document.body.classList.add("page-transitioning");
+        //     setTimeout(function () {
+        //         window.location.href = "default.html";
+        //     }, 250);
+        //     // ページ読み込み時にloadedクラスを追加
+        //     document.body.classList.add("loaded");
+        // }, 1000);
+    }
+
     registerOrLogin2.addEventListener("click", function () {
         if (registerOrLogin1.textContent === "新規登録") {
             registerOrLogin1.textContent = "ログイン";

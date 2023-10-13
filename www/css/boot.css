@@ -136,3 +136,13 @@ body.page-transitioning {
     color: var(--lightmain-80);
     font-size: var(--text-default-med-font-size);
 }
+
+.tips {
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    bottom: 8%;
+    left: 0;
+}
