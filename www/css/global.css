@@ -1,4 +1,5 @@
 body {
     font-family: "游ゴシック", "ヒラギノ角ゴ ProN", sans-serif;
     background-color: var(--accent-color200);
+    color: var(--lightmain);
 }
