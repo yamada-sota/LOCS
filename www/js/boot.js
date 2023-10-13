@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     var currentUser = ncmb.User.getCurrentUser();
     if (currentUser) {
-        userContainer.innerHTML          = '<p><span>ようこそ、</span><span style="font-weight: 700; font-size: 25px">' + currentUser.get("userName") + '</span></p>';
+        userContainer.innerHTML          = '<p style="font-size: 4vw"><span>ようこそ、</span><span style="font-weight: 700; font-size: 156%">' + currentUser.get("userName") + '</span></p>';
         userContainer.style.bottom       = "28%";
         skipButton.style.display         = "none";
         registerOrLogin2.style.display   = "none";
