@@ -13,8 +13,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 locsId.textContent = currentUser.get("locsId");
             })
             .catch(function(error){
-                currentUser = null;
-                console.log(error.code);
+                currentUser.logout();
+                window.location.href = "index.html";
             });
     }
 

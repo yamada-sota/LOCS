@@ -61,18 +61,29 @@
 .mypage-user-name {
     display: flex;
     position: absolute;
+    justify-content: center;
+    flex-direction: column;
     top: 45%;
     width: 100%;
-    justify-content: center;
 }
 .mypage-user-name-title {
 
 }
 .mypage-user-name-input {
-
+    width: 80%;
+    height: auto;
+    border: 1px solid var(--accent-color500);
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: var(--text-default-med-font-size);
 }
 .mypage-user-name-error {
-
+    font-weight: var(--form-placeholder-font-weight);
+    color: var(--lightmain-80);
+    font-size: var(--form-placeholder-font-size);
+    letter-spacing: var(--form-placeholder-letter-spacing);
+    line-height: var(--form-placeholder-line-height);
+    font-style: var(--form-placeholder-font-style);
 }
 
 .cancel-save {
@@ -83,10 +94,24 @@
     justify-content: center;
 }
 .cancel {
-
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: 1px solid;
+    border-color: var(--lightmain-40);
+    background-color: transparent;
+    font-weight: var(--text-default-med-font-weight);
+    color: var(--lightmain);
+    font-size: var(--text-default-med-font-size);
 }
 .save {
-
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: 1px solid;
+    border-color: var(--lightmain-40);
+    background-color: transparent;
+    font-weight: var(--text-default-med-font-weight);
+    color: var(--accent-color900);
+    font-size: var(--text-default-med-font-size);
 }
 
 .logout-delete-account {
@@ -97,8 +122,22 @@
     justify-content: center;
 }
 .logout {
-
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: 1px solid;
+    border-color: var(--lightmain-40);
+    background-color: transparent;
+    font-weight: var(--text-default-med-font-weight);
+    color: var(--lightmain-80);
+    font-size: var(--text-default-med-font-size);
 }
 .delete-account {
-
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: 1px solid;
+    border-color: var(--lightmain-40);
+    background-color: transparent;
+    font-weight: var(--text-default-med-font-weight);
+    color: var(--lighterror);
+    font-size: var(--text-default-med-font-size);
 }
