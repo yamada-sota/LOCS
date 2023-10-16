@@ -72,39 +72,43 @@ document.addEventListener("DOMContentLoaded", function() {
     var errorId         = document.querySelector(".mypage-id-error");
 
     document.getElementById("file-input").addEventListener("change", () => {
-        var fileName  = currentUser.get("objectId");
-        var fileInput = document.getElementById("file-input").files[0];
+        var fileName    = currentUser.get("objectId");
+        var fileInput   = document.getElementById("file-input").files[0];
+        var canvas      = document.getElementById("canvas");
+        var outputImage = document.getElementById("mypage-icon-image");
+        var ctx         = canvas.getContext("2d");
+
         if (fileInput) {
-            ncmb.File.upload(fileName, fileInput)
-                .then(function(res){
-                    console.log("1:", res);
-                    var acl = new ncmb.Acl();
-                    acl.setPublicReadAccess(true)
-                        .setUserWriteAccess(currentUser, true);
-                    ncmb.File.updateACL(fileName, acl)
-                        .then(function(a){
-                            console.log("2:", a);
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = new Image();
+                img.src   = e.target.result;
+                img.onload = function () {
+                    const size    = Math.min(img.width, img.height);
+                    canvas.width  = size;
+                    canvas.height = size;
+                    const x = (img.width - size) / 2;
+                    const y = (img.height - size) / 2;
+                    ctx.drawImage(img, x, y, size, size, 0, 0, size, size);
+                    outputImage.src = canvas.toDataURL("image/jpeg");
+                    var fileData = toBlob(canvas.toDataURL("image/jpeg"), "image/jpeg");
+                    ncmb.File.upload(fileName, fileData)
+                        .then(function () {
+                            var acl = new ncmb.Acl();
+                            acl.setPublicReadAccess(true)
+                                .setUserWriteAccess(currentUser, true);
+                            ncmb.File.updateACL(fileName, acl)
+                                .then(function(){
+                                })
+                                .catch(function(){
+                                });
                         })
-                        .catch(function(error){
-                            console.log("2e:", error.code);
+                        .catch(function () {
+                            alert("アイコンの変更に失敗しました。");
                         });
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        var dataUrl = reader.result;
-                        document.getElementById("mypage-icon-image").src = dataUrl;
-                    }
-                    ncmb.File.download(fileName, "blob")
-                        .then(function(blob) {
-                            console.log("3:", blob);
-                            reader.readAsDataURL(blob);
-                        })
-                        .catch(function(error) {
-                            console.log("3e:", error.code);
-                        })
-                })
-                .catch(function(error){
-                    console.log("1e:", error.code);
-                });
+                };
+            };
+            reader.readAsDataURL(fileInput);
         }
     });
 
@@ -216,17 +220,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         if (isValid) {
-            var fileName  = currentUser.get("objectId");
-            var fileInput = document.getElementById("file-input").files[0];
-            if (fileInput) {
-                ncmb.File.upload(fileName, fileInput)
-                    .then(function(res){
-                        console.log("res:",res);
-                    })
-                    .catch(function(error){
-                        console.log("error.code:",error.code);
-                    });
-            }
             currentUser
                 .set("userName", inputUserName.value)
                 .set("locsId", inputId.value)
@@ -359,4 +352,21 @@ function redirectToSearchResult() {
                       "&sort="        + sortValue;
 
     window.location.href = "search_result.html" + queryParams;
+}
+
+function toBlob(base64, mime_type) {
+    var bin = atob(base64.replace(/^.*,/, ''));
+    var buffer = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) {
+        buffer[i] = bin.charCodeAt(i);
+    }
+
+    try{
+        var blob = new Blob([buffer.buffer], {
+            type: mime_type
+        });
+    }catch (e){
+        return false;
+    }
+    return blob;
 }
