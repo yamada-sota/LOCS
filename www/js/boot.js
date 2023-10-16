@@ -9,9 +9,10 @@ document.addEventListener("DOMContentLoaded", function() {
     var skipButton       = document.getElementById("skip-button");
     var later            = document.querySelector(".later");
 
-    var currentUser = ncmb.User.getCurrentUser();
-    if (currentUser) {
-        userContainer.innerHTML          = '<p style="font-size: 4vw"><span>ようこそ、</span><span style="font-weight: 700; font-size: 156%">' + currentUser.get("userName") + '</span></p>';
+    var currentUser = new ncmb.User.getCurrentUser();
+    if (Object.keys(currentUser).length > 0) {
+        var currentUserName = currentUser.get("userName");
+        userContainer.innerHTML          = '<p style="font-size: 4vw"><span>ようこそ、</span><span style="font-weight: 700; font-size: 156%">' + currentUserName + '</span></p>';
         userContainer.style.bottom       = "28%";
         skipButton.style.display         = "none";
         registerOrLogin2.style.display   = "none";
@@ -104,7 +105,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 } else {
                     // ログイン
                     ncmb.User.loginWithMailAddress(email, password)
-                        .then(function () {
+                        .then(function(user) {
+                            var acl = new ncmb.Acl();
+                            acl.setPublicReadAccess(true)
+                                .setUserReadAccess(user, true)
+                                .setUserWriteAccess(user, true);
+                            user.set("acl", acl)
+                                .update()
+                                    .then(function() {
+                                    })
+                                    .catch(function(error) {
+                                        console.log("1:", error.code);
+                                    });
                             later.textContent = "ログインに成功しました。";
                             later.style.color = "var(--lightsuccess)";
                             setTimeout(function () {

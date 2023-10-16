@@ -50,7 +50,7 @@ body.loaded {
     color: var(--system-gray500);
     font-size: 16px;
     line-height: 22px;
-    font-weight: 100;
+    font-weight: 300;
     text-align: center;
     letter-spacing: 0;
     white-space: nowrap;

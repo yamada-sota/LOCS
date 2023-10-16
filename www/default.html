@@ -13,8 +13,7 @@
     <script src="js/default.js"></script>
     <script src="components/ncmb/ncmb.min.js"></script>
     <body>
-        <script src="https://maps.googleapis.com/maps/api/js?key=[APIKEY]&libraries=places&callback=initMap" async defer></script>
-        <!-- AIzaSyDGEbac2sVu6rkK5CkPSQgHvUExjQGwbYg -->
+        <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGEbac2sVu6rkK5CkPSQgHvUExjQGwbYg&libraries=places&callback=initMap" async defer></script> -->
         <div id="content-globe" class="content-globe">
             <div class="map" id="map"></div>
             <div id="search-bar" class="search-bar">
@@ -277,8 +276,8 @@
 
         <div id="slide-in-content2" class="slide-in-content2">
             <div class="overlap-group2">
-                <div class="back">
-                    <svg width="14" height="23" viewBox="0 0 14 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <div class="back" id="back">
+                    <svg width="4vw" height="4vw" viewBox="0 0 14 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M11.1785 -1.03029e-07L13.5355 2.35702L4.71405 11.1785L13.5355 20L11.1785 22.357L1.41872e-06 11.1785L11.1785 -1.03029e-07Z" fill="#9E9E9E"/>
                     </svg>
                     戻る
@@ -290,16 +289,21 @@
                 </div>
                 <div class="mypage-user-name">
                     <div class="mypage-user-name-title">ユーザー名</div>
-                    <input type="text" id="mypage-user-name-input" class="mypage-user-name-input" placeholder="">
-                    <div class="mypage-user-name-error">ああああああ</div>
+                    <input type="text" id="mypage-user-name-input" class="mypage-user-name-input">
+                    <div class="mypage-user-name-error">1～10文字（記号以外）</div>
+                </div>
+                <div class="mypage-id">
+                    <div class="mypage-id-title">LOCS ID</div>
+                    <input type="text" id="mypage-id-input" class="mypage-id-input">
+                    <div class="mypage-id-error">4～15文字（半角英数字のみ）</div>
                 </div>
                 <div class="cancel-save">
-                    <button class="cancel">キャンセル</button>
-                    <button class="save">変更を保存</button>
+                    <button class="cancel" id="cancel">キャンセル</button>
+                    <button class="save" id="save">変更を保存</button>
                 </div>
                 <div class="logout-delete-account">
-                    <button class="logout">ログアウト</button>
-                    <button class="delete-account">アカウント削除</button>
+                    <button class="logout" id="logout">ログアウト</button>
+                    <button class="delete-account" id="delete-account">アカウント削除</button>
                 </div>
             </div>
         </div>

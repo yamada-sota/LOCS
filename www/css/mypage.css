@@ -28,17 +28,21 @@
     align-items: center;
     text-decoration: underline;
     gap: 1%;
-    color: var(--system-gray500);
     top: 1%;
     left: 1%;
     white-space: nowrap;
     font-size: 4vw;
+    border: none;
+    background-color: transparent;
+    color: var(--system-gray500);
 }
 .title {
     display: flex;
     position: absolute;
     top: 1%;
-    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
     justify-content: center;
     font-weight: 400;
     font-size: 6vw;
@@ -47,7 +51,7 @@
 .mypage-icon {
     display: flex;
     position: absolute;
-    top: 19%;
+    top: 10%;
     width: 100%;
     justify-content: center;
 }
@@ -62,15 +66,20 @@
     display: flex;
     position: absolute;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
-    top: 45%;
-    width: 100%;
+    top: 35%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
 }
 .mypage-user-name-title {
-
+    text-align: left;
+    align-self: flex-start;
+    margin-left: -16px;
 }
 .mypage-user-name-input {
-    width: 80%;
+    width: 100%;
     height: auto;
     border: 1px solid var(--accent-color500);
     border-radius: 6px;
@@ -78,6 +87,45 @@
     font-size: var(--text-default-med-font-size);
 }
 .mypage-user-name-error {
+    text-align: right;
+    align-self: flex-end;
+    margin-right: -16px;
+    font-weight: var(--form-placeholder-font-weight);
+    color: var(--lightmain-80);
+    font-size: var(--form-placeholder-font-size);
+    letter-spacing: var(--form-placeholder-letter-spacing);
+    line-height: var(--form-placeholder-line-height);
+    font-style: var(--form-placeholder-font-style);
+}
+
+.mypage-id {
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+}
+.mypage-id-title {
+    text-align: left;
+    align-self: flex-start;
+    margin-left: -16px;
+}
+.mypage-id-input {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--accent-color500);
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: var(--text-default-med-font-size);
+}
+.mypage-id-error {
+    text-align: right;
+    align-self: flex-end;
+    margin-right: -16px;
     font-weight: var(--form-placeholder-font-weight);
     color: var(--lightmain-80);
     font-size: var(--form-placeholder-font-size);
@@ -89,8 +137,9 @@
 .cancel-save {
     display: flex;
     position: absolute;
-    bottom: 30%;
+    top: 70%;
     width: 100%;
+    gap: 10%;
     justify-content: center;
 }
 .cancel {
@@ -104,7 +153,7 @@
     font-size: var(--text-default-med-font-size);
 }
 .save {
-    padding: 10px 16px;
+    padding: 10px 29px;
     border-radius: 6px;
     border: 1px solid;
     border-color: var(--lightmain-40);
@@ -117,8 +166,9 @@
 .logout-delete-account {
     display: flex;
     position: absolute;
-    bottom: 20%;
+    bottom: 5%;
     width: 100%;
+    gap: 10%;
     justify-content: center;
 }
 .logout {
