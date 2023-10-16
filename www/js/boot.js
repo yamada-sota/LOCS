@@ -108,7 +108,6 @@ document.addEventListener("DOMContentLoaded", function() {
                         .then(function(user) {
                             var acl = new ncmb.Acl();
                             acl.setPublicReadAccess(true)
-                                .setUserReadAccess(user, true)
                                 .setUserWriteAccess(user, true);
                             user.set("acl", acl)
                                 .update()

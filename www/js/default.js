@@ -209,7 +209,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     window.location.href = "index.html";
                 })
                 .catch(function(error){
-                    console.log(error.message,error.code);
                     alert("ログアウトに失敗しました。");
                 });
         }
