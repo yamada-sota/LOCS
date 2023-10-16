@@ -6,11 +6,12 @@ document.addEventListener("DOMContentLoaded", function() {
     var locsId         = document.getElementById("locs-id");
     var mypageIcon     = document.getElementById("mypage-icon-image");
     var icon           = document.getElementById("icon");
+    var avatar         = "https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/Avatar";
     
     var currentUser  = new ncmb.User.getCurrentUser();
     if (currentUser) {
         var reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function() {
             var dataUrl    = reader.result;
             mypageIcon.src = dataUrl;
             icon.src       = dataUrl;
@@ -21,8 +22,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 reader.readAsDataURL(blob);
             })
             .catch(function() {
-                mypageIcon.src = "https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/Avatar.png";
-                icon.src       = "https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/Avatar.png";
+                mypageIcon.src = avatar;
+                icon.src       = avatar;
             })
         userName.textContent = currentUser.get("userName");
         ncmb.User.fetchById(currentUser.get("objectId"))
@@ -275,8 +276,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
     document.getElementById("delete-account").addEventListener("click", () => {
-        var confirmDelete = confirm("アカウント削除\n続行しますか？");
-        if (confirmDelete) {
+        var confirmDeleteAccount = confirm("アカウント削除\n続行しますか？");
+        if (confirmDeleteAccount) {
             currentUser.delete()
                 .then(function(){
                     window.location.href = "index.html";
