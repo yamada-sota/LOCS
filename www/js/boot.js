@@ -113,8 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 .update()
                                     .then(function() {
                                     })
-                                    .catch(function(error) {
-                                        console.log("1:", error.code);
+                                    .catch(function() {
                                     });
                             later.textContent = "ログインに成功しました。";
                             later.style.color = "var(--lightsuccess)";

@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
         userName.textContent = currentUser.get("userName");
         ncmb.User.fetchById(currentUser.get("objectId"))
             .then(function(user){
-                currentUser = user;
+                currentUser        = user;
                 locsId.textContent = currentUser.get("locsId");
             })
             .catch(function(){
@@ -70,6 +70,43 @@ document.addEventListener("DOMContentLoaded", function() {
     var inputId         = document.getElementById("mypage-id-input");
     var errorUserName   = document.querySelector(".mypage-user-name-error");
     var errorId         = document.querySelector(".mypage-id-error");
+
+    document.getElementById("file-input").addEventListener("change", () => {
+        var fileName  = currentUser.get("objectId");
+        var fileInput = document.getElementById("file-input").files[0];
+        if (fileInput) {
+            ncmb.File.upload(fileName, fileInput)
+                .then(function(res){
+                    console.log("1:", res);
+                    var acl = new ncmb.Acl();
+                    acl.setPublicReadAccess(true)
+                        .setUserWriteAccess(currentUser, true);
+                    ncmb.File.updateACL(fileName, acl)
+                        .then(function(a){
+                            console.log("2:", a);
+                        })
+                        .catch(function(error){
+                            console.log("2e:", error.code);
+                        });
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        var dataUrl = reader.result;
+                        document.getElementById("mypage-icon-image").src = dataUrl;
+                    }
+                    ncmb.File.download(fileName, "blob")
+                        .then(function(blob) {
+                            console.log("3:", blob);
+                            reader.readAsDataURL(blob);
+                        })
+                        .catch(function(error) {
+                            console.log("3e:", error.code);
+                        })
+                })
+                .catch(function(error){
+                    console.log("1e:", error.code);
+                });
+        }
+    });
 
     document.getElementById("edit").addEventListener("click", () => {
         slideInContent2.style.transform = "translateX(0%)";
@@ -179,6 +216,17 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         if (isValid) {
+            var fileName  = currentUser.get("objectId");
+            var fileInput = document.getElementById("file-input").files[0];
+            if (fileInput) {
+                ncmb.File.upload(fileName, fileInput)
+                    .then(function(res){
+                        console.log("res:",res);
+                    })
+                    .catch(function(error){
+                        console.log("error.code:",error.code);
+                    });
+            }
             currentUser
                 .set("userName", inputUserName.value)
                 .set("locsId", inputId.value)
@@ -246,8 +294,8 @@ document.addEventListener("DOMContentLoaded", function() {
         document.querySelector(".setting").style.fill                     = "var(--accent-color800)";
     });
 
-    var icon 　　　　　= document.getElementById("icon");
-    var overlay 　　　= document.getElementById("overlay");
+    var icon         = document.getElementById("icon");
+    var overlay      = document.getElementById("overlay");
     var overlayImage = document.getElementById("overlay-image");
 
     icon.addEventListener("click", function() {

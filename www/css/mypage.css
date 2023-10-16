@@ -51,15 +51,30 @@
 .mypage-icon {
     display: flex;
     position: absolute;
-    top: 10%;
-    width: 100%;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
 }
 .mypage-icon-title {
-
+    text-align: left;
+    align-self: flex-start;
+    margin-left: -16px;
 }
 .mypage-icon-image {
-
+    position: relative;
+    width: 90px;
+    height: 90px;
+    opacity: 0.4;
+}
+.mypage-icon-edit {
+    position: absolute;
+    top: 68%;
+    left: 50%;
+    transform: translate(-50%, -68%);
 }
 
 .mypage-user-name {
