@@ -4,9 +4,26 @@ document.addEventListener("DOMContentLoaded", function() {
     var ncmb           = new NCMB(applicationkey, clientkey);
     var userName       = document.getElementById("user-name");
     var locsId         = document.getElementById("locs-id");
+    var mypageIcon     = document.getElementById("mypage-icon-image");
+    var icon           = document.getElementById("icon");
     
     var currentUser  = new ncmb.User.getCurrentUser();
     if (currentUser) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var dataUrl    = reader.result;
+            mypageIcon.src = dataUrl;
+            icon.src       = dataUrl;
+        }
+        var fileName = currentUser.get("objectId");
+        ncmb.File.download(fileName, "blob")
+            .then(function(blob) {
+                reader.readAsDataURL(blob);
+            })
+            .catch(function() {
+                mypageIcon.src = "https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/Avatar.png";
+                icon.src       = "https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/Avatar.png";
+            })
         userName.textContent = currentUser.get("userName");
         ncmb.User.fetchById(currentUser.get("objectId"))
             .then(function(user){
@@ -76,6 +93,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var fileInput   = document.getElementById("file-input").files[0];
         var canvas      = document.getElementById("canvas");
         var outputImage = document.getElementById("mypage-icon-image");
+        var iconImage   = document.getElementById("icon");
         var ctx         = canvas.getContext("2d");
 
         if (fileInput) {
@@ -91,6 +109,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     const y = (img.height - size) / 2;
                     ctx.drawImage(img, x, y, size, size, 0, 0, size, size);
                     outputImage.src = canvas.toDataURL("image/jpeg");
+                    iconImage.src   = canvas.toDataURL("image/jpeg");
                     var fileData = toBlob(canvas.toDataURL("image/jpeg"), "image/jpeg");
                     ncmb.File.upload(fileName, fileData)
                         .then(function () {
@@ -99,6 +118,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                 .setUserWriteAccess(currentUser, true);
                             ncmb.File.updateACL(fileName, acl)
                                 .then(function(){
+                                    alert("アイコンを変更しました。\n変更は自動で保存されています。");
                                 })
                                 .catch(function(){
                                 });
@@ -301,8 +321,8 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         // オーバーレイを表示
         overlay.style.display     = "flex";
-        overlayImage.style.width  = "150px";
-        overlayImage.style.height = "150px";
+        overlayImage.style.width  = "200px";
+        overlayImage.style.height = "200px";
     });
     // オーバーレイをクリック⇒非表示
     overlay.addEventListener("click", function() {
