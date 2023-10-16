@@ -89,6 +89,34 @@ document.addEventListener("DOMContentLoaded", function() {
     var errorUserName   = document.querySelector(".mypage-user-name-error");
     var errorId         = document.querySelector(".mypage-id-error");
 
+    document.getElementById("edit").addEventListener("click", () => {
+        slideInContent2.style.transform = "translateX(0%)";
+    });
+    let touchStartX = 0;
+    document.addEventListener("touchstart", (e) => {
+        touchStartX = e.touches[0].clientX;
+    });
+    document.addEventListener("touchend", (e) => {
+        var touchEndX = e.changedTouches[0].clientX;
+        var deltaX    = touchEndX - touchStartX;
+
+        if (deltaX > 50) {
+            if (inputUserName.value != "" || inputId.value != "") {
+                var confirmCancel = confirm("編集が途中です。戻りますか？");
+                if (confirmCancel) {
+                    slideInContent2.style.transform = "translateX(100%)";
+                    inputUserName.value = "";
+                    inputId.value       = "";
+                }
+            } else {
+                slideInContent2.style.transform = "translateX(100%)";
+                inputUserName.value = "";
+                inputId.value       = "";
+            }
+            slideInContent2.style.transform = "translateX(100%)";
+        }
+    });
+
     document.getElementById("file-input").addEventListener("change", () => {
         var fileName    = currentUser.get("objectId");
         var fileInput   = document.getElementById("file-input").files[0];
@@ -130,34 +158,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 };
             };
             reader.readAsDataURL(fileInput);
-        }
-    });
-
-    document.getElementById("edit").addEventListener("click", () => {
-        slideInContent2.style.transform = "translateX(0%)";
-    });
-    let touchStartX = 0;
-    document.addEventListener("touchstart", (e) => {
-        touchStartX = e.touches[0].clientX;
-    });
-    document.addEventListener("touchend", (e) => {
-        var touchEndX = e.changedTouches[0].clientX;
-        var deltaX    = touchEndX - touchStartX;
-
-        if (deltaX > 50) {
-            if (inputUserName.value != "" || inputId.value != "") {
-                var confirmCancel = confirm("編集が途中です。戻りますか？");
-                if (confirmCancel) {
-                    slideInContent2.style.transform = "translateX(100%)";
-                    inputUserName.value = "";
-                    inputId.value       = "";
-                }
-            } else {
-                slideInContent2.style.transform = "translateX(100%)";
-                inputUserName.value = "";
-                inputId.value       = "";
-            }
-            slideInContent2.style.transform = "translateX(100%)";
         }
     });
 
