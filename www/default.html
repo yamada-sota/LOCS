@@ -13,7 +13,7 @@
     <script src="js/default.js"></script>
     <script src="components/ncmb/ncmb.min.js"></script>
     <body>
-        <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGEbac2sVu6rkK5CkPSQgHvUExjQGwbYg&libraries=places&callback=initMap" async defer></script> -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGEbac2sVu6rkK5CkPSQgHvUExjQGwbYg&libraries=places&callback=initMap" async defer></script>
         <div id="content-globe" class="content-globe">
             <div class="map" id="map"></div>
             <div id="search-bar" class="search-bar">
@@ -311,6 +311,18 @@
                 <div class="logout-delete-account">
                     <button class="logout" id="logout">ログアウト</button>
                     <button class="delete-account" id="delete-account">アカウント削除</button>
+                </div>
+
+                <div class="user-container">
+                    <div class="register-or-login-1" id="register-or-login-1">新規登録</div>
+                    <div class="user-input" id="user-input">
+                        <input type="email" id="emailField" class="user-field" placeholder="メールアドレス">
+                        <input type="password" id="passwordField" class="user-field" placeholder="パスワード">
+                    </div>
+                    <div class="user-button">
+                        <div class="later">あとから登録できます。</div>
+                        <button id="confirm-button" class="confirm">確定</button>
+                    </div>
                 </div>
             </div>
         </div>

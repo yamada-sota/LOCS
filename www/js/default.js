@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
     var icon           = document.getElementById("icon");
     var avatar         = "https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/Avatar";
     
-    var currentUser  = new ncmb.User.getCurrentUser();
+    var currentUser = new ncmb.User.getCurrentUser();
     if (currentUser) {
         var reader = new FileReader();
         reader.onload = function() {
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
             alert("Geolocationがサポートされていません。");
         }
     }
-    // initMap();
+    initMap();
 
     // 下からスライドイン
     var slideInContent = document.getElementById("slide-in-content");
@@ -90,7 +90,17 @@ document.addEventListener("DOMContentLoaded", function() {
     var errorId         = document.querySelector(".mypage-id-error");
 
     document.getElementById("edit").addEventListener("click", () => {
-        slideInContent2.style.transform = "translateX(0%)";
+        var currentUser = new ncmb.User.getCurrentUser();
+        var anonymous = (authData = currentUser.get("authData")) && authData["anonymous"] && !currentUser.get("password");
+        console.log('anonymous?', anonymous);
+        if (anonymous) {
+            var createAccount = confirm("アカウントを作成しますか？");
+            if (createAccount) {
+                slideInContent2.style.transform = "translateX(0%)";
+            }
+        } else {
+            slideInContent2.style.transform = "translateX(0%)";
+        }
     });
     let touchStartX = 0;
     document.addEventListener("touchstart", (e) => {

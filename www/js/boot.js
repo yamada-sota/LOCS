@@ -155,7 +155,16 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         } else {
             ncmb.User.loginAsAnonymous()
-                .then(function(){
+                .then(function(anonymousUser){
+                    var acl = new ncmb.Acl();
+                    acl.setPublicReadAccess(true)
+                        .setUserWriteAccess(anonymousUser, true);
+                    anonymousUser.set("acl", acl)
+                        .update()
+                            .then(function() {
+                            })
+                            .catch(function() {
+                            });
                     document.body.classList.add("page-transitioning");
                     setTimeout(function () {
                         window.location.href = "default.html";
