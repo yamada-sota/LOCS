@@ -58,7 +58,8 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     document.getElementById("confirm-button").addEventListener("click", function () {
-        var email = document.querySelector("#emailField").value;
+        var email         = document.querySelector("#emailField").value;
+        var confirmButton = document.querySelector(".confirm");
         
         if (registerOrLogin1.textContent === "新規登録") {
             if (email === "") {
@@ -115,8 +116,9 @@ document.addEventListener("DOMContentLoaded", function() {
                                     })
                                     .catch(function() {
                                     });
-                            later.textContent = "ログインに成功しました。";
-                            later.style.color = "var(--lightsuccess)";
+                            later.textContent           = "ログインに成功しました。";
+                            later.style.color           = "var(--lightsuccess)";
+                            confirmButton.style.display = "none";
                             setTimeout(function () {
                                 document.body.classList.add("page-transitioning");
                                 setTimeout(function () {

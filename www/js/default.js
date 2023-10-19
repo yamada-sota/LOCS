@@ -1,19 +1,19 @@
 document.addEventListener("DOMContentLoaded", function() {
-    var applicationkey = "4dbb3d327127b2dec06b84deb304f3ce92a90fe3f413b160fbd7ad902ab74926";
-    var clientkey      = "dcd03e138124816b36a669ca227f97268de84662f737a23fc4a85aa2cd327d16"; 
-    var ncmb           = new NCMB(applicationkey, clientkey);
-    var userName       = document.getElementById("user-name");
-    var locsId         = document.getElementById("locs-id");
-    var mypageIcon     = document.getElementById("mypage-icon-image");
-    var icon           = document.getElementById("icon");
+    var applicationkey  = "4dbb3d327127b2dec06b84deb304f3ce92a90fe3f413b160fbd7ad902ab74926";
+    var clientkey       = "dcd03e138124816b36a669ca227f97268de84662f737a23fc4a85aa2cd327d16"; 
+    var ncmb            = new NCMB(applicationkey, clientkey);
+    var userName        = document.getElementById("user-name");
+    var locsId          = document.getElementById("locs-id");
+    var mypageIconImage = document.getElementById("mypage-icon-image");
+    var icon            = document.getElementById("icon");
     
     var currentUser = new ncmb.User.getCurrentUser();
     if (currentUser) {
         var reader = new FileReader();
         reader.onload = function() {
-            var dataUrl    = reader.result;
-            mypageIcon.src = dataUrl;
-            icon.src       = dataUrl;
+            var dataUrl         = reader.result;
+            mypageIconImage.src = dataUrl;
+            icon.src            = dataUrl;
         }
         var fileName = currentUser.get("objectId");
         var anonymous = (authData = currentUser.get("authData")) && authData["anonymous"] && !currentUser.get("password");
@@ -24,17 +24,17 @@ document.addEventListener("DOMContentLoaded", function() {
                 })
                 .catch(function() {
                 })
+            userName.textContent = currentUser.get("userName");
+            ncmb.User.fetchById(currentUser.get("objectId"))
+                .then(function(user){
+                    currentUser        = user;
+                    locsId.textContent = currentUser.get("locsId");
+                })
+                .catch(function(){
+                    ncmb.User.logout();
+                    window.location.href = "index.html";
+                });
         }
-        userName.textContent = currentUser.get("userName");
-        ncmb.User.fetchById(currentUser.get("objectId"))
-            .then(function(user){
-                currentUser        = user;
-                locsId.textContent = currentUser.get("locsId");
-            })
-            .catch(function(){
-                ncmb.User.logout();
-                window.location.href = "index.html";
-            });
     }
 
     // 下からスライドイン
@@ -62,11 +62,112 @@ document.addEventListener("DOMContentLoaded", function() {
     var errorUserName   = document.querySelector(".mypage-user-name-error");
     var errorId         = document.querySelector(".mypage-id-error");
 
+    var title               = document.querySelector(".title");
+    var mypageIcon          = document.getElementById("mypage-icon");
+    var mypageUserName      = document.querySelector(".mypage-user-name");
+    var mypageId            = document.querySelector(".mypage-id");
+    var cancelSave          = document.querySelector(".cancel-save");
+    var logoutDeleteAccount = document.querySelector(".logout-delete-account");
+    var userContainer       = document.querySelector(".user-container");
+
     document.getElementById("edit").addEventListener("click", () => {
-        var currentUser = new ncmb.User.getCurrentUser();
-        var anonymous = (authData = currentUser.get("authData")) && authData["anonymous"] && !currentUser.get("password");
-        console.log('anonymous?', anonymous);
+        var currentUser      = new ncmb.User.getCurrentUser();
+        var anonymous        = (authData = currentUser.get("authData")) && authData["anonymous"] && !currentUser.get("password");
+        var registerOrLogin1 = document.getElementById("register-or-login-1");
+        var later            = document.querySelector(".later");
         if (anonymous) {
+            title.textContent                 = "アカウント作成";
+            mypageIcon.style.display          = "none";
+            mypageUserName.style.display      = "none";
+            mypageId.style.display            = "none";
+            cancelSave.style.display          = "none";
+            logoutDeleteAccount.style.display = "none";
+            userContainer.style.display       = "flex";
+            registerOrLogin1.textContent      = "新規登録";
+            later.textContent                 = "";
+            document.getElementById("confirm-button").addEventListener("click", function () {
+                var email         = document.querySelector("#emailField").value;
+                var userInput     = document.getElementById("user-input");
+                var confirmButton = document.querySelector(".confirm");
+                
+                if (registerOrLogin1.textContent === "新規登録") {
+                    if (email === "") {
+                        later.textContent = "メールアドレスが未入力です。";
+                        later.style.color = "var(--lighterror)";
+                        return;
+                    } else {
+                        if (!email.includes("@")){
+                            later.innerHTML   = "メールアドレスの形式が<br>正しくありません。";
+                            later.style.color = "var(--lighterror)";
+                            return;
+                        } else {
+                            // ユーザーデータをDBに保存
+                            ncmb.User.requestSignUpEmail(email)
+                                .then(function () {
+                                    later.innerHTML   = "新規登録案内メールを<br>送信しました。";
+                                    later.style.color = "var(--lightsuccess)";
+                                    setTimeout(function () {
+                                        registerOrLogin1.textContent = "ログイン";
+                                        userInput.innerHTML          = '<input type="email" id="emailField" class="user-field" placeholder="メールアドレス"><input type="password" style="display: block" minlength="8" id="passwordField" class="user-field" placeholder="パスワード">';
+                                        later.textContent            = "";
+                                    }, 2000);
+                                })
+                                .catch(function (error) {
+                                    later.innerHTML   = "登録に失敗しました。<br>エラーコード：" + error.code;
+                                    later.style.color = "var(--lighterror)";
+                                });
+                        }
+                    }
+                } else if (registerOrLogin1.textContent === "ログイン") {
+                    var password = document.querySelector("#passwordField").value;
+                    if (email === "" || password === "") {
+                        later.textContent = "未入力の欄があります。";
+                        later.style.color = "var(--lighterror)";
+                        return;
+                    } else {
+                        if (!email.includes("@")){
+                            later.innerHTML   = "メールアドレスの形式が<br>正しくありません。";
+                            later.style.color = "var(--lighterror)";
+                            return;
+                        } else {
+                            // 匿名会員の削除
+                            currentUser.delete()
+                                .then(function(){
+                                    // ログイン
+                                    ncmb.User.loginWithMailAddress(email, password)
+                                        .then(function(user) {
+                                            var acl = new ncmb.Acl();
+                                            acl.setPublicReadAccess(true)
+                                                .setUserWriteAccess(user, true);
+                                            user.set("acl", acl)
+                                                .update()
+                                                    .then(function() {
+                                                    })
+                                                    .catch(function() {
+                                                    });
+                                            later.textContent           = "ログインに成功しました。";
+                                            later.style.color           = "var(--lightsuccess)";
+                                            confirmButton.style.display = "none";
+                                            setTimeout(function () {
+                                                document.body.classList.add("page-transitioning");
+                                                setTimeout(function () {
+                                                    window.location.href = "default.html";
+                                                }, 250);
+                                                // ページ読み込み時にloadedクラスを追加
+                                                document.body.classList.add("loaded");
+                                            }, 800);
+                                        })
+                                        .catch(function (error) {
+                                            later.innerHTML   = "ログインに失敗しました。<br>エラーコード：" + error.code;
+                                            later.style.color = "var(--lighterror)";
+                                        });
+                                })
+                                .catch(function(){
+                                });
+                        }
+                    }
+                }
+            });
             var createAccount = confirm("アカウントを作成しますか？");
             if (createAccount) {
                 slideInContent2.style.transform = "translateX(0%)";
@@ -75,28 +176,69 @@ document.addEventListener("DOMContentLoaded", function() {
             slideInContent2.style.transform = "translateX(0%)";
         }
     });
+
     let touchStartX = 0;
     document.addEventListener("touchstart", (e) => {
         touchStartX = e.touches[0].clientX;
     });
     document.addEventListener("touchend", (e) => {
-        var touchEndX = e.changedTouches[0].clientX;
-        var deltaX    = touchEndX - touchStartX;
+        var touchEndX         = e.changedTouches[0].clientX;
+        var deltaX            = touchEndX - touchStartX;
+        var currentUser       = new ncmb.User.getCurrentUser();
+        var anonymous         = (authData = currentUser.get("authData")) && authData["anonymous"] && !currentUser.get("password");
+        var registerOrLogin1  = document.getElementById("register-or-login-1");
 
         if (deltaX > 50) {
-            if (inputUserName.value != "" || inputId.value != "") {
-                var confirmCancel = confirm("編集が途中です。戻りますか？");
-                if (confirmCancel) {
+            if (anonymous) {
+                if (registerOrLogin1.textContent === "新規登録") {
+                    var emailField = document.getElementById("emailField");
+                    var later      = document.getElementById("later");
+                    if (emailField.value != "") {
+                        var confirmCancel = confirm("入力が途中です。戻りますか？");
+                        if (confirmCancel) {
+                            slideInContent2.style.transform = "translateX(100%)";
+                            emailField.value = "";
+                            later.value      = "";
+                        }
+                    } else {
+                        slideInContent2.style.transform = "translateX(100%)";
+                        emailField.value = "";
+                        later.value      = "";
+                    }
+                } else if (registerOrLogin1.textContent === "ログイン") {
+                    var emailField    = document.getElementById("emailField");
+                    var passwordField = document.getElementById("passwordField");
+                    var later         = document.getElementById("later");
+                    if (emailField.value != "" || passwordField != "") {
+                        var confirmCancel = confirm("入力が途中です。戻りますか？\n戻ると新規登録からやり直しになります。");
+                        if (confirmCancel) {
+                            slideInContent2.style.transform = "translateX(100%)";
+                            emailField.value    = "";
+                            passwordField.value = "";
+                            later.value         = "";
+                        }
+                    } else {
+                        slideInContent2.style.transform = "translateX(100%)";
+                        emailField.value    = "";
+                        passwordField.value = "";
+                        later.value         = "";
+                    }
+                }
+            } else {
+                if (inputUserName.value != "" || inputId.value != "") {
+                    var confirmCancel = confirm("編集が途中です。戻りますか？");
+                    if (confirmCancel) {
+                        slideInContent2.style.transform = "translateX(100%)";
+                        inputUserName.value = "";
+                        inputId.value       = "";
+                    }
+                } else {
                     slideInContent2.style.transform = "translateX(100%)";
                     inputUserName.value = "";
                     inputId.value       = "";
                 }
-            } else {
                 slideInContent2.style.transform = "translateX(100%)";
-                inputUserName.value = "";
-                inputId.value       = "";
             }
-            slideInContent2.style.transform = "translateX(100%)";
         }
     });
 
@@ -145,9 +287,58 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     document.getElementById("back").addEventListener("click", () => {
-        if (inputUserName.value != "" || inputId.value != "") {
-            var confirmCancel = confirm("編集が途中です。戻りますか？");
-            if (confirmCancel) {
+        var currentUser       = new ncmb.User.getCurrentUser();
+        var anonymous         = (authData = currentUser.get("authData")) && authData["anonymous"] && !currentUser.get("password");
+        var registerOrLogin1  = document.getElementById("register-or-login-1");
+
+        if (anonymous) {
+            if (registerOrLogin1.textContent === "新規登録") {
+                var emailField = document.getElementById("emailField");
+                var later      = document.getElementById("later");
+                if (emailField.value != "") {
+                    var confirmCancel = confirm("入力が途中です。戻りますか？");
+                    if (confirmCancel) {
+                        slideInContent2.style.transform = "translateX(100%)";
+                        emailField.value = "";
+                        later.value      = "";
+                    }
+                } else {
+                    slideInContent2.style.transform = "translateX(100%)";
+                    emailField.value = "";
+                    later.value      = "";
+                }
+            } else if (registerOrLogin1.textContent === "ログイン") {
+                var emailField    = document.getElementById("emailField");
+                var passwordField = document.getElementById("passwordField");
+                var later         = document.getElementById("later");
+                if (emailField.value != "" || passwordField != "") {
+                    var confirmCancel = confirm("入力が途中です。戻りますか？\n戻ると新規登録からやり直しになります。");
+                    if (confirmCancel) {
+                        slideInContent2.style.transform = "translateX(100%)";
+                        emailField.value    = "";
+                        passwordField.value = "";
+                        later.value         = "";
+                    }
+                } else {
+                    slideInContent2.style.transform = "translateX(100%)";
+                    emailField.value    = "";
+                    passwordField.value = "";
+                    later.value         = "";
+                }
+            }
+        } else {
+            if (inputUserName.value != "" || inputId.value != "") {
+                var confirmCancel = confirm("編集が途中です。戻りますか？");
+                if (confirmCancel) {
+                    slideInContent2.style.transform = "translateX(100%)";
+                    inputUserName.value             = "";
+                    inputId.value                   = "";
+                    errorUserName.textContent       = "1～10文字（記号以外）";
+                    errorId.textContent             = "4～15文字（半角英数字のみ）";
+                    errorUserName.style.color       = "var(--lightmain-80)";
+                    errorId.style.color             = "var(--lightmain-80)";
+                }
+            } else {
                 slideInContent2.style.transform = "translateX(100%)";
                 inputUserName.value             = "";
                 inputId.value                   = "";
@@ -156,14 +347,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 errorUserName.style.color       = "var(--lightmain-80)";
                 errorId.style.color             = "var(--lightmain-80)";
             }
-        } else {
-            slideInContent2.style.transform = "translateX(100%)";
-            inputUserName.value             = "";
-            inputId.value                   = "";
-            errorUserName.textContent       = "1～10文字（記号以外）";
-            errorId.textContent             = "4～15文字（半角英数字のみ）";
-            errorUserName.style.color       = "var(--lightmain-80)";
-            errorId.style.color             = "var(--lightmain-80)";
         }
     });
     document.getElementById("cancel").addEventListener("click", () => {
@@ -253,7 +436,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     localStorage.clear();
                     window.location.href = "index.html";
                 })
-                .catch(function(error){
+                .catch(function(){
                     alert("ログアウトに失敗しました。");
                 });
         }

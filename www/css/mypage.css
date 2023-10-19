@@ -208,13 +208,13 @@
 }
 
 .user-container {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
     position: absolute;
-    bottom: 25%;
+    top: 43%;
     left: 0;
 }
 .register-or-login-1 {
