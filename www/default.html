@@ -12,62 +12,7 @@
     </head>
     <script src="js/default.js"></script>
     <script src="components/ncmb/ncmb.min.js"></script>
-    <script>
-        function initMap() {
-            let marker, circle, watchID;
-            var mapOptions = {
-                zoom: 15,
-                mapTypeId: google.maps.MapTypeId.ROADMAP,
-                disableDefaultUI: true
-            };
-            var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-            // 位置情報の監視を開始
-            watchID = navigator.geolocation.watchPosition(
-                function (position) {
-                    var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-                    // 以前のマーカーとサークルを削除
-                    if (marker) {
-                        marker.setMap(null);
-                    }
-                    if (circle) {
-                        circle.setMap(null);
-                    }
-
-                    // マーカーを作成
-                    marker = new google.maps.Marker({
-                        position: latLng,
-                        map: map,
-                        title: "現在の位置"
-                    });
-                    // サークルを作成
-                    circle = new google.maps.Circle({
-                        strokeColor: "#3333FF",
-                        strokeOpacity: 0.8,
-                        strokeWeight: 1,
-                        fillColor: "#3333FF",
-                        fillOpacity: 0.2,
-                        map: map,
-                        draggable: false,
-                        center: latLng,
-                        radius: position.coords.accuracy // 誤差の単位：m
-                    });
-
-                    // マップを中心に移動
-                    map.setCenter(latLng);
-                },
-                function (error) {
-                    alert("位置情報の取得に失敗しました");
-                },
-                {
-                    enableHighAccuracy: true,
-                    maximumAge: 0,
-                    timeout: 5000
-                }
-            );
-        }
-    </script>
+    <script src="js/map.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGEbac2sVu6rkK5CkPSQgHvUExjQGwbYg&libraries=places&callback=initMap" async defer></script>
     <body>
         <div id="content-globe" class="content-globe">
@@ -97,8 +42,8 @@
                 </div>
                 <div class="keywords-container">
                     <div class="keywords-set-1">
-                        <select class="keywords-pull-down-1">
-                            <option value="">-</option>
+                        <select class="keywords-pull-down-1" id="keywords1">
+                            <option value="東京駅">-</option>
                             遊園地
                             テーマパーク
                             公園
@@ -137,15 +82,15 @@
                             ファッション
                             ペットショップ
                         </select>
-                        <select class="keywords-pull-down-3">
+                        <select class="keywords-pull-down-3" id="keywords3">
                             <option value="">-</option>
                         </select>
                     </div>
                     <div class="keywords-set-2">
-                        <select class="keywords-pull-down-2">
+                        <select class="keywords-pull-down-2" id="keywords2">
                             <option value="">-</option>
                         </select>
-                        <select class="keywords-pull-down-4">
+                        <select class="keywords-pull-down-4" id="keywords4">
                             <option value="">-</option>
                         </select>
                     </div>
@@ -155,7 +100,7 @@
                     <div class="budget">
                         <div class="text-titles">予算</div>
                     </div>
-                    <select class="budget-picker">
+                    <select class="budget-picker" id="budget">
                         <option value="0">0円</option>
                         <option value="1000">1,000円</option>
                         <option value="2000">2,000円</option>
@@ -180,9 +125,9 @@
                         <div class="text-titles">時間</div>
                     </div>
                     <div class="time-drum-roll">
-                        <input type="time" class="time-picker-1" value="00:00">
+                        <input type="time" class="time-picker-1" id="time1" value="00:00">
                         <div class="text-tilde">～</div>
-                        <input type="time" class="time-picker-2" value="00:00">
+                        <input type="time" class="time-picker-2" id="time2" value="00:00">
                     </div>
                 </div>
                 
@@ -192,19 +137,19 @@
                     </div>
                     <div class="checkbox-group">
                         <div class="foot-checkbox">
-                            <input type="checkbox" name="foot" value="foot" class="checkbox" id="foot">
+                            <input type="checkbox" name="foot" class="checkbox" id="foot">
                             <label for="foot" class="transportation">徒歩</label>
                         </div>
                         <div class="train-checkbox">
-                            <input type="checkbox" name="train" value="train" class="checkbox" id="train">
+                            <input type="checkbox" name="train" class="checkbox" id="train">
                             <label for="train" class="transportation">電車</label>
                         </div>
                         <div class="car-checkbox">
-                            <input type="checkbox" name="car" value="car" class="checkbox" id="car">
+                            <input type="checkbox" name="car" class="checkbox" id="car">
                             <label for="car" class="transportation">車</label>
                         </div>
                         <div class="bicycle-checkbox">
-                            <input type="checkbox" name="bicycle" value="bicycle" class="checkbox" id="bicycle">
+                            <input type="checkbox" name="bicycle" class="checkbox" id="bicycle">
                             <label for="bicycle" class="transportation">自転車</label>
                         </div>
                     </div>
@@ -214,14 +159,14 @@
                     <div class="sort">
                         <div class="text-titles">ソート</div>
                     </div>
-                    <select class="sort-pull-down">
+                    <select class="sort-pull-down" id="sort">
                         <option value="">-</option>
                         <option value="price">安さ重視</option>
                         <option value="distance">近さ重視</option>
                     </select>
                 </div>
 
-                <button class="search" onclick="redirectToSearchResult()">
+                <button class="search" onclick="searchLocation()">
                     <div class="text-wrapper">この条件で検索する</div>
                 </button>
             </div>
