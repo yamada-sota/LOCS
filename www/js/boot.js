@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }, 250);
             // ページ読み込み時にloadedクラスを追加
             document.body.classList.add("loaded");
-        }, 1000);
+        }, 1800);
     } else {
         registerOrLogin2.addEventListener("click", function () {
             if (registerOrLogin1.textContent === "新規登録") {
