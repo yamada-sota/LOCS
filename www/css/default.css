@@ -21,6 +21,18 @@ body.loaded {
     width: 100%;
     z-index: -1;
 }
+.current-location-button {
+    position: absolute;
+    top: 8%;
+    padding: 2px 10px;
+    border-radius: 6px;
+    border: 1px solid;
+    border-color: var(--accent-color900);
+    background-color: transparent;
+    font-weight: var(--text-default-med-font-weight);
+    color: var(--accent-color900);
+    font-size: var(--text-default-med-font-size);
+}
 
 .search-bar {
     position: absolute;
