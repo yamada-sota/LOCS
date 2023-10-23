@@ -117,10 +117,6 @@ function searchLocation() {
     navigator.geolocation.clearWatch(watchID);
     var placesService = new google.maps.places.PlacesService(map);
 
-    if (marker) {
-        marker.setMap(null);
-    }
-
     const keywords = [];
     function addKeyword(keyword) {
         if (keyword && !keywords.includes(keyword)) {

@@ -37,24 +37,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // 下からスライドイン
-    var slideInContent = document.getElementById("slide-in-content");
-    document.getElementById("search-bar").addEventListener("click", () => {
-        slideInContent.style.transform = "translateY(0%)";
-    });
-    let touchStartY = 0;
-    document.addEventListener("touchstart", (e) => {
-        touchStartY = e.touches[0].clientY;
-    });
-    document.addEventListener("touchend", (e) => {
-        var touchEndY = e.changedTouches[0].clientY;
-        var deltaY    = touchEndY - touchStartY;
-
-        if (deltaY > 50) {
-            slideInContent.style.transform = "translateY(100%)";
-        }
-    });
-
     // 右からスライドイン
     var slideInContent2 = document.getElementById("slide-in-content2");
     var inputUserName   = document.getElementById("mypage-user-name-input");

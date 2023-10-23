@@ -321,31 +321,31 @@ input[type="time"] {
     background-color: transparent;
 }
 
-.search {
-    display: inline-flex;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 10px;
-    padding: 10px 16px;
+.reset-search {
+    display: flex;
     position: absolute;
     bottom: 15%;
-    left: 50%;
-    transform: translate(-50%,-0%);
+    width: 100%;
+    gap: 10%;
+    justify-content: center;
+}
+.reset {
+    padding: 10px 16px;
     border-radius: 6px;
-    overflow: hidden;
     border: 1px solid;
     border-color: var(--lightmain-40);
     background-color: transparent;
+    font-weight: var(--text-default-med-font-weight);
+    color: var(--lightmain-80);
+    font-size: var(--text-default-med-font-size);
 }
-.text-wrapper {
-    position: relative;
-    width: fit-content;
-    margin-top: -1px;
+.search {
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: 1px solid;
+    border-color: var(--lightmain-40);
+    background-color: transparent;
     font-weight: var(--text-default-med-font-weight);
     color: var(--accent-color900);
     font-size: var(--text-default-med-font-size);
-    text-align: center;
-    letter-spacing: var(--text-default-med-letter-spacing);
-    line-height: var(--text-default-med-line-height);
-    font-style: var(--text-default-med-font-style);
 }

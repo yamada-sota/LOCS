@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="css/mypage.css">
     </head>
     <script src="js/default.js"></script>
+    <script src="js/search.js"></script>
     <script src="components/ncmb/ncmb.min.js"></script>
     <script src="js/map.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGEbac2sVu6rkK5CkPSQgHvUExjQGwbYg&libraries=places&callback=initMap" async defer></script>
@@ -44,7 +45,7 @@
                 <div class="keywords-container">
                     <div class="keywords-set-1">
                         <select class="keywords-pull-down-1" id="keywords1">
-                            <option value="神田駅">-</option>
+                            <option value="">-</option>
                             <option value="テーマパーク">テーマパーク</option>
                             <option value="公園">公園</option>
                             <option value="水族館">水族館</option>
@@ -83,7 +84,7 @@
                             <option value="ペットショップ">ペットショップ</option>
                         </select>
                         <select class="keywords-pull-down-3" id="keywords3">
-                            <option value="有楽町駅">-</option>
+                            <option value="">-</option>
                             <option value="テーマパーク">テーマパーク</option>
                             <option value="公園">公園</option>
                             <option value="水族館">水族館</option>
@@ -124,7 +125,7 @@
                     </div>
                     <div class="keywords-set-2">
                         <select class="keywords-pull-down-2" id="keywords2">
-                            <option value="東京駅">-</option>
+                            <option value="">-</option>
                             <option value="テーマパーク">テーマパーク</option>
                             <option value="公園">公園</option>
                             <option value="水族館">水族館</option>
@@ -163,7 +164,7 @@
                             <option value="ペットショップ">ペットショップ</option>
                         </select>
                         <select class="keywords-pull-down-4" id="keywords4">
-                            <option value="新橋駅">-</option>
+                            <option value="">-</option>
                             <option value="テーマパーク">テーマパーク</option>
                             <option value="公園">公園</option>
                             <option value="水族館">水族館</option>
@@ -274,9 +275,10 @@
                     </select>
                 </div>
 
-                <button class="search" onclick="searchLocation()">
-                    <div class="text-wrapper">この条件で検索する</div>
-                </button>
+                <div class="reset-search">
+                    <button class="reset" onclick="resetSetting()">条件をリセット</button>
+                    <button class="search" onclick="searchLocation()">この条件で検索</button>
+                </div>
             </div>
         </div>
 
@@ -429,7 +431,7 @@
                         <input type="password" id="passwordField" class="user-field" placeholder="パスワード">
                     </div>
                     <div class="user-button">
-                        <div class="later">あとから登録できます。</div>
+                        <div class="later"></div>
                         <button id="confirm-button" class="confirm">確定</button>
                     </div>
                 </div>
