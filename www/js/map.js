@@ -92,24 +92,89 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function searchLocation() {
     navigator.geolocation.clearWatch(watchID);
-    var geocoder       = new google.maps.Geocoder();
-    var address        = document.getElementById("keywords1").value;
-    var slideInContent = document.getElementById("slide-in-content");
-    geocoder.geocode({ "address": address }, function(results, status) {
-        if (status === "OK") {
-            var location = results[0].geometry.location;
-            map.setCenter(location);
-            var marker = new google.maps.Marker({
-                map: map,
-                position: location,
-            });
-            slideInContent.style.transform = "translateY(100%)";
+    var geocoder      = new google.maps.Geocoder();
+    var placesService = new google.maps.places.PlacesService(map);
 
-            console.log('検索結果:', results);
-            var formattedAddress = results[0].formatted_address;
-            console.log('フォーマットされた住所:', formattedAddress);
-        } else {
-            alert("場所が見つかりません。");
+    if (marker) {
+        marker.setMap(null);
+    }
+
+    const keywords = [];
+    function addKeyword(keyword) {
+        if (keyword && !keywords.includes(keyword)) {
+            keywords.push(keyword);
         }
-    });
+    }
+    addKeyword(document.getElementById("keywords1").value);
+    addKeyword(document.getElementById("keywords2").value);
+    addKeyword(document.getElementById("keywords3").value);
+    addKeyword(document.getElementById("keywords4").value);
+    console.log("keywords：", keywords);
+
+    var slideInContent = document.getElementById("slide-in-content");
+    slideInContent.style.transform = "translateY(100%)";
+
+    // 非同期処理を制御するためのPromiseを返す関数
+    function geocodeKeyword(keyword) {
+        return new Promise((resolve, reject) => {
+            geocoder.geocode({ "address": keyword }, (results, status) => {
+                if (status === "OK") {
+                    var location = results[0].geometry.location;
+                    map.setCenter(location);
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: location,
+                    });
+                    resolve(results);
+                } else {
+                    // キーワードで検索
+                    geocoder.geocode({ "address": keyword }, (results, status) => {
+                        if (status === "OK") {
+                            var location = results[0].geometry.location;
+                            map.setCenter(location);
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: location,
+                            });
+                            resolve(results);
+                        } else {
+                            // Places APIで検索
+                            var request = {
+                                query: keyword,
+                                fields: ["name", "geometry"]
+                            };
+                            placesService.findPlaceFromQuery(request, (results, status) => {
+                                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                                    var placeLocation = results[0].geometry.location;
+                                    map.setCenter(placeLocation);
+                                    var placeMarker = new google.maps.Marker({
+                                        map: map,
+                                        position: placeLocation,
+                                    });
+                                    resolve(results);
+                                } else {
+                                    reject("場所が見つかりません：" + keyword);
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+    // Promiseを順番に実行
+    (async () => {
+        for (let i = 0; i < keywords.length; i++) {
+            try {
+                const results = await geocodeKeyword(keywords[i]);
+                console.log(i + 1 + "件目：", results[0]);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    })();
 }
+
+
+
