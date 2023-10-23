@@ -42,7 +42,7 @@ function initMap() {
             marker = new google.maps.Marker({
                 position: latLng,
                 map: map,
-                title: "現在の位置",
+                title: "現在地",
                 icon: customIcon,
             });
             var iconDiv = marker.getIcon().anchor;
@@ -91,8 +91,30 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function searchLocation() {
+    var departure       = document.getElementById("departure").value;
+    var keyword1        = document.getElementById("keywords1").value;
+    var keyword2        = document.getElementById("keywords2").value;
+    var keyword3        = document.getElementById("keywords3").value;
+    var keyword4        = document.getElementById("keywords4").value;
+    var budget          = document.getElementById("budget").value;
+    var timePicker1     = document.getElementById("time1").value;
+    var timePicker2     = document.getElementById("time2").value;
+    var footCheckbox    = document.getElementById("foot").checked;
+    var trainCheckbox   = document.getElementById("train").checked;
+    var carCheckbox     = document.getElementById("car").checked;
+    var bicycleCheckbox = document.getElementById("bicycle").checked;
+    var sort            = document.getElementById("sort").value;
+
+    // 差分計算
+    // var startTime = new Date("2023-10-02T" + timePicker1);
+    // var endTime   = new Date("2023-10-02T" + timePicker2);
+    // var timeDiff  = endTime - startTime;
+    // if (timeDiff < 3600000 || timeDiff >= 18000001) {
+    //     alert("時間の差分は1時間以上 5時間以下に設定してください。");
+    //     return;
+    // }
+
     navigator.geolocation.clearWatch(watchID);
-    var geocoder      = new google.maps.Geocoder();
     var placesService = new google.maps.places.PlacesService(map);
 
     if (marker) {
@@ -105,59 +127,31 @@ function searchLocation() {
             keywords.push(keyword);
         }
     }
-    addKeyword(document.getElementById("keywords1").value);
-    addKeyword(document.getElementById("keywords2").value);
-    addKeyword(document.getElementById("keywords3").value);
-    addKeyword(document.getElementById("keywords4").value);
+    addKeyword(keyword1);
+    addKeyword(keyword2);
+    addKeyword(keyword3);
+    addKeyword(keyword4);
     console.log("keywords：", keywords);
-
-    var slideInContent = document.getElementById("slide-in-content");
-    slideInContent.style.transform = "translateY(100%)";
 
     // 非同期処理を制御するためのPromiseを返す関数
     function geocodeKeyword(keyword) {
         return new Promise((resolve, reject) => {
-            geocoder.geocode({ "address": keyword }, (results, status) => {
-                if (status === "OK") {
-                    var location = results[0].geometry.location;
-                    map.setCenter(location);
-                    var marker = new google.maps.Marker({
+            // Places APIで検索
+            var request = {
+                query: keyword,
+                fields: ["name", "geometry"]
+            };
+            placesService.findPlaceFromQuery(request, (results, status) => {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    var placeLocation = results[0].geometry.location;
+                    map.setCenter(placeLocation);
+                    var placeMarker = new google.maps.Marker({
                         map: map,
-                        position: location,
+                        position: placeLocation,
                     });
                     resolve(results);
                 } else {
-                    // キーワードで検索
-                    geocoder.geocode({ "address": keyword }, (results, status) => {
-                        if (status === "OK") {
-                            var location = results[0].geometry.location;
-                            map.setCenter(location);
-                            var marker = new google.maps.Marker({
-                                map: map,
-                                position: location,
-                            });
-                            resolve(results);
-                        } else {
-                            // Places APIで検索
-                            var request = {
-                                query: keyword,
-                                fields: ["name", "geometry"]
-                            };
-                            placesService.findPlaceFromQuery(request, (results, status) => {
-                                if (status === google.maps.places.PlacesServiceStatus.OK) {
-                                    var placeLocation = results[0].geometry.location;
-                                    map.setCenter(placeLocation);
-                                    var placeMarker = new google.maps.Marker({
-                                        map: map,
-                                        position: placeLocation,
-                                    });
-                                    resolve(results);
-                                } else {
-                                    reject("場所が見つかりません：" + keyword);
-                                }
-                            });
-                        }
-                    });
+                    reject("場所が見つかりません：" + keyword);
                 }
             });
         });
@@ -173,6 +167,8 @@ function searchLocation() {
                 console.error(error);
             }
         }
+        var slideInContent = document.getElementById("slide-in-content");
+        slideInContent.style.transform = "translateY(100%)";
     })();
 }
 
