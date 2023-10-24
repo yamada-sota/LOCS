@@ -25,16 +25,14 @@
 .generate-plan {
     display: none;
     position: absolute;
-    top: 40%;
     width: 100%;
-    box-sizing: border-box;
-    height: auto;
+    height: 100%;
     color: var(--darkmain);
-    font-weight: var(--regular-JP-large-title-24-font-weight);
-    font-size: 4vw;
-    text-align: center;
+    font-size: 10vw;
+    font-weight: bold;
     justify-content: center;
-    background-color: var(--accent-color900);
+    align-items: center;
+    background-color: rgba(156, 124, 69, 0.7);
     z-index: 9999;
 }
 
