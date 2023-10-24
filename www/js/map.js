@@ -4,7 +4,6 @@ var iconRotation = 0;
 function initMap() {
     var mapOptions = {
         zoom: 15,
-        // mapTypeId: google.maps.MapTypeId.ROADMAP,
         mapId: "2e1aed6c4c23f06a",
         disableDefaultUI: true,
         isFractionalZoomEnabled: true,
@@ -15,7 +14,8 @@ function initMap() {
     watchID = navigator.geolocation.watchPosition(
         function (position) {
             var latLng = new google.maps.LatLng(
-                position.coords.latitude, position.coords.longitude
+                position.coords.latitude,
+                position.coords.longitude,
             );
 
             // 以前のマーカーとサークルを削除
@@ -42,7 +42,6 @@ function initMap() {
             marker = new google.maps.Marker({
                 position: latLng,
                 map: map,
-                title: "現在地",
                 icon: customIcon,
             });
             var iconDiv = marker.getIcon().anchor;
@@ -78,9 +77,10 @@ function initMap() {
             enableHighAccuracy: true,
             maximumAge: 0,
             timeout: 5000,
-        }
+        },
     );
 }
+
 document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("current-location-button").addEventListener("click", function () {
         if (watchID) {
@@ -90,20 +90,51 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+var waitingForPin = true;
+var myLatLng      = 0;
+function handlePinPlacement() {
+    if (marker) {
+        marker.setMap(null);
+    }
+
+    // マップ上でクリックした位置にピンを設置
+    google.maps.event.addListener(map, "click", function (event) {
+        if (marker) {
+            marker.setMap(null);
+        }
+
+        marker = new google.maps.Marker({
+            position: event.latLng,
+            map: map,
+            icon: "https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/Pin",
+        });
+
+        myLatLng = event.latLng;
+    });
+    waitingForPin = false;
+}
+
 function searchLocation() {
-    var departure       = document.getElementById("departure").value;
-    var keyword1        = document.getElementById("keywords1").value;
-    var keyword2        = document.getElementById("keywords2").value;
-    var keyword3        = document.getElementById("keywords3").value;
-    var keyword4        = document.getElementById("keywords4").value;
-    var budget          = document.getElementById("budget").value;
-    var timePicker1     = document.getElementById("time1").value;
-    var timePicker2     = document.getElementById("time2").value;
-    var footCheckbox    = document.getElementById("foot").checked;
-    var trainCheckbox   = document.getElementById("train").checked;
-    var carCheckbox     = document.getElementById("car").checked;
-    var bicycleCheckbox = document.getElementById("bicycle").checked;
-    var sort            = document.getElementById("sort").value;
+    var currentLocationButton           = document.getElementById("current-location-button");
+    var confirmPinButton                = document.getElementById("confirm-pin-button");
+    var placesService                   = new google.maps.places.PlacesService(map);
+    var generatePlan                    = document.getElementById("generate-plan");
+    currentLocationButton.style.display = "none";
+    generatePlan.style.display          = "flex";
+
+    var departure = document.getElementById("departure").value;
+    var keyword1  = document.getElementById("keywords1").value;
+    var keyword2  = document.getElementById("keywords2").value;
+    var keyword3  = document.getElementById("keywords3").value;
+    var keyword4  = document.getElementById("keywords4").value;
+    var budget    = document.getElementById("budget").value;
+    var time1     = document.getElementById("time1").value;
+    var time2     = document.getElementById("time2").value;
+    var foot      = document.getElementById("foot").checked;
+    var train     = document.getElementById("train").checked;
+    var car       = document.getElementById("car").checked;
+    var bicycle   = document.getElementById("bicycle").checked;
+    var sort      = document.getElementById("sort").value;
 
     // 差分計算
     // var startTime = new Date("2023-10-02T" + timePicker1);
@@ -115,7 +146,12 @@ function searchLocation() {
     // }
 
     navigator.geolocation.clearWatch(watchID);
-    var placesService = new google.maps.places.PlacesService(map);
+    if (marker) {
+        marker.setMap(null);
+    }
+    if (circle) {
+        circle.setMap(null);
+    }
 
     const keywords = [];
     function addKeyword(keyword) {
@@ -127,46 +163,101 @@ function searchLocation() {
     addKeyword(keyword2);
     addKeyword(keyword3);
     addKeyword(keyword4);
-    console.log("keywords：", keywords);
+    
+    var slideInContent = document.getElementById("slide-in-content");
 
-    // 非同期処理を制御するためのPromiseを返す関数
-    function geocodeKeyword(keyword) {
-        return new Promise((resolve, reject) => {
-            // Places APIで検索
-            var request = {
-                query: keyword,
-                fields: ["name", "geometry"]
-            };
-            placesService.findPlaceFromQuery(request, (results, status) => {
-                if (status === google.maps.places.PlacesServiceStatus.OK) {
-                    var placeLocation = results[0].geometry.location;
-                    map.setCenter(placeLocation);
-                    var placeMarker = new google.maps.Marker({
-                        map: map,
-                        position: placeLocation,
-                    });
-                    resolve(results);
-                } else {
-                    reject("場所が見つかりません：" + keyword);
-                }
+    if (departure === "pin") {
+        slideInContent.style.transform = "translateY(100%)";
+        confirmPinButton.style.display = "flex";
+
+        handlePinPlacement();
+    } else {
+        // 非同期処理を制御するためのPromiseを返す関数
+        function geocodeKeyword(keyword) {
+            return new Promise((resolve, reject) => {
+                // Places APIで検索
+                var request = {
+                    query: keyword,
+                    fields: ["name", "geometry"]
+                };
+                placesService.findPlaceFromQuery(request, (results, status) => {
+                    if (status === google.maps.places.PlacesServiceStatus.OK) {
+                        var placeLocation = results[0].geometry.location;
+                        map.setCenter(placeLocation);
+                        marker = new google.maps.Marker({
+                            map: map,
+                            position: placeLocation,
+                        });
+                        resolve(results);
+                    } else {
+                        reject("場所が見つかりません：" + keyword);
+                    }
+                });
             });
-        });
+        }
+
+        // Promiseを順番に実行
+        (async () => {
+            for (let i = 0; i < keywords.length; i++) {
+                try {
+                    const results = await geocodeKeyword(keywords[i]);
+                    console.log(i + 1 + "件目：", results[0]);
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+            generatePlan.style.display     = "none";
+            slideInContent.style.transform = "translateY(100%)";
+        })();
     }
 
-    // Promiseを順番に実行
-    (async () => {
-        for (let i = 0; i < keywords.length; i++) {
-            try {
-                const results = await geocodeKeyword(keywords[i]);
-                console.log(i + 1 + "件目：", results[0]);
-            } catch (error) {
-                console.error(error);
-            }
+    confirmPinButton.addEventListener("click", function() {
+        if (waitingForPin) {
+            alert("ピンを設置してください。");
+            return;
         }
-        var slideInContent = document.getElementById("slide-in-content");
-        slideInContent.style.transform = "translateY(100%)";
-    })();
+
+        confirmPinButton.style.display      = "none";
+        currentLocationButton.textContent   = "プランの再生成";
+        currentLocationButton.style.display = "flex";
+
+        // 非同期処理を制御するためのPromiseを返す関数
+        function geocodeKeyword(keyword) {
+            return new Promise((resolve, reject) => {
+                // Places APIで検索
+                var request = {
+                    location: myLatLng,
+                    query: keyword,
+                    fields: ["name", "geometry"]
+                };
+                placesService.textSearch(request, (results, status) => {
+                    if (status === google.maps.places.PlacesServiceStatus.OK) {
+                        var placeLocation = results[0].geometry.location;
+                        map.setCenter(placeLocation);
+                        marker = new google.maps.Marker({
+                            map: map,
+                            position: placeLocation,
+                        });
+                        resolve(results);
+                    } else {
+                        reject("場所が見つかりません：" + keyword);
+                    }
+                });
+            });
+        }
+
+        // Promiseを順番に実行
+        (async () => {
+            for (let i = 0; i < keywords.length; i++) {
+                try {
+                    const results = await geocodeKeyword(keywords[i]);
+                    console.log(i + 1 + "件目：", results[0]);
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+            generatePlan.style.display     = "none";
+            slideInContent.style.transform = "translateY(100%)";
+        })();
+    });
 }
-
-
-

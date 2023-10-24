@@ -21,6 +21,23 @@
     left: 0;
     background-color: var(--accent-color050);
 }
+
+.generate-plan {
+    display: none;
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    box-sizing: border-box;
+    height: auto;
+    color: var(--darkmain);
+    font-weight: var(--regular-JP-large-title-24-font-weight);
+    font-size: 4vw;
+    text-align: center;
+    justify-content: center;
+    background-color: var(--accent-color900);
+    z-index: 9999;
+}
+
 .swipe-to-go-back {
     position: absolute;
     top: 0;
