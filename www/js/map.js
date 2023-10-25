@@ -1,4 +1,4 @@
-var map, watchID, currentMarker, pinMarker, spotMarker, circle;
+var map, watchID, currentMarker, pinMarker, spotMarker, circle, iconDiv;
 var iconRotation = 0;
 
 function initMap() {
@@ -18,17 +18,6 @@ function initMap() {
                 position.coords.longitude,
             );
 
-            // 以前のマーカーとサークルを削除
-            if (currentMarker) {
-                currentMarker.setMap(null);
-            }
-            if (circle) {
-                circle.setMap(null);
-            }
-
-            // 回転角度
-            var newIconRotation = position.coords.heading || 0;
-
             // アイコンを作成
             var customIcon = {
                 path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
@@ -38,29 +27,48 @@ function initMap() {
                 rotation: newIconRotation,
             };
 
-            // マーカーを作成
-            currentMarker = new google.maps.Marker({
-                position: latLng,
-                map: map,
-                icon: customIcon,
-            });
-            var iconDiv = currentMarker.getIcon().anchor;
+            if (currentMarker) {
+                currentMarker.setPosition(latLng);
+                currentMarker.setIcon({
+                    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                    strokeColor: "rgba(156, 124, 69, 1)",
+                    strokeWeight: 3,
+                    scale: 5,
+                    rotation: newIconRotation,
+                });
+            } else {
+                currentMarker = new google.maps.Marker({
+                    position: latLng,
+                    map: map,
+                    icon: customIcon,
+                });
+            }
+            if (circle) {
+                circle.setCenter(latLng);
+                circle.setRadius(position.coords.accuracy);
+            } else {
+                circle = new google.maps.Circle({
+                    strokeColor: "rgba(193, 161, 78, 1)",
+                    strokeOpacity: 0.8,
+                    strokeWeight: 1,
+                    fillColor: "rgba(215, 182, 83, 1)",
+                    fillOpacity: 0.1,
+                    map: map,
+                    draggable: false,
+                    center: latLng,
+                    radius: position.coords.accuracy, // 誤差の単位：m
+                });
+            }
+
+            // 回転角度
+            var newIconRotation = position.coords.heading || 0;
+
+            if (currentMarker.getIcon()) {
+                iconDiv = currentMarker.getIcon().anchor;
+            }
             if (iconDiv) {
                 iconDiv.style.transform = "rotate(" + newIconRotation + "deg)";
             }
-
-            // サークルを作成
-            circle = new google.maps.Circle({
-                strokeColor: "rgba(193, 161, 78, 1)",
-                strokeOpacity: 0.8,
-                strokeWeight: 1,
-                fillColor: "rgba(215, 182, 83, 1)",
-                fillOpacity: 0.1,
-                map: map,
-                draggable: false,
-                center: latLng,
-                radius: position.coords.accuracy, // 誤差の単位：m
-            });
 
             // マップを中心に移動
             map.setCenter(latLng);
@@ -90,17 +98,6 @@ function reInitMap() {
                 position.coords.longitude,
             );
 
-            // 以前のマーカーとサークルを削除
-            if (currentMarker) {
-                currentMarker.setMap(null);
-            }
-            if (circle) {
-                circle.setMap(null);
-            }
-
-            // 回転角度
-            var newIconRotation = position.coords.heading || 0;
-
             // アイコンを作成
             var customIcon = {
                 path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
@@ -110,29 +107,48 @@ function reInitMap() {
                 rotation: newIconRotation,
             };
 
-            // マーカーを作成
-            currentMarker = new google.maps.Marker({
-                position: latLng,
-                map: map,
-                icon: customIcon,
-            });
-            var iconDiv = currentMarker.getIcon().anchor;
+            if (currentMarker) {
+                currentMarker.setPosition(latLng);
+                currentMarker.setIcon({
+                    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                    strokeColor: "rgba(156, 124, 69, 1)",
+                    strokeWeight: 3,
+                    scale: 5,
+                    rotation: newIconRotation,
+                });
+            } else {
+                currentMarker = new google.maps.Marker({
+                    position: latLng,
+                    map: map,
+                    icon: customIcon,
+                });
+            }
+            if (circle) {
+                circle.setCenter(latLng);
+                circle.setRadius(position.coords.accuracy);
+            } else {
+                circle = new google.maps.Circle({
+                    strokeColor: "rgba(193, 161, 78, 1)",
+                    strokeOpacity: 0.8,
+                    strokeWeight: 1,
+                    fillColor: "rgba(215, 182, 83, 1)",
+                    fillOpacity: 0.1,
+                    map: map,
+                    draggable: false,
+                    center: latLng,
+                    radius: position.coords.accuracy, // 誤差の単位：m
+                });
+            }
+
+            // 回転角度
+            var newIconRotation = position.coords.heading || 0;
+
+            if (currentMarker.getIcon()) {
+                iconDiv = currentMarker.getIcon().anchor;
+            }
             if (iconDiv) {
                 iconDiv.style.transform = "rotate(" + newIconRotation + "deg)";
             }
-
-            // サークルを作成
-            circle = new google.maps.Circle({
-                strokeColor: "rgba(193, 161, 78, 1)",
-                strokeOpacity: 0.8,
-                strokeWeight: 1,
-                fillColor: "rgba(215, 182, 83, 1)",
-                fillOpacity: 0.1,
-                map: map,
-                draggable: false,
-                center: latLng,
-                radius: position.coords.accuracy, // 誤差の単位：m
-            });
 
             // マップを中心に移動
             map.setCenter(latLng);
