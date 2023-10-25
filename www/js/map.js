@@ -334,10 +334,12 @@ function searchLocation() {
                                     var maxRating      = -1;
                                     var maxRatingIndex = -1;
                                     for (let i = 0; i < results.length; i++) {
-                                        console.log(i + "：", results[i].rating);
-                                        if (results[i].rating > maxRating) {
-                                            maxRating      = results[i].rating;
-                                            maxRatingIndex = i;
+                                        if (results[i].user_ratings_total > 0) {
+                                            var averageRating = results[i].user_ratings_total / results[i].rating;
+                                            if (averageRating > maxRating) {
+                                                maxRating = averageRating;
+                                                maxRatingIndex = i;
+                                            }
                                         }
                                     }
                                     var placeLocation = results[maxRatingIndex].geometry.location;
@@ -347,8 +349,6 @@ function searchLocation() {
                                         position: placeLocation,
                                     });
                                     resolve(results);
-                                    console.log("maxRatingIndex：", maxRatingIndex);
-                                    console.log("maxRatingResult：", results[maxRatingIndex]);
                                 } else if (sort === "price") {
 
                                 }
@@ -425,10 +425,12 @@ function searchLocation() {
                             var maxRating      = -1;
                             var maxRatingIndex = -1;
                             for (let i = 0; i < results.length; i++) {
-                                console.log(i + "：", results[i].rating);
-                                if (results[i].rating > maxRating) {
-                                    maxRating      = results[i].rating;
-                                    maxRatingIndex = i;
+                                if (results[i].user_ratings_total > 0) {
+                                    var averageRating = results[i].user_ratings_total / results[i].rating;
+                                    if (averageRating > maxRating) {
+                                        maxRating = averageRating;
+                                        maxRatingIndex = i;
+                                    }
                                 }
                             }
                             var placeLocation = results[maxRatingIndex].geometry.location;
@@ -438,8 +440,6 @@ function searchLocation() {
                                 position: placeLocation,
                             });
                             resolve(results);
-                            console.log("maxRatingIndex：", maxRatingIndex);
-                            console.log("maxRatingResult：", results[maxRatingIndex]);
                         } else if (sort === "price") {
 
                         }
