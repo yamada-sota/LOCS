@@ -22,7 +22,7 @@ body.loaded {
     z-index: -1;
 }
 .current-location-button {
-    display: flex;
+    display: none;
     position: absolute;
     top: 8%;
     padding: 2px 10px;
@@ -32,7 +32,7 @@ body.loaded {
     background-color: rgba(245, 245, 245, 0.5);
     font-weight: var(--text-default-med-font-weight);
     color: var(--accent-color900);
-    font-size: var(--text-default-med-font-size);
+    font-size: 4vw;
 }
 .confirm-pin-button {
     display: none;
@@ -47,7 +47,7 @@ body.loaded {
     background-color: rgba(245, 245, 245, 0.5);
     font-weight: var(--text-default-med-font-weight);
     color: var(--accent-color900);
-    font-size: var(--text-default-med-font-size);
+    font-size: 4vw;
 }
 
 .search-bar {
@@ -78,7 +78,7 @@ body.loaded {
     color: var(--system-gray500);
     font-size: 16px;
     line-height: 22px;
-    font-weight: 300;
+    font-weight: bold;
     text-align: center;
     letter-spacing: 0;
     white-space: nowrap;
