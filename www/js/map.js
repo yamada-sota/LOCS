@@ -237,6 +237,7 @@ function searchLocation() {
     var generatePlan          = document.getElementById("generate-plan");
     var searchBar             = document.getElementById("search-bar");
     var textSearch            = document.getElementById("text-search");
+    var slideInContent        = document.getElementById("slide-in-content");
 
     var departure = document.getElementById("departure").value;
     var keyword1  = document.getElementById("keywords1").value;
@@ -253,37 +254,50 @@ function searchLocation() {
     var bicycle   = document.getElementById("bicycle").checked;
     var sort      = document.getElementById("sort").value;
 
-    // 移動手段による検索半径
-    var radius = 0;
-    if (foot) {
-        radius += 1000;
+    // 日時関連
+    var datetime1 = new Date(date);
+    var datetime2 = new Date(date);
+    var time1Parts = time1.split(":");
+    var time2Parts = time2.split(":");
+    datetime1.setHours(time1Parts[0], time1Parts[1]);
+    datetime2.setHours(time2Parts[0], time2Parts[1]);
+
+    function isPlaceOpenAtTime(place, date, datetime1, datetime2) {
+        if (!place.opening_hours || !place.opening_hours.periods) {
+            return true;
+        }
+        const dayOfWeek = date.getDay();
+        for (let i = 0; i < place.opening_hours.periods.length; i++) {
+            var period = place.opening_hours.periods[i];
+            if (period.open.day === dayOfWeek && period.close.day === dayOfWeek) {
+                const openTime  = new Date(date);
+                const closeTime = new Date(date);
+                openTime.setHours(period.open.hours);
+                openTime.setMinutes(period.open.minutes);
+                closeTime.setHours(period.close.hours);
+                closeTime.setMinutes(period.close.minutes);
+                if (openTime <= datetime1 && closeTime >= datetime2) {
+                    console.log("period", period);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
-    if (train) {
-        radius += 1000;
-    }
-    if (car) {
-        radius += 1000;
-    }
-    if (bicycle) {
-        radius += 1000;
-    }
-    if (radius === 0) {
-        alert("移動手段を選択してください。");
+    // 差分計算
+    var startTime = new Date("2023-01-01T" + time1);
+    var endTime   = new Date("2023-01-01T" + time2);
+    var timeDiff  = endTime - startTime;
+    if (timeDiff < 0) {
+        alert("日付を跨ぐ時間は設定できません。");
         return;
     }
-
-    currentLocationButton.style.display = "none";
-    generatePlan.style.display          = "flex";
-
-    // 差分計算
-    // var startTime = new Date("2023-10-02T" + timePicker1);
-    // var endTime   = new Date("2023-10-02T" + timePicker2);
-    // var timeDiff  = endTime - startTime;
-    // if (timeDiff < 3600000 || timeDiff >= 18000001) {
-    //     alert("時間の差分は1時間以上 5時間以下に設定してください。");
-    //     return;
-    // }
-
+    if (timeDiff < 3600000 || timeDiff >= 18000001) {
+        alert("時間の差分は1時間以上 5時間以下に設定してください。");
+        return;
+    }
+    
+    // キーワード関連
     const keywords = [];
     function addKeyword(keyword) {
         if (keyword && !keywords.includes(keyword)) {
@@ -294,9 +308,36 @@ function searchLocation() {
     addKeyword(keyword2);
     addKeyword(keyword3);
     addKeyword(keyword4);
-    
-    var slideInContent = document.getElementById("slide-in-content");
+    if (keywords.length < 1) {
+        alert("1つ以上のキーワードを選択してください。");
+        return;
+    }
 
+    // 移動手段関連
+    var hour = timeDiff / 1000 / 60;
+    var radius         = 0;
+    var footPerHour    = 4;
+    var trainPerHour   = 48;
+    var carPerHour     = 20;
+    var bicyclePerHour = 12;
+    if (foot) {
+        radius += hour * footPerHour;
+    }
+    if (train) {
+        radius += hour * trainPerHour;
+    }
+    if (car) {
+        radius += hour * carPerHour;
+    }
+    if (bicycle) {
+        radius += hour * bicyclePerHour;
+    }
+    if (radius === 0) {
+        alert("移動手段を選択してください。");
+        return;
+    }
+    
+    // マーカーリセット
     if (pinMarker) {
             pinMarker.setMap(null);
         }
@@ -308,6 +349,9 @@ function searchLocation() {
         }
         spotMarkers = [];
     }
+
+    currentLocationButton.style.display = "none";
+    generatePlan.style.display          = "flex";
 
     if (departure === "pin") {
         slideInContent.style.transform = "translateY(100%)";
@@ -326,56 +370,90 @@ function searchLocation() {
                     lng: position.coords.longitude,
                 };
                 // 非同期処理を制御するためのPromiseを返す関数
-                function geocodeKeyword(keyword) {
-                    return new Promise((resolve, reject) => {
-                        // Places APIで検索
-                        var request = {
-                            location: latLng,
-                            radius: radius,
-                            query: keyword,
-                        };
-                        placesService.textSearch(request, (results, status) => {
-                            if (status === google.maps.places.PlacesServiceStatus.OK) {
-                                if (sort === "distance") {
-                                    results.sort((a, b) => {
-                                        const distanceA = google.maps.geometry.spherical.computeDistanceBetween(latLng, a.geometry.location);
-                                        const distanceB = google.maps.geometry.spherical.computeDistanceBetween(latLng, b.geometry.location);
-                                        return distanceA - distanceB;
-                                    });
-                                    var placeLocation = results[0].geometry.location;
-                                    map.setCenter(placeLocation);
-                                    spotMarker = new google.maps.Marker({
-                                        map: map,
-                                        position: placeLocation,
-                                    });
+                async function geocodeKeyword(keyword) {
+                    try {
+                        const results = await new Promise((resolve, reject) => {
+                            // Places APIで検索
+                            const request = {
+                                locationBias: {radius: radius, center: latLng},
+                                query: keyword,
+                            };
+                            placesService.textSearch(request, (results, status) => {
+                                if (status === google.maps.places.PlacesServiceStatus.OK) {
                                     resolve(results);
-                                } else if (sort === "rate") {
-                                    var maxRating      = -1;
-                                    var maxRatingIndex = -1;
-                                    for (let i = 0; i < results.length; i++) {
-                                        if (results[i].user_ratings_total > 0) {
-                                            var averageRating = results[i].user_ratings_total / results[i].rating;
-                                            if (averageRating > maxRating) {
-                                                maxRating = averageRating;
-                                                maxRatingIndex = i;
-                                            }
-                                        }
-                                    }
-                                    var placeLocation = results[maxRatingIndex].geometry.location;
-                                    map.setCenter(placeLocation);
-                                    spotMarker = new google.maps.Marker({
-                                        map: map,
-                                        position: placeLocation,
-                                    });
-                                    resolve(results);
-                                } else if (sort === "price") {
-
+                                } else {
+                                    reject("場所が見つかりません：" + keyword);
                                 }
-                            } else {
-                                reject("場所が見つかりません：" + keyword);
-                            }
+                            });
                         });
-                    });
+
+                        // 場所ごとに詳細情報を取得し、時間外の場所をフィルタリング
+                        var filteredResults = [];
+                        for (let i = 0; i < results.length; i++) {
+                            const place = await getPlaceDetails(results[i].place_id);
+                            if (isPlaceOpenAtTime(place, date, datetime1, datetime2)) {
+                                console.log("place：", place);
+                                filteredResults.push(results[i]);
+                            }
+                        }
+
+                        console.log("キーワードA1: ", filteredResults[0]);
+                        if (sort === "distance") {
+                            filteredResults.sort((a, b) => {
+                                const distanceA = google.maps.geometry.spherical.computeDistanceBetween(latLng, a.geometry.location);
+                                const distanceB = google.maps.geometry.spherical.computeDistanceBetween(latLng, b.geometry.location);
+                                return distanceA - distanceB;
+                            });
+                            var placeLocation = filteredResults[0].geometry.location;
+                            map.setCenter(placeLocation);
+                            spotMarker = new google.maps.Marker({
+                                map: map,
+                                position: placeLocation,
+                            });
+                            spotMarkers.push(spotMarker);
+                        } else if (sort === "rate") {
+                            var maxRating      = -1;
+                            var maxRatingIndex = -1;
+                            for (let i = 0; i < filteredResults.length; i++) {
+                                if (filteredResults[i].user_ratings_total > 0) {
+                                    var averageRating = filteredResults[i].user_ratings_total / filteredResults[i].rating;
+                                    if (averageRating > maxRating) {
+                                        maxRating = averageRating;
+                                        maxRatingIndex = i;
+                                    }
+                                }
+                            }
+                            var placeLocation = filteredResults[maxRatingIndex].geometry.location;
+                            map.setCenter(placeLocation);
+                            spotMarker = new google.maps.Marker({
+                                map: map,
+                                position: placeLocation,
+                            });
+                            spotMarkers.push(spotMarker);
+                        } else if (sort === "price") {
+
+                        }
+                        return filteredResults[0];
+                    } catch (error) {
+                        console.error(error);
+                        return [];
+                    }
+
+                    function getPlaceDetails(placeId) {
+                        return new Promise((resolve, reject) => {
+                            const request = {
+                                placeId: placeId,
+                                fields: ["opening_hours"]
+                            };
+                            placesService.getDetails(request, (place, status) => {
+                                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                                    resolve(place);
+                                } else {
+                                    reject("場所の詳細情報を取得できませんでした");
+                                }
+                            });
+                        });
+                    }
                 }
 
                 // Promiseを順番に実行
@@ -383,7 +461,7 @@ function searchLocation() {
                     for (let i = 0; i < keywords.length; i++) {
                         try {
                             let results = await geocodeKeyword(keywords[i]);
-                            console.log("キーワードA" + (i + 1) + "：", results);
+                            console.log("キーワードC1-" + (i + 1) + "：", results);
                         } catch (error) {
                             console.error(error);
                         }
@@ -415,8 +493,7 @@ function searchLocation() {
             return new Promise((resolve, reject) => {
                 // Places APIで検索
                 var request = {
-                    location: myLatLng,
-                    radius: radius,
+                    locationBias: {radius: radius, center: latLng},
                     query: keyword,
                 };
                 placesService.textSearch(request, (results, status) => {
@@ -468,7 +545,7 @@ function searchLocation() {
             for (let i = 0; i < keywords.length; i++) {
                 try {
                     let results = await geocodeKeyword(keywords[i]);
-                    console.log("キーワードB" + (i + 1) + "：", results);
+                    console.log("キーワードC2-" + (i + 1) + "：", results);
                 } catch (error) {
                     console.error(error);
                 }
