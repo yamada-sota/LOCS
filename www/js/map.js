@@ -1,9 +1,27 @@
 var map, watchID, currentMarker, pinMarker, spotMarker, circle, iconDiv;
 var iconRotation = 0;
 
+document.addEventListener("DOMContentLoaded", function() {
+    var currentLocationButton = document.getElementById("current-location-button");
+    document.getElementById("current-location-button").addEventListener("click", function () {
+        if (watchID) {
+            navigator.geolocation.clearWatch(watchID);
+        }
+        if (currentLocationButton.textContent === "現在地を追跡する") {
+            reInitMap();
+            currentLocationButton.textContent = "現在地の追跡をやめる";
+        } else if (currentLocationButton.textContent === "現在地の追跡をやめる") {
+            navigator.geolocation.clearWatch(watchID);
+            currentLocationButton.textContent = "現在地を追跡する";
+        }
+    });
+
+});
+
+
 function initMap() {
     var mapOptions = {
-        zoom: 15,
+        zoom: 18,
         mapId: "2e1aed6c4c23f06a",
         disableDefaultUI: true,
         isFractionalZoomEnabled: true,
@@ -169,23 +187,6 @@ function reInitMap() {
     );
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    var currentLocationButton = document.getElementById("current-location-button");
-    document.getElementById("current-location-button").addEventListener("click", function () {
-        if (watchID) {
-            navigator.geolocation.clearWatch(watchID);
-        }
-        if (currentLocationButton.textContent === "現在地を追跡する") {
-            reInitMap();
-            currentLocationButton.textContent = "現在地の追跡をやめる";
-        } else if (currentLocationButton.textContent === "現在地の追跡をやめる") {
-            navigator.geolocation.clearWatch(watchID);
-            currentLocationButton.textContent = "現在地を追跡する";
-        }
-    });
-
-});
-
 function resetSetting() {
     document.getElementById("departure").selectedIndex = 0;
     document.getElementById("keywords1").selectedIndex = 0;
@@ -226,7 +227,10 @@ function handlePinPlacement() {
     waitingForPin = false;
 }
 
+var spotMarkers = [];
 function searchLocation() {
+    navigator.geolocation.clearWatch(watchID);
+
     var currentLocationButton = document.getElementById("current-location-button");
     var confirmPinButton      = document.getElementById("confirm-pin-button");
     var placesService         = new google.maps.places.PlacesService(map);
@@ -242,6 +246,7 @@ function searchLocation() {
     var budget    = document.getElementById("budget").value;
     var time1     = document.getElementById("time1").value;
     var time2     = document.getElementById("time2").value;
+    var date      = new Date(document.getElementById("date").value);
     var foot      = document.getElementById("foot").checked;
     var train     = document.getElementById("train").checked;
     var car       = document.getElementById("car").checked;
@@ -279,11 +284,6 @@ function searchLocation() {
     //     return;
     // }
 
-    navigator.geolocation.clearWatch(watchID);
-    if (spotMarker) {
-        spotMarker.setMap(null);
-    }
-
     const keywords = [];
     function addKeyword(keyword) {
         if (keyword && !keywords.includes(keyword)) {
@@ -297,16 +297,19 @@ function searchLocation() {
     
     var slideInContent = document.getElementById("slide-in-content");
 
-    if (departure === "pin") {
-        if (pinMarker) {
+    if (pinMarker) {
             pinMarker.setMap(null);
         }
-        if (spotMarker) {
-            spotMarker.setMap(null);
+    if (spotMarkers.length > 0) {
+        for (let i = 0; i < spotMarkers.length; i++) {
+            if (spotMarkers[i]) {
+                spotMarkers[i].setMap(null);
+            }
         }
-        if (circle) {
-            circle.setMap(null);
-        }
+        spotMarkers = [];
+    }
+
+    if (departure === "pin") {
         slideInContent.style.transform = "translateY(100%)";
         confirmPinButton.style.display = "flex";
         searchBar.style.display        = "none";
@@ -401,9 +404,6 @@ function searchLocation() {
             alert("ピンを設置してください。");
             return;
         }
-        if (spotMarker) {
-            spotMarker.setMap(null);
-        }
 
         confirmPinButton.style.display      = "none";
         currentLocationButton.style.display = "flex";
@@ -419,9 +419,6 @@ function searchLocation() {
                     radius: radius,
                     query: keyword,
                 };
-                if (spotMarker) {
-                    spotMarker.setMap(null);
-                }
                 placesService.textSearch(request, (results, status) => {
                     if (status === google.maps.places.PlacesServiceStatus.OK) {
                         if (sort === "distance") {
