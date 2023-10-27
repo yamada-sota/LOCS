@@ -15,6 +15,27 @@
     <script src="components/ncmb/ncmb.min.js"></script>
     <script src="js/map.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGEbac2sVu6rkK5CkPSQgHvUExjQGwbYg&libraries=places&callback=initMap" async defer></script>
+    <script>
+        window.onload = function () {
+            var date = new Date()
+            var year = date.getFullYear()
+            var month = date.getMonth() + 1
+            var day = date.getDate()
+            var toTwoDigits = function (num, digit) {
+                num += ""
+                if (num.length < digit) {
+                num = "0" + num
+                }
+                return num
+            }
+            var yyyy = toTwoDigits(year, 4)
+            var mm = toTwoDigits(month, 2)
+            var dd = toTwoDigits(day, 2)
+            var ymd = yyyy + "-" + mm + "-" + dd;
+            
+            document.getElementById("date").value = ymd;
+        }
+    </script>
     <body>
         <div id="content-globe" class="content-globe">
             <div class="map" id="map"></div>
@@ -60,11 +81,9 @@
                             <option value="商業施設">商業施設</option>
                             <option value="書店">書店</option>
                             <option value="CD・DVDショップ">CD・DVDショップ</option>
-                            <option value="レンタルCD・DVD">レンタルCD・DVD</option>
                             <option value="映画館">映画館</option>
                             <option value="カラオケ">カラオケ</option>
                             <option value="インターネットカフェ">インターネットカフェ</option>
-                            <option value="まんが喫茶">まんが喫茶</option>
                             <option value="ゲームセンター">ゲームセンター</option>
                             <option value="ボウリング場">ボウリング場</option>
                             <option value="ホビー">ホビー</option>
@@ -76,12 +95,11 @@
                             <option value="電器">電器</option>
                             <option value="スポーツショップ">スポーツショップ</option>
                             <option value="ファミレス">ファミレス</option>
-                            <option value="レストラン">レストラン</option>
                             <option value="ファーストフード">ファーストフード</option>
                             <option value="カフェ">カフェ</option>
-                            <option value="飲食店(和)">飲食店(和)</option>
-                            <option value="飲食店(洋)">飲食店(洋)</option>
-                            <option value="飲食店(中)">飲食店(中)</option>
+                            <option value="和食">飲食店(和)</option>
+                            <option value="洋食">飲食店(洋)</option>
+                            <option value="中華">飲食店(中)</option>
                             <option value="ファッション">ファッション</option>
                             <option value="ペットショップ">ペットショップ</option>
                         </select>
@@ -99,11 +117,9 @@
                             <option value="商業施設">商業施設</option>
                             <option value="書店">書店</option>
                             <option value="CD・DVDショップ">CD・DVDショップ</option>
-                            <option value="レンタルCD・DVD">レンタルCD・DVD</option>
                             <option value="映画館">映画館</option>
                             <option value="カラオケ">カラオケ</option>
                             <option value="インターネットカフェ">インターネットカフェ</option>
-                            <option value="まんが喫茶">まんが喫茶</option>
                             <option value="ゲームセンター">ゲームセンター</option>
                             <option value="ボウリング場">ボウリング場</option>
                             <option value="ホビー">ホビー</option>
@@ -115,12 +131,11 @@
                             <option value="電器">電器</option>
                             <option value="スポーツショップ">スポーツショップ</option>
                             <option value="ファミレス">ファミレス</option>
-                            <option value="レストラン">レストラン</option>
                             <option value="ファーストフード">ファーストフード</option>
                             <option value="カフェ">カフェ</option>
-                            <option value="飲食店(和)">飲食店(和)</option>
-                            <option value="飲食店(洋)">飲食店(洋)</option>
-                            <option value="飲食店(中)">飲食店(中)</option>
+                            <option value="和食">飲食店(和)</option>
+                            <option value="洋食">飲食店(洋)</option>
+                            <option value="中華">飲食店(中)</option>
                             <option value="ファッション">ファッション</option>
                             <option value="ペットショップ">ペットショップ</option>
                         </select>
@@ -140,11 +155,9 @@
                             <option value="商業施設">商業施設</option>
                             <option value="書店">書店</option>
                             <option value="CD・DVDショップ">CD・DVDショップ</option>
-                            <option value="レンタルCD・DVD">レンタルCD・DVD</option>
                             <option value="映画館">映画館</option>
                             <option value="カラオケ">カラオケ</option>
                             <option value="インターネットカフェ">インターネットカフェ</option>
-                            <option value="まんが喫茶">まんが喫茶</option>
                             <option value="ゲームセンター">ゲームセンター</option>
                             <option value="ボウリング場">ボウリング場</option>
                             <option value="ホビー">ホビー</option>
@@ -156,12 +169,11 @@
                             <option value="電器">電器</option>
                             <option value="スポーツショップ">スポーツショップ</option>
                             <option value="ファミレス">ファミレス</option>
-                            <option value="レストラン">レストラン</option>
                             <option value="ファーストフード">ファーストフード</option>
                             <option value="カフェ">カフェ</option>
-                            <option value="飲食店(和)">飲食店(和)</option>
-                            <option value="飲食店(洋)">飲食店(洋)</option>
-                            <option value="飲食店(中)">飲食店(中)</option>
+                            <option value="和食">飲食店(和)</option>
+                            <option value="洋食">飲食店(洋)</option>
+                            <option value="中華">飲食店(中)</option>
                             <option value="ファッション">ファッション</option>
                             <option value="ペットショップ">ペットショップ</option>
                         </select>
@@ -179,11 +191,9 @@
                             <option value="商業施設">商業施設</option>
                             <option value="書店">書店</option>
                             <option value="CD・DVDショップ">CD・DVDショップ</option>
-                            <option value="レンタルCD・DVD">レンタルCD・DVD</option>
                             <option value="映画館">映画館</option>
                             <option value="カラオケ">カラオケ</option>
                             <option value="インターネットカフェ">インターネットカフェ</option>
-                            <option value="まんが喫茶">まんが喫茶</option>
                             <option value="ゲームセンター">ゲームセンター</option>
                             <option value="ボウリング場">ボウリング場</option>
                             <option value="ホビー">ホビー</option>
@@ -195,12 +205,11 @@
                             <option value="電器">電器</option>
                             <option value="スポーツショップ">スポーツショップ</option>
                             <option value="ファミレス">ファミレス</option>
-                            <option value="レストラン">レストラン</option>
                             <option value="ファーストフード">ファーストフード</option>
                             <option value="カフェ">カフェ</option>
-                            <option value="飲食店(和)">飲食店(和)</option>
-                            <option value="飲食店(洋)">飲食店(洋)</option>
-                            <option value="飲食店(中)">飲食店(中)</option>
+                            <option value="和食">飲食店(和)</option>
+                            <option value="洋食">飲食店(洋)</option>
+                            <option value="中華">飲食店(中)</option>
                             <option value="ファッション">ファッション</option>
                             <option value="ペットショップ">ペットショップ</option>
                         </select>
@@ -233,12 +242,15 @@
                 
                 <div class="time-container">
                     <div class="time-wrapper">
-                        <div class="text-titles">時間</div>
+                        <div class="text-titles">日時</div>
                     </div>
-                    <div class="time-drum-roll">
-                        <input type="time" class="time-picker-1" id="time1" value="00:00">
-                        <div class="text-tilde">～</div>
-                        <input type="time" class="time-picker-2" id="time2" value="00:00">
+                    <div class="date-time">
+                        <input type="date" class="date" id="date">
+                        <div class="time-drum-roll">
+                            <input type="time" class="time-picker-1" id="time1" value="00:00">
+                            <div class="text-tilde">～</div>
+                            <input type="time" class="time-picker-2" id="time2" value="00:00">
+                        </div>
                     </div>
                 </div>
                 

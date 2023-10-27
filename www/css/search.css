@@ -66,9 +66,9 @@
     position: absolute;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     gap: 60px;
-    top: 40px;
+    top: 7%;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -90,13 +90,14 @@
     padding: 8px 7px;
     border: 1px solid;
     border-radius: 5px;
+    color: var(--lightmain);
     border-color: var(--system-gray500);
     background-color: transparent;
 }
 
 .keyword {
     height: 32px;
-    top: 14%;
+    top: 43%;
     left: 50%;
     transform: translateX(-50%);
     border-bottom-width: 1px;
@@ -111,7 +112,7 @@
     justify-content: center;
     align-items: flex-start;
     gap: 60px;
-    top: 19%;
+    top: 48%;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -135,6 +136,7 @@
     position: relative;
     border-radius: 5px;
     border: 1px solid;
+    color: var(--lightmain);
     border-color: var(--system-gray500);
     background-color: transparent;
 }
@@ -145,7 +147,7 @@
     justify-content: center;
     align-items: center;
     gap: 60px;
-    top: 34%;
+    top: 23%;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -165,6 +167,7 @@
     gap: 8px;
     padding: 8px 7px;
     position: relative;
+    color: var(--lightmain);
     border-radius: 5px;
     border: 1px solid;
     border-color: var(--system-gray500);
@@ -176,17 +179,32 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 280px;
-    top: 43%;
+    gap: 60px;
+    top: 31%;
     left: 50%;
     transform: translateX(-50%);
 }
 .time-wrapper {
     display: inline-block;
-    height: 32px;
     width: 115px;
+    height: 32px;
     border-bottom-width: 1px;
     border-bottom-style: solid;
+    border-color: var(--system-gray500);
+}
+.date-time {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 110px;
+    gap: 10px;
+}
+.date {
+    color: var(--lightmain);
+    background-color: transparent;
+    border-radius: 6px;
+    border: 1px solid;
     border-color: var(--system-gray500);
 }
 .time-drum-roll {
@@ -194,14 +212,13 @@
     height: 32px;
     display: inline-block;
     position: relative;
-    left: 23px;
 }
 .time-picker-1 {
     position: absolute;
-    width: 74px;
     height: 32px;
     top: 0;
     left: 0;
+    color: var(--lightmain);
     background-color: var(--system-gray100);
     border-radius: 6px;
     overflow: hidden;
@@ -210,10 +227,10 @@
 }
 .time-picker-2 {
     position: absolute;
-    width: 74px;
     height: 32px;
     top: 0;
-    left: 103px;
+    left: 95px;
+    color: var(--lightmain);
     background-color: var(--system-gray100);
     border-radius: 6px;
     overflow: hidden;
@@ -224,7 +241,7 @@
     position: absolute;
     width: 21px;
     top: 4px;
-    left: 78px;
+    left: 71px;
     font-weight: 400;
     color: var(--lightmain);
     font-size: 16px;
@@ -243,7 +260,7 @@ input[type="time"] {
     justify-content: center;
     align-items: center;
     gap: 20px;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -310,7 +327,7 @@ input[type="time"] {
     justify-content: center;
     align-items: flex-start;
     gap: 60px;
-    bottom: 28%;
+    top: 15%;
     left: 50%;
     transform: translateX(-50%);
 }
