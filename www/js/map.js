@@ -277,7 +277,6 @@ function searchLocation() {
                 closeTime.setHours(period.close.hours);
                 closeTime.setMinutes(period.close.minutes);
                 if (openTime <= datetime1 && closeTime >= datetime2) {
-                    console.log("period", period);
                     return true;
                 }
             }
@@ -339,8 +338,8 @@ function searchLocation() {
     
     // マーカーリセット
     if (pinMarker) {
-            pinMarker.setMap(null);
-        }
+        pinMarker.setMap(null);
+    }
     if (spotMarkers.length > 0) {
         for (let i = 0; i < spotMarkers.length; i++) {
             if (spotMarkers[i]) {
@@ -358,6 +357,9 @@ function searchLocation() {
         confirmPinButton.style.display = "flex";
         searchBar.style.display        = "none";
 
+        if (circle) {
+            circle.setMap(null);
+        }
         handlePinPlacement();
     } else if (departure === "current-loc") {
         currentLocationButton.style.display = "flex";
@@ -392,12 +394,10 @@ function searchLocation() {
                         for (let i = 0; i < results.length; i++) {
                             const place = await getPlaceDetails(results[i].place_id);
                             if (isPlaceOpenAtTime(place, date, datetime1, datetime2)) {
-                                console.log("place：", place);
                                 filteredResults.push(results[i]);
                             }
                         }
 
-                        console.log("キーワードA1: ", filteredResults[0]);
                         if (sort === "distance") {
                             filteredResults.sort((a, b) => {
                                 const distanceA = google.maps.geometry.spherical.computeDistanceBetween(latLng, a.geometry.location);
@@ -411,6 +411,8 @@ function searchLocation() {
                                 position: placeLocation,
                             });
                             spotMarkers.push(spotMarker);
+                            console.log("filteredResults[0].name：", filteredResults[0].name);
+                            return filteredResults[0];
                         } else if (sort === "rate") {
                             var maxRating      = -1;
                             var maxRatingIndex = -1;
@@ -430,10 +432,11 @@ function searchLocation() {
                                 position: placeLocation,
                             });
                             spotMarkers.push(spotMarker);
+                            console.log("filteredResults[maxRatingIndex].name：", filteredResults[maxRatingIndex].name);
+                            return filteredResults[maxRatingIndex];
                         } else if (sort === "price") {
 
                         }
-                        return filteredResults[0];
                     } catch (error) {
                         console.error(error);
                         return [];
@@ -461,7 +464,7 @@ function searchLocation() {
                     for (let i = 0; i < keywords.length; i++) {
                         try {
                             let results = await geocodeKeyword(keywords[i]);
-                            console.log("キーワードC1-" + (i + 1) + "：", results);
+                            console.log("results.name" + (i + 1) + "：", results.name);
                         } catch (error) {
                             console.error(error);
                         }
@@ -489,55 +492,92 @@ function searchLocation() {
         searchBar.style.display             = "flex";
 
         // 非同期処理を制御するためのPromiseを返す関数
-        function geocodeKeyword(keyword) {
-            return new Promise((resolve, reject) => {
-                // Places APIで検索
-                var request = {
-                    locationBias: {radius: radius, center: latLng},
-                    query: keyword,
-                };
-                placesService.textSearch(request, (results, status) => {
-                    if (status === google.maps.places.PlacesServiceStatus.OK) {
-                        if (sort === "distance") {
-                            results.sort((a, b) => {
-                                const distanceA = google.maps.geometry.spherical.computeDistanceBetween(myLatLng, a.geometry.location);
-                                const distanceB = google.maps.geometry.spherical.computeDistanceBetween(myLatLng, b.geometry.location);
-                                return distanceA - distanceB;
-                            });
-                            var placeLocation = results[0].geometry.location;
-                            map.setCenter(placeLocation);
-                            spotMarker = new google.maps.Marker({
-                                map: map,
-                                position: placeLocation,
-                            });
+        async function geocodeKeyword(keyword) {
+            try {
+                const results = await new Promise((resolve, reject) => {
+                    // Places APIで検索
+                    const request = {
+                        locationBias: {radius: radius, center: myLatLng},
+                        query: keyword,
+                    };
+                    placesService.textSearch(request, (results, status) => {
+                        if (status === google.maps.places.PlacesServiceStatus.OK) {
                             resolve(results);
-                        } else if (sort === "rate") {
-                            var maxRating      = -1;
-                            var maxRatingIndex = -1;
-                            for (let i = 0; i < results.length; i++) {
-                                if (results[i].user_ratings_total > 0) {
-                                    var averageRating = results[i].user_ratings_total / results[i].rating;
-                                    if (averageRating > maxRating) {
-                                        maxRating = averageRating;
-                                        maxRatingIndex = i;
-                                    }
-                                }
-                            }
-                            var placeLocation = results[maxRatingIndex].geometry.location;
-                            map.setCenter(placeLocation);
-                            spotMarker = new google.maps.Marker({
-                                map: map,
-                                position: placeLocation,
-                            });
-                            resolve(results);
-                        } else if (sort === "price") {
-
+                        } else {
+                            reject("場所が見つかりません：" + keyword);
                         }
-                    } else {
-                        reject("場所が見つかりません：" + keyword);
-                    }
+                    });
                 });
-            });
+
+                // 場所ごとに詳細情報を取得し、時間外の場所をフィルタリング
+                var filteredResults = [];
+                for (let i = 0; i < results.length; i++) {
+                    const place = await getPlaceDetails(results[i].place_id);
+                    if (isPlaceOpenAtTime(place, date, datetime1, datetime2)) {
+                        filteredResults.push(results[i]);
+                    }
+                }
+
+                if (sort === "distance") {
+                    filteredResults.sort((a, b) => {
+                        const distanceA = google.maps.geometry.spherical.computeDistanceBetween(myLatLng, a.geometry.location);
+                        const distanceB = google.maps.geometry.spherical.computeDistanceBetween(myLatLng, b.geometry.location);
+                        return distanceA - distanceB;
+                    });
+                    var placeLocation = filteredResults[0].geometry.location;
+                    map.setCenter(placeLocation);
+                    spotMarker = new google.maps.Marker({
+                        map: map,
+                        position: placeLocation,
+                    });
+                    spotMarkers.push(spotMarker);
+                    console.log("filteredResults[0].name2：", filteredResults[0].name);
+                    return filteredResults[0];
+                } else if (sort === "rate") {
+                    var maxRating      = -1;
+                    var maxRatingIndex = -1;
+                    for (let i = 0; i < filteredResults.length; i++) {
+                        if (filteredResults[i].user_ratings_total > 0) {
+                            var averageRating = filteredResults[i].user_ratings_total / filteredResults[i].rating;
+                            if (averageRating > maxRating) {
+                                maxRating = averageRating;
+                                maxRatingIndex = i;
+                            }
+                        }
+                    }
+                    var placeLocation = filteredResults[maxRatingIndex].geometry.location;
+                    map.setCenter(placeLocation);
+                    spotMarker = new google.maps.Marker({
+                        map: map,
+                        position: placeLocation,
+                    });
+                    spotMarkers.push(spotMarker);
+                    console.log("filteredResults[maxRatingIndex].name2：", filteredResults[maxRatingIndex].name);
+                    return filteredResults[maxRatingIndex];
+                } else if (sort === "price") {
+
+                }
+                return filteredResults[0];
+            } catch (error) {
+                console.error(error);
+                return [];
+            }
+
+            function getPlaceDetails(placeId) {
+                return new Promise((resolve, reject) => {
+                    const request = {
+                        placeId: placeId,
+                        fields: ["opening_hours"]
+                    };
+                    placesService.getDetails(request, (place, status) => {
+                        if (status === google.maps.places.PlacesServiceStatus.OK) {
+                            resolve(place);
+                        } else {
+                            reject("場所の詳細情報を取得できませんでした");
+                        }
+                    });
+                });
+            }
         }
 
         // Promiseを順番に実行
@@ -545,7 +585,7 @@ function searchLocation() {
             for (let i = 0; i < keywords.length; i++) {
                 try {
                     let results = await geocodeKeyword(keywords[i]);
-                    console.log("キーワードC2-" + (i + 1) + "：", results);
+                    console.log("results.name2-" + (i + 1) + "：", results);
                 } catch (error) {
                     console.error(error);
                 }
