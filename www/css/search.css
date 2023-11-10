@@ -95,48 +95,34 @@
     background-color: transparent;
 }
 
-.keyword {
-    height: 32px;
-    top: 43%;
-    left: 50%;
-    transform: translateX(-50%);
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-color: var(--system-gray500);
-    position: absolute;
-    width: 110px;
-}
-.keywords-container {
+.sort-wrapper {
     position: absolute;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     gap: 60px;
-    top: 48%;
+    top: 15%;
     left: 50%;
     transform: translateX(-50%);
 }
-.keywords-set-1,
-.keywords-set-2 {
+.sort,
+.sort-pull-down {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-}
-.keywords-pull-down-1,
-.keywords-pull-down-3,
-.keywords-pull-down-2,
-.keywords-pull-down-4 {
-    display: flex;
     width: 110px;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 8px;
+    border-color: var(--system-gray500);
+}
+.sort {
+    height: 32px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+.sort-pull-down {
     padding: 8px 7px;
-    position: relative;
-    border-radius: 5px;
     border: 1px solid;
-    color: var(--lightmain);
+    border-radius: 5px;
     border-color: var(--system-gray500);
     background-color: transparent;
 }
@@ -254,6 +240,52 @@ input[type="time"] {
     background: transparent;
 }
 
+.keyword {
+    height: 32px;
+    top: 43%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-color: var(--system-gray500);
+    position: absolute;
+    width: 110px;
+}
+.keywords-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 60px;
+    top: 48%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.keywords-set-1,
+.keywords-set-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.keywords-pull-down-1,
+.keywords-pull-down-3,
+.keywords-pull-down-2,
+.keywords-pull-down-4 {
+    display: flex;
+    width: 110px;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 8px 7px;
+    position: relative;
+    border-radius: 5px;
+    border: 1px solid;
+    color: var(--lightmain);
+    border-color: var(--system-gray500);
+    background-color: transparent;
+}
+
 .transportation-container {
     position: absolute;
     display: flex;
@@ -319,38 +351,6 @@ input[type="time"] {
 .bicycle-checkbox {
     top: 85px;
     left: 135px;
-}
-
-.sort-wrapper {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 60px;
-    top: 15%;
-    left: 50%;
-    transform: translateX(-50%);
-}
-.sort,
-.sort-pull-down {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    width: 110px;
-    border-color: var(--system-gray500);
-}
-.sort {
-    height: 32px;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-}
-.sort-pull-down {
-    padding: 8px 7px;
-    border: 1px solid;
-    border-radius: 5px;
-    border-color: var(--system-gray500);
-    background-color: transparent;
 }
 
 .reset-search {

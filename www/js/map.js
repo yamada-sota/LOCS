@@ -372,7 +372,7 @@ function searchLocation() {
                     lng: position.coords.longitude,
                 };
                 // 非同期処理を制御するためのPromiseを返す関数
-                async function geocodeKeyword(keyword) {
+                async function geocodeKeyword(keyword, num) {
                     try {
                         const results = await new Promise((resolve, reject) => {
                             // Places APIで検索
@@ -406,10 +406,38 @@ function searchLocation() {
                             });
                             var placeLocation = filteredResults[0].geometry.location;
                             map.setCenter(placeLocation);
-                            spotMarker = new google.maps.Marker({
-                                map: map,
-                                position: placeLocation,
-                            });
+                            switch (num) {
+                                case 0:
+                                    spotMarker = new google.maps.Marker({
+                                        map: map,
+                                        position: placeLocation,
+                                        icon: "https://maps.google.com/mapfiles/kml/paddle/1.png",
+                                    });
+                                    break;
+                                case 1:
+                                    spotMarker = new google.maps.Marker({
+                                        map: map,
+                                        position: placeLocation,
+                                        icon: "https://maps.google.com/mapfiles/kml/paddle/2.png",
+                                    });
+                                    break;
+                                case 2:
+                                    spotMarker = new google.maps.Marker({
+                                        map: map,
+                                        position: placeLocation,
+                                        icon: "https://maps.google.com/mapfiles/kml/paddle/3.png",
+                                    });
+                                    break;
+                                case 3:
+                                    spotMarker = new google.maps.Marker({
+                                        map: map,
+                                        position: placeLocation,
+                                        icon: "https://maps.google.com/mapfiles/kml/paddle/4.png",
+                                    });
+                                    break;
+                                default:
+                                    break;
+                            }
                             spotMarkers.push(spotMarker);
                             console.log("filteredResults[0].name：", filteredResults[0].name);
                             return filteredResults[0];
@@ -463,7 +491,7 @@ function searchLocation() {
                 (async () => {
                     for (let i = 0; i < keywords.length; i++) {
                         try {
-                            let results = await geocodeKeyword(keywords[i]);
+                            let results = await geocodeKeyword(keywords[i], i);
                             console.log("results.name" + (i + 1) + "：", results.name);
                         } catch (error) {
                             console.error(error);
