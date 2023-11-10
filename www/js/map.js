@@ -463,7 +463,16 @@ function searchLocation() {
                             console.log("filteredResults[maxRatingIndex].name：", filteredResults[maxRatingIndex].name);
                             return filteredResults[maxRatingIndex];
                         } else if (sort === "price") {
+                            const targetWords = ["パン", "ファミレス", "ファーストフード", "カフェ", "和食", "洋食", "中華"];
+                            const foundWords  = keywords.filter(keyword => targetWords.includes(keyword));
 
+                            if (foundWords.length > 0) {
+                                console.log("included： " + foundWords.join(", "));
+                                budget = parseInt(budget) + 1;
+                                console.log("budget：" + budget);
+                            } else {
+                                console.log("not included.");
+                            }
                         }
                     } catch (error) {
                         console.error(error);
