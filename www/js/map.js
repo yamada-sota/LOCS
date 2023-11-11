@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
-
 function initMap() {
     var mapOptions = {
         zoom: 18,
@@ -244,7 +243,7 @@ function searchLocation() {
     var keyword2  = document.getElementById("keywords2").value;
     var keyword3  = document.getElementById("keywords3").value;
     var keyword4  = document.getElementById("keywords4").value;
-    var budget    = document.getElementById("budget").value;
+    // var budget    = document.getElementById("budget").value;
     var time1     = document.getElementById("time1").value;
     var time2     = document.getElementById("time2").value;
     var date      = new Date(document.getElementById("date").value);
@@ -405,9 +404,9 @@ function searchLocation() {
                                 return distanceA - distanceB;
                             });
                             var placeLocation = filteredResults[0].geometry.location;
-                            map.setCenter(placeLocation);
                             switch (num) {
                                 case 0:
+                                    map.setCenter(placeLocation);
                                     spotMarker = new google.maps.Marker({
                                         map: map,
                                         position: placeLocation,
@@ -454,30 +453,203 @@ function searchLocation() {
                                 }
                             }
                             var placeLocation = filteredResults[maxRatingIndex].geometry.location;
-                            map.setCenter(placeLocation);
-                            spotMarker = new google.maps.Marker({
-                                map: map,
-                                position: placeLocation,
-                            });
+                            switch (num) {
+                                case 0:
+                                    map.setCenter(placeLocation);
+                                    spotMarker = new google.maps.Marker({
+                                        map: map,
+                                        position: placeLocation,
+                                        icon: "https://maps.google.com/mapfiles/kml/paddle/1.png",
+                                    });
+                                    break;
+                                case 1:
+                                    spotMarker = new google.maps.Marker({
+                                        map: map,
+                                        position: placeLocation,
+                                        icon: "https://maps.google.com/mapfiles/kml/paddle/2.png",
+                                    });
+                                    break;
+                                case 2:
+                                    spotMarker = new google.maps.Marker({
+                                        map: map,
+                                        position: placeLocation,
+                                        icon: "https://maps.google.com/mapfiles/kml/paddle/3.png",
+                                    });
+                                    break;
+                                case 3:
+                                    spotMarker = new google.maps.Marker({
+                                        map: map,
+                                        position: placeLocation,
+                                        icon: "https://maps.google.com/mapfiles/kml/paddle/4.png",
+                                    });
+                                    break;
+                                default:
+                                    break;
+                            }
                             spotMarkers.push(spotMarker);
                             console.log("filteredResults[maxRatingIndex].name：", filteredResults[maxRatingIndex].name);
                             return filteredResults[maxRatingIndex];
                         } else if (sort === "price") {
-                            const targetWords = ["パン", "ファミレス", "ファーストフード", "カフェ", "和食", "洋食", "中華"];
-                            const foundWords  = keywords.filter(keyword => targetWords.includes(keyword));
+                            for (let i = 0; i < filteredResults.length; i++) {
+                                if (filteredResults[i].price_level === undefined) {
+                                    console.log("price_level is undefined");
+                                    return [];
+                                } else {
+                                    console.log(`price_level is ${filteredResults[i].price_level}`);
+                                    const placeLocation = filteredResults[0].geometry.location;
+                                    switch (num) {
+                                        case 0:
+                                            map.setCenter(placeLocation);
+                                            spotMarker = new google.maps.Marker({
+                                                map: map,
+                                                position: placeLocation,
+                                                icon: "https://maps.google.com/mapfiles/kml/paddle/1.png",
+                                            });
+                                            break;
+                                        case 1:
+                                            spotMarker = new google.maps.Marker({
+                                                map: map,
+                                                position: placeLocation,
+                                                icon: "https://maps.google.com/mapfiles/kml/paddle/2.png",
+                                            });
+                                            break;
+                                        case 2:
+                                            spotMarker = new google.maps.Marker({
+                                                map: map,
+                                                position: placeLocation,
+                                                icon: "https://maps.google.com/mapfiles/kml/paddle/3.png",
+                                            });
+                                            break;
+                                        case 3:
+                                            spotMarker = new google.maps.Marker({
+                                                map: map,
+                                                position: placeLocation,
+                                                icon: "https://maps.google.com/mapfiles/kml/paddle/4.png",
+                                            });
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    spotMarkers.push(spotMarker);
+                                    console.log("filteredResults[0].name：", filteredResults[0].name);
+                                    return filteredResults[0];
+                                }
+                            }
 
-                            if (foundWords.length > 0) {
-                                console.log("included： " + foundWords.join(", "));
-                                budget = parseInt(budget) + 1;
-                                console.log("budget：" + budget);
+                            /* const targetWords = ["パン", "ファミレス", "ファーストフード", "カフェ", "和食", "洋食", "中華"];
+                            console.log("keyword：", keyword);
+
+                            if (targetWords.includes(keyword)) {
+                                for (let i = 0; i < filteredResults.length; i++) {
+                                    try {
+                                        const hotPepperResults = await searchHotPepper(filteredResults[i].name);
+                                        console.log("HotPepper APIの結果:", hotPepperResults);
+                                    } catch (error) {
+                                        console.error("ホットペッパーAPIエラー:", error);
+                                    }
+                                }
+                                
+                                
+                                filteredResults.sort((a, b) => {
+                                    const budgetA = a.budget; // Replace with the actual property name
+                                    const budgetB = b.budget; // Replace with the actual property name
+                                    return budgetA - budgetB;
+                                });
+
+                                const placeLocation = filteredResults[0].geometry.location;
+                                switch (num) {
+                                    case 0:
+                                        map.setCenter(placeLocation);
+                                        spotMarker = new google.maps.Marker({
+                                            map: map,
+                                            position: placeLocation,
+                                            icon: "https://maps.google.com/mapfiles/kml/paddle/1.png",
+                                        });
+                                        break;
+                                    case 1:
+                                        spotMarker = new google.maps.Marker({
+                                            map: map,
+                                            position: placeLocation,
+                                            icon: "https://maps.google.com/mapfiles/kml/paddle/2.png",
+                                        });
+                                        break;
+                                    case 2:
+                                        spotMarker = new google.maps.Marker({
+                                            map: map,
+                                            position: placeLocation,
+                                            icon: "https://maps.google.com/mapfiles/kml/paddle/3.png",
+                                        });
+                                        break;
+                                    case 3:
+                                        spotMarker = new google.maps.Marker({
+                                            map: map,
+                                            position: placeLocation,
+                                            icon: "https://maps.google.com/mapfiles/kml/paddle/4.png",
+                                        });
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                spotMarkers.push(spotMarker);
+                                console.log("filteredResults[0].name：", filteredResults[0].name);
+                                return filteredResults[0];
                             } else {
                                 console.log("not included.");
-                            }
+                                const placeLocation = filteredResults[0].geometry.location;
+                                switch (num) {
+                                    case 0:
+                                        map.setCenter(placeLocation);
+                                        spotMarker = new google.maps.Marker({
+                                            map: map,
+                                            position: placeLocation,
+                                            icon: "https://maps.google.com/mapfiles/kml/paddle/1.png",
+                                        });
+                                        break;
+                                    case 1:
+                                        spotMarker = new google.maps.Marker({
+                                            map: map,
+                                            position: placeLocation,
+                                            icon: "https://maps.google.com/mapfiles/kml/paddle/2.png",
+                                        });
+                                        break;
+                                    case 2:
+                                        spotMarker = new google.maps.Marker({
+                                            map: map,
+                                            position: placeLocation,
+                                            icon: "https://maps.google.com/mapfiles/kml/paddle/3.png",
+                                        });
+                                        break;
+                                    case 3:
+                                        spotMarker = new google.maps.Marker({
+                                            map: map,
+                                            position: placeLocation,
+                                            icon: "https://maps.google.com/mapfiles/kml/paddle/4.png",
+                                        });
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                spotMarkers.push(spotMarker);
+                                console.log("filteredResults[0].name：", filteredResults[0].name);
+                                return filteredResults[0];
+                            } */
                         }
                     } catch (error) {
                         console.error(error);
                         return [];
                     }
+
+                    /*async function searchHotPepper(name) {
+                        const hotPepperUrl = `https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=67b483882724833c&name=${name}&range=5&lat=${position.coords.latitude}&lng=${position.coords.longitude}&format=jsonp`;
+
+                        try {
+                            const script = document.createElement("script");
+                            script.src = hotPepperUrl;
+                            document.head.appendChild(script);
+                        } catch (error) {
+                            throw error;
+                        }
+                    }*/
 
                     function getPlaceDetails(placeId) {
                         return new Promise((resolve, reject) => {
