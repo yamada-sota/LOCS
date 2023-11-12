@@ -24,7 +24,7 @@ function resetSetting() {
     document.getElementById("keywords2").selectedIndex = 0;
     document.getElementById("keywords3").selectedIndex = 0;
     document.getElementById("keywords4").selectedIndex = 0;
-    document.getElementById("budget").selectedIndex    = 0;
+    // document.getElementById("budget").selectedIndex    = 0;
     document.getElementById("time1").value             = "00:00";
     document.getElementById("time2").value             = "00:00";
     document.getElementById("foot").checked            = false;

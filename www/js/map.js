@@ -3,7 +3,7 @@ var iconRotation = 0;
 
 document.addEventListener("DOMContentLoaded", function() {
     var currentLocationButton = document.getElementById("current-location-button");
-    document.getElementById("current-location-button").addEventListener("click", function () {
+    currentLocationButton.addEventListener("click", function () {
         if (watchID) {
             navigator.geolocation.clearWatch(watchID);
         }
@@ -13,6 +13,28 @@ document.addEventListener("DOMContentLoaded", function() {
         } else if (currentLocationButton.textContent === "現在地の追跡をやめる") {
             navigator.geolocation.clearWatch(watchID);
             currentLocationButton.textContent = "現在地を追跡する";
+        }
+    });
+
+    var changeDisplayButton = document.getElementById("change-display-button");
+    var mapDisplay          = document.getElementById("map");
+    var planDisplay         = document.getElementById("plan");
+    var searchBar           = document.getElementById("search-bar");
+    changeDisplayButton.addEventListener("click", function () {
+        if (changeDisplayButton.textContent === "プラン表示に変える") {
+            navigator.geolocation.clearWatch(watchID);
+            mapDisplay.style.display            = "none";
+            planDisplay.style.display           = "inline";
+            changeDisplayButton.textContent     = "地図表示に変える";
+            currentLocationButton.textContent   = "現在地を追跡する";
+            currentLocationButton.style.display = "none";
+            searchBar.style.display             = "none";
+        } else if (changeDisplayButton.textContent === "地図表示に変える") {
+            mapDisplay.style.display            = "inline";
+            planDisplay.style.display           = "none";
+            changeDisplayButton.textContent     = "プラン表示に変える";
+            currentLocationButton.style.display = "flex";
+            searchBar.style.display             = "flex";
         }
     });
 
@@ -186,22 +208,6 @@ function reInitMap() {
     );
 }
 
-function resetSetting() {
-    document.getElementById("departure").selectedIndex = 0;
-    document.getElementById("keywords1").selectedIndex = 0;
-    document.getElementById("keywords2").selectedIndex = 0;
-    document.getElementById("keywords3").selectedIndex = 0;
-    document.getElementById("keywords4").selectedIndex = 0;
-    document.getElementById("budget").selectedIndex    = 0;
-    document.getElementById("time1").value             = "00:00";
-    document.getElementById("time2").value             = "00:00";
-    document.getElementById("foot").checked            = false;
-    document.getElementById("train").checked           = false;
-    document.getElementById("car").checked             = false;
-    document.getElementById("bicycle").checked         = false;
-    document.getElementById("sort").selectedIndex      = 0;
-}
-
 var waitingForPin = true;
 var myLatLng      = 0;
 function handlePinPlacement() {
@@ -231,6 +237,7 @@ function searchLocation() {
     navigator.geolocation.clearWatch(watchID);
 
     var currentLocationButton = document.getElementById("current-location-button");
+    var changeDisplayButton   = document.getElementById("change-display-button");
     var confirmPinButton      = document.getElementById("confirm-pin-button");
     var placesService         = new google.maps.places.PlacesService(map);
     var generatePlan          = document.getElementById("generate-plan");
@@ -268,6 +275,12 @@ function searchLocation() {
         const dayOfWeek = date.getDay();
         for (let i = 0; i < place.opening_hours.periods.length; i++) {
             var period = place.opening_hours.periods[i];
+            if (!period || !period.open || !period.close) {
+                continue;
+            }
+            if (period.open.day === undefined || period.close.day === undefined) {
+                continue;
+            }
             if (period.open.day === dayOfWeek && period.close.day === dayOfWeek) {
                 const openTime  = new Date(date);
                 const closeTime = new Date(date);
@@ -349,6 +362,7 @@ function searchLocation() {
     }
 
     currentLocationButton.style.display = "none";
+    changeDisplayButton.style.display   = "none";
     generatePlan.style.display          = "flex";
 
     if (departure === "pin") {
@@ -362,6 +376,7 @@ function searchLocation() {
         handlePinPlacement();
     } else if (departure === "current-loc") {
         currentLocationButton.style.display = "flex";
+        changeDisplayButton.style.display   = "flex";
         textSearch.textContent              = "再検索";
 
         navigator.geolocation.getCurrentPosition(
@@ -490,51 +505,48 @@ function searchLocation() {
                             console.log("filteredResults[maxRatingIndex].name：", filteredResults[maxRatingIndex].name);
                             return filteredResults[maxRatingIndex];
                         } else if (sort === "price") {
-                            for (let i = 0; i < filteredResults.length; i++) {
-                                if (filteredResults[i].price_level === undefined) {
-                                    console.log("price_level is undefined");
-                                    return [];
-                                } else {
-                                    console.log(`price_level is ${filteredResults[i].price_level}`);
-                                    const placeLocation = filteredResults[0].geometry.location;
-                                    switch (num) {
-                                        case 0:
-                                            map.setCenter(placeLocation);
-                                            spotMarker = new google.maps.Marker({
-                                                map: map,
-                                                position: placeLocation,
-                                                icon: "https://maps.google.com/mapfiles/kml/paddle/1.png",
-                                            });
-                                            break;
-                                        case 1:
-                                            spotMarker = new google.maps.Marker({
-                                                map: map,
-                                                position: placeLocation,
-                                                icon: "https://maps.google.com/mapfiles/kml/paddle/2.png",
-                                            });
-                                            break;
-                                        case 2:
-                                            spotMarker = new google.maps.Marker({
-                                                map: map,
-                                                position: placeLocation,
-                                                icon: "https://maps.google.com/mapfiles/kml/paddle/3.png",
-                                            });
-                                            break;
-                                        case 3:
-                                            spotMarker = new google.maps.Marker({
-                                                map: map,
-                                                position: placeLocation,
-                                                icon: "https://maps.google.com/mapfiles/kml/paddle/4.png",
-                                            });
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                    spotMarkers.push(spotMarker);
-                                    console.log("filteredResults[0].name：", filteredResults[0].name);
-                                    return filteredResults[0];
-                                }
+                            filteredResults = filteredResults.filter(result => {
+                                const priceLevel = result.price_level;
+                                return priceLevel === 0 || priceLevel === 1;
+                            });
+                            console.log(`price_level is ${filteredResults[i].price_level}`);
+                            const placeLocation = filteredResults[0].geometry.location;
+                            switch (num) {
+                                case 0:
+                                    map.setCenter(placeLocation);
+                                    spotMarker = new google.maps.Marker({
+                                        map: map,
+                                        position: placeLocation,
+                                        icon: "https://maps.google.com/mapfiles/kml/paddle/1.png",
+                                    });
+                                    break;
+                                case 1:
+                                    spotMarker = new google.maps.Marker({
+                                        map: map,
+                                        position: placeLocation,
+                                        icon: "https://maps.google.com/mapfiles/kml/paddle/2.png",
+                                    });
+                                    break;
+                                case 2:
+                                    spotMarker = new google.maps.Marker({
+                                        map: map,
+                                        position: placeLocation,
+                                        icon: "https://maps.google.com/mapfiles/kml/paddle/3.png",
+                                    });
+                                    break;
+                                case 3:
+                                    spotMarker = new google.maps.Marker({
+                                        map: map,
+                                        position: placeLocation,
+                                        icon: "https://maps.google.com/mapfiles/kml/paddle/4.png",
+                                    });
+                                    break;
+                                default:
+                                    break;
                             }
+                            spotMarkers.push(spotMarker);
+                            console.log("filteredResults[0].name：", filteredResults[0].name);
+                            return filteredResults[0];
 
                             /* const targetWords = ["パン", "ファミレス", "ファーストフード", "カフェ", "和食", "洋食", "中華"];
                             console.log("keyword：", keyword);
@@ -697,6 +709,7 @@ function searchLocation() {
 
         confirmPinButton.style.display      = "none";
         currentLocationButton.style.display = "flex";
+        changeDisplayButton.style.display   = "flex";
         textSearch.textContent              = "再検索";
         searchBar.style.display             = "flex";
 
@@ -734,13 +747,41 @@ function searchLocation() {
                         return distanceA - distanceB;
                     });
                     var placeLocation = filteredResults[0].geometry.location;
-                    map.setCenter(placeLocation);
-                    spotMarker = new google.maps.Marker({
-                        map: map,
-                        position: placeLocation,
-                    });
+                    switch (num) {
+                        case 0:
+                            map.setCenter(placeLocation);
+                            spotMarker = new google.maps.Marker({
+                                map: map,
+                                position: placeLocation,
+                                icon: "https://maps.google.com/mapfiles/kml/paddle/1.png",
+                            });
+                            break;
+                        case 1:
+                            spotMarker = new google.maps.Marker({
+                                map: map,
+                                position: placeLocation,
+                                icon: "https://maps.google.com/mapfiles/kml/paddle/2.png",
+                            });
+                            break;
+                        case 2:
+                            spotMarker = new google.maps.Marker({
+                                map: map,
+                                position: placeLocation,
+                                icon: "https://maps.google.com/mapfiles/kml/paddle/3.png",
+                            });
+                            break;
+                        case 3:
+                            spotMarker = new google.maps.Marker({
+                                map: map,
+                                position: placeLocation,
+                                icon: "https://maps.google.com/mapfiles/kml/paddle/4.png",
+                            });
+                            break;
+                        default:
+                            break;
+                    }
                     spotMarkers.push(spotMarker);
-                    console.log("filteredResults[0].name2：", filteredResults[0].name);
+                    console.log("filteredResults[0].name：", filteredResults[0].name);
                     return filteredResults[0];
                 } else if (sort === "rate") {
                     var maxRating      = -1;
@@ -755,18 +796,85 @@ function searchLocation() {
                         }
                     }
                     var placeLocation = filteredResults[maxRatingIndex].geometry.location;
-                    map.setCenter(placeLocation);
-                    spotMarker = new google.maps.Marker({
-                        map: map,
-                        position: placeLocation,
-                    });
+                    switch (num) {
+                        case 0:
+                            map.setCenter(placeLocation);
+                            spotMarker = new google.maps.Marker({
+                                map: map,
+                                position: placeLocation,
+                                icon: "https://maps.google.com/mapfiles/kml/paddle/1.png",
+                            });
+                            break;
+                        case 1:
+                            spotMarker = new google.maps.Marker({
+                                map: map,
+                                position: placeLocation,
+                                icon: "https://maps.google.com/mapfiles/kml/paddle/2.png",
+                            });
+                            break;
+                        case 2:
+                            spotMarker = new google.maps.Marker({
+                                map: map,
+                                position: placeLocation,
+                                icon: "https://maps.google.com/mapfiles/kml/paddle/3.png",
+                            });
+                            break;
+                        case 3:
+                            spotMarker = new google.maps.Marker({
+                                map: map,
+                                position: placeLocation,
+                                icon: "https://maps.google.com/mapfiles/kml/paddle/4.png",
+                            });
+                            break;
+                        default:
+                            break;
+                    }
                     spotMarkers.push(spotMarker);
                     console.log("filteredResults[maxRatingIndex].name2：", filteredResults[maxRatingIndex].name);
                     return filteredResults[maxRatingIndex];
                 } else if (sort === "price") {
-
+                    filteredResults = filteredResults.filter(result => {
+                        const priceLevel = result.price_level;
+                        return priceLevel === 0 || priceLevel === 1;
+                    });
+                    const placeLocation = filteredResults[0].geometry.location;
+                    switch (num) {
+                        case 0:
+                            map.setCenter(placeLocation);
+                            spotMarker = new google.maps.Marker({
+                                map: map,
+                                position: placeLocation,
+                                icon: "https://maps.google.com/mapfiles/kml/paddle/1.png",
+                            });
+                            break;
+                        case 1:
+                            spotMarker = new google.maps.Marker({
+                                map: map,
+                                position: placeLocation,
+                                icon: "https://maps.google.com/mapfiles/kml/paddle/2.png",
+                            });
+                            break;
+                        case 2:
+                            spotMarker = new google.maps.Marker({
+                                map: map,
+                                position: placeLocation,
+                                icon: "https://maps.google.com/mapfiles/kml/paddle/3.png",
+                            });
+                            break;
+                        case 3:
+                            spotMarker = new google.maps.Marker({
+                                map: map,
+                                position: placeLocation,
+                                icon: "https://maps.google.com/mapfiles/kml/paddle/4.png",
+                            });
+                            break;
+                        default:
+                            break;
+                    }
+                    spotMarkers.push(spotMarker);
+                    console.log("filteredResults[0].name2：", filteredResults[0].name);
+                    return filteredResults[0];
                 }
-                return filteredResults[0];
             } catch (error) {
                 console.error(error);
                 return [];

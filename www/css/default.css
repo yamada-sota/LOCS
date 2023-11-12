@@ -14,6 +14,7 @@ body.loaded {
 }
 
 .map {
+    display: inline;
     position: absolute;
     top: 7.2%;
     left: 0;
@@ -21,10 +22,35 @@ body.loaded {
     width: 100%;
     z-index: -1;
 }
+.plan {
+    display: none;
+    position: absolute;
+    top: 7.2%;
+    left: 0;
+    height: 84.8%;
+    width: 100%;
+    z-index: -1;
+    background-color: var(--accent-color050);
+}
 .current-location-button {
     display: none;
     position: absolute;
     top: 8%;
+    left: 1%;
+    padding: 2px 10px;
+    border-radius: 6px;
+    border: 1px solid;
+    border-color: var(--accent-color900);
+    background-color: rgba(245, 245, 245, 0.5);
+    font-weight: var(--text-default-med-font-weight);
+    color: var(--accent-color900);
+    font-size: 4vw;
+}
+.change-display-button {
+    display: none;
+    position: absolute;
+    top: 8%;
+    right: 1%;
     padding: 2px 10px;
     border-radius: 6px;
     border: 1px solid;

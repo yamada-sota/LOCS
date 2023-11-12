@@ -448,12 +448,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // 設定画面
     document.querySelector(".item-setting").addEventListener("click", () => {
-        document.querySelector("#content-setting").style.display          = "block";
-        document.querySelector("#content-globe").style.display            = "none";
-        document.querySelector(".text-setting").style.color               = "var(--accent-color800)";
-        document.querySelector(".text-globe").style.color                 = "var(--system-gray500)";
-        document.querySelector(".globe").style.fill                       = "var(--system-gray500)";
-        document.querySelector(".setting").style.fill                     = "var(--accent-color800)";
+        document.querySelector("#content-setting").style.display = "block";
+        document.querySelector("#content-globe").style.display   = "none";
+        document.querySelector(".text-setting").style.color      = "var(--accent-color800)";
+        document.querySelector(".text-globe").style.color        = "var(--system-gray500)";
+        document.querySelector(".globe").style.fill              = "var(--system-gray500)";
+        document.querySelector(".setting").style.fill            = "var(--accent-color800)";
     });
 
     var icon         = document.getElementById("icon");
