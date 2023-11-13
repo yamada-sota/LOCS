@@ -24,7 +24,6 @@ function resetSetting() {
     document.getElementById("keywords2").selectedIndex = 0;
     document.getElementById("keywords3").selectedIndex = 0;
     document.getElementById("keywords4").selectedIndex = 0;
-    // document.getElementById("budget").selectedIndex    = 0;
     document.getElementById("time1").value             = "00:00";
     document.getElementById("time2").value             = "00:00";
     document.getElementById("foot").checked            = false;
@@ -32,4 +31,22 @@ function resetSetting() {
     document.getElementById("car").checked             = false;
     document.getElementById("bicycle").checked         = false;
     document.getElementById("sort").selectedIndex      = 0;
+
+    var date  = new Date()
+    var year  = date.getFullYear()
+    var month = date.getMonth() + 1
+    var day   = date.getDate()
+    var toTwoDigits = function (num, digit) {
+        num += ""
+        if (num.length < digit) {
+            num = "0" + num
+        }
+        return num
+    }
+    var yyyy = toTwoDigits(year, 4)
+    var mm   = toTwoDigits(month, 2)
+    var dd   = toTwoDigits(day, 2)
+    var ymd  = yyyy + "-" + mm + "-" + dd;
+    
+    document.getElementById("date").value = ymd;
 }

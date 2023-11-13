@@ -22,6 +22,7 @@ body.loaded {
     width: 100%;
     z-index: -1;
 }
+
 .plan {
     display: none;
     position: absolute;
@@ -30,8 +31,40 @@ body.loaded {
     height: 84.8%;
     width: 100%;
     z-index: -1;
+    padding-top: 40px;
     background-color: var(--accent-color050);
 }
+.pin-img {
+    width: 64px;
+    height: 64px;
+}
+.first,
+.second,
+.third,
+.fourth {
+    display: none;
+    flex-direction: row;
+    gap: 5%;
+    align-items: center;
+}
+.space {
+    display: none;
+    height: 5%;
+}
+.name-time {
+    display: flex;
+    flex-direction: column;
+}
+.plan-name {
+    max-width: calc(100vw - 190px);
+}
+.plan-photos {
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    right: 0;
+}
+
 .current-location-button {
     display: none;
     position: absolute;

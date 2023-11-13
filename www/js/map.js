@@ -250,7 +250,6 @@ function searchLocation() {
     var keyword2  = document.getElementById("keywords2").value;
     var keyword3  = document.getElementById("keywords3").value;
     var keyword4  = document.getElementById("keywords4").value;
-    // var budget    = document.getElementById("budget").value;
     var time1     = document.getElementById("time1").value;
     var time2     = document.getElementById("time2").value;
     var date      = new Date(document.getElementById("date").value);
@@ -261,8 +260,8 @@ function searchLocation() {
     var sort      = document.getElementById("sort").value;
 
     // 日時関連
-    var datetime1 = new Date(date);
-    var datetime2 = new Date(date);
+    var datetime1  = new Date(date);
+    var datetime2  = new Date(date);
     var time1Parts = time1.split(":");
     var time2Parts = time2.split(":");
     datetime1.setHours(time1Parts[0], time1Parts[1]);
@@ -332,16 +331,16 @@ function searchLocation() {
     var carPerHour     = 20;
     var bicyclePerHour = 12;
     if (foot) {
-        radius += hour * footPerHour;
+        radius = hour * footPerHour;
     }
     if (train) {
-        radius += hour * trainPerHour;
+        radius = hour * trainPerHour;
     }
     if (car) {
-        radius += hour * carPerHour;
+        radius = hour * carPerHour;
     }
     if (bicycle) {
-        radius += hour * bicyclePerHour;
+        radius = hour * bicyclePerHour;
     }
     if (radius === 0) {
         alert("移動手段を選択してください。");
@@ -411,14 +410,19 @@ function searchLocation() {
                                 filteredResults.push(results[i]);
                             }
                         }
-
+                        
+                        var stayingTime = "10分";
                         if (sort === "distance") {
                             filteredResults.sort((a, b) => {
                                 const distanceA = google.maps.geometry.spherical.computeDistanceBetween(latLng, a.geometry.location);
                                 const distanceB = google.maps.geometry.spherical.computeDistanceBetween(latLng, b.geometry.location);
                                 return distanceA - distanceB;
                             });
-                            var placeLocation = filteredResults[0].geometry.location;
+                            if (filteredResults) {
+                                var placeLocation = filteredResults[0].geometry.location;
+                            } else {
+                                return [];
+                            }
                             switch (num) {
                                 case 0:
                                     map.setCenter(placeLocation);
@@ -427,6 +431,12 @@ function searchLocation() {
                                         position: placeLocation,
                                         icon: "https://maps.google.com/mapfiles/kml/paddle/1.png",
                                     });
+                                    document.getElementById("first").style.display  = "flex";
+                                    document.getElementById("first-name").innerText = filteredResults[0].name;
+                                    document.getElementById("first-time").innerText = stayingTime;
+                                    if (filteredResults[0].photos) {
+                                        document.getElementById("first-photo").src = filteredResults[0].photos[0].getUrl();
+                                    }
                                     break;
                                 case 1:
                                     spotMarker = new google.maps.Marker({
@@ -434,6 +444,13 @@ function searchLocation() {
                                         position: placeLocation,
                                         icon: "https://maps.google.com/mapfiles/kml/paddle/2.png",
                                     });
+                                    document.getElementById("fs-space").style.display = "flex";
+                                    document.getElementById("second").style.display   = "flex";
+                                    document.getElementById("second-name").innerText  = filteredResults[0].name;
+                                    document.getElementById("second-time").innerText  = stayingTime;
+                                    if (filteredResults[0].photos) {
+                                        document.getElementById("second-photo").src = filteredResults[0].photos[0].getUrl();
+                                    }
                                     break;
                                 case 2:
                                     spotMarker = new google.maps.Marker({
@@ -441,6 +458,13 @@ function searchLocation() {
                                         position: placeLocation,
                                         icon: "https://maps.google.com/mapfiles/kml/paddle/3.png",
                                     });
+                                    document.getElementById("st-space").style.display = "flex";
+                                    document.getElementById("third").style.display    = "flex";
+                                    document.getElementById("third-name").innerText   = filteredResults[0].name;
+                                    document.getElementById("third-time").innerText   = stayingTime;
+                                    if (filteredResults[0].photos) {
+                                        document.getElementById("third-photo").src = filteredResults[0].photos[0].getUrl();
+                                    }
                                     break;
                                 case 3:
                                     spotMarker = new google.maps.Marker({
@@ -448,12 +472,18 @@ function searchLocation() {
                                         position: placeLocation,
                                         icon: "https://maps.google.com/mapfiles/kml/paddle/4.png",
                                     });
+                                    document.getElementById("tf-space").style.display = "flex";
+                                    document.getElementById("fourth").style.display   = "flex";
+                                    document.getElementById("fourth-name").innerText  = filteredResults[0].name;
+                                    document.getElementById("fourth-time").innerText  = stayingTime;
+                                    if (filteredResults[0].photos) {
+                                        document.getElementById("fourth-photo").src = filteredResults[0].photos[0].getUrl();
+                                    }
                                     break;
                                 default:
                                     break;
                             }
                             spotMarkers.push(spotMarker);
-                            console.log("filteredResults[0].name：", filteredResults[0].name);
                             return filteredResults[0];
                         } else if (sort === "rate") {
                             var maxRating      = -1;
@@ -502,14 +532,13 @@ function searchLocation() {
                                     break;
                             }
                             spotMarkers.push(spotMarker);
-                            console.log("filteredResults[maxRatingIndex].name：", filteredResults[maxRatingIndex].name);
                             return filteredResults[maxRatingIndex];
                         } else if (sort === "price") {
                             filteredResults = filteredResults.filter(result => {
                                 const priceLevel = result.price_level;
-                                return priceLevel === 0 || priceLevel === 1;
+                                return priceLevel === undefined || priceLevel === 0 || priceLevel === 1;
                             });
-                            console.log(`price_level is ${filteredResults[i].price_level}`);
+                            console.log(`price_level is ${filteredResults[0].price_level}`);
                             const placeLocation = filteredResults[0].geometry.location;
                             switch (num) {
                                 case 0:
@@ -545,123 +574,12 @@ function searchLocation() {
                                     break;
                             }
                             spotMarkers.push(spotMarker);
-                            console.log("filteredResults[0].name：", filteredResults[0].name);
                             return filteredResults[0];
-
-                            /* const targetWords = ["パン", "ファミレス", "ファーストフード", "カフェ", "和食", "洋食", "中華"];
-                            console.log("keyword：", keyword);
-
-                            if (targetWords.includes(keyword)) {
-                                for (let i = 0; i < filteredResults.length; i++) {
-                                    try {
-                                        const hotPepperResults = await searchHotPepper(filteredResults[i].name);
-                                        console.log("HotPepper APIの結果:", hotPepperResults);
-                                    } catch (error) {
-                                        console.error("ホットペッパーAPIエラー:", error);
-                                    }
-                                }
-                                
-                                
-                                filteredResults.sort((a, b) => {
-                                    const budgetA = a.budget; // Replace with the actual property name
-                                    const budgetB = b.budget; // Replace with the actual property name
-                                    return budgetA - budgetB;
-                                });
-
-                                const placeLocation = filteredResults[0].geometry.location;
-                                switch (num) {
-                                    case 0:
-                                        map.setCenter(placeLocation);
-                                        spotMarker = new google.maps.Marker({
-                                            map: map,
-                                            position: placeLocation,
-                                            icon: "https://maps.google.com/mapfiles/kml/paddle/1.png",
-                                        });
-                                        break;
-                                    case 1:
-                                        spotMarker = new google.maps.Marker({
-                                            map: map,
-                                            position: placeLocation,
-                                            icon: "https://maps.google.com/mapfiles/kml/paddle/2.png",
-                                        });
-                                        break;
-                                    case 2:
-                                        spotMarker = new google.maps.Marker({
-                                            map: map,
-                                            position: placeLocation,
-                                            icon: "https://maps.google.com/mapfiles/kml/paddle/3.png",
-                                        });
-                                        break;
-                                    case 3:
-                                        spotMarker = new google.maps.Marker({
-                                            map: map,
-                                            position: placeLocation,
-                                            icon: "https://maps.google.com/mapfiles/kml/paddle/4.png",
-                                        });
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                spotMarkers.push(spotMarker);
-                                console.log("filteredResults[0].name：", filteredResults[0].name);
-                                return filteredResults[0];
-                            } else {
-                                console.log("not included.");
-                                const placeLocation = filteredResults[0].geometry.location;
-                                switch (num) {
-                                    case 0:
-                                        map.setCenter(placeLocation);
-                                        spotMarker = new google.maps.Marker({
-                                            map: map,
-                                            position: placeLocation,
-                                            icon: "https://maps.google.com/mapfiles/kml/paddle/1.png",
-                                        });
-                                        break;
-                                    case 1:
-                                        spotMarker = new google.maps.Marker({
-                                            map: map,
-                                            position: placeLocation,
-                                            icon: "https://maps.google.com/mapfiles/kml/paddle/2.png",
-                                        });
-                                        break;
-                                    case 2:
-                                        spotMarker = new google.maps.Marker({
-                                            map: map,
-                                            position: placeLocation,
-                                            icon: "https://maps.google.com/mapfiles/kml/paddle/3.png",
-                                        });
-                                        break;
-                                    case 3:
-                                        spotMarker = new google.maps.Marker({
-                                            map: map,
-                                            position: placeLocation,
-                                            icon: "https://maps.google.com/mapfiles/kml/paddle/4.png",
-                                        });
-                                        break;
-                                    default:
-                                        break;
-                                }
-                                spotMarkers.push(spotMarker);
-                                console.log("filteredResults[0].name：", filteredResults[0].name);
-                                return filteredResults[0];
-                            } */
                         }
                     } catch (error) {
                         console.error(error);
                         return [];
                     }
-
-                    /*async function searchHotPepper(name) {
-                        const hotPepperUrl = `https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=67b483882724833c&name=${name}&range=5&lat=${position.coords.latitude}&lng=${position.coords.longitude}&format=jsonp`;
-
-                        try {
-                            const script = document.createElement("script");
-                            script.src = hotPepperUrl;
-                            document.head.appendChild(script);
-                        } catch (error) {
-                            throw error;
-                        }
-                    }*/
 
                     function getPlaceDetails(placeId) {
                         return new Promise((resolve, reject) => {
@@ -740,6 +658,8 @@ function searchLocation() {
                     }
                 }
 
+                document.getElementById("start-time").innerText = time1;
+                document.getElementById("end-time").innerText   = time2;
                 if (sort === "distance") {
                     filteredResults.sort((a, b) => {
                         const distanceA = google.maps.geometry.spherical.computeDistanceBetween(myLatLng, a.geometry.location);
@@ -781,7 +701,6 @@ function searchLocation() {
                             break;
                     }
                     spotMarkers.push(spotMarker);
-                    console.log("filteredResults[0].name：", filteredResults[0].name);
                     return filteredResults[0];
                 } else if (sort === "rate") {
                     var maxRating      = -1;
@@ -830,12 +749,11 @@ function searchLocation() {
                             break;
                     }
                     spotMarkers.push(spotMarker);
-                    console.log("filteredResults[maxRatingIndex].name2：", filteredResults[maxRatingIndex].name);
                     return filteredResults[maxRatingIndex];
                 } else if (sort === "price") {
                     filteredResults = filteredResults.filter(result => {
                         const priceLevel = result.price_level;
-                        return priceLevel === 0 || priceLevel === 1;
+                        return priceLevel === undefined || priceLevel === 0 || priceLevel === 1;
                     });
                     const placeLocation = filteredResults[0].geometry.location;
                     switch (num) {
@@ -872,7 +790,6 @@ function searchLocation() {
                             break;
                     }
                     spotMarkers.push(spotMarker);
-                    console.log("filteredResults[0].name2：", filteredResults[0].name);
                     return filteredResults[0];
                 }
             } catch (error) {

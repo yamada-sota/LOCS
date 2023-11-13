@@ -41,7 +41,41 @@
         <div id="content-globe" class="content-globe">
             <div class="map" id="map"></div>
             <div class="plan" id="plan">
-                
+                <div class="first" id="first">
+                    <img class="pin-img" src="https://maps.google.com/mapfiles/kml/paddle/1.png">
+                    <div class="name-time">
+                        <div class="plan-name" id="first-name"></div>
+                        <div class="plan-time" id="first-time"></div>
+                    </div>
+                    <img class="plan-photos" id="first-photo" src="https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage">
+                </div>
+                <div class="space" id="fs-space"></div>
+                <div class="second" id="second">
+                    <img class="pin-img" src="https://maps.google.com/mapfiles/kml/paddle/2.png">
+                    <div class="name-time">
+                        <div class="plan-name" id="second-name"></div>
+                        <div class="plan-time" id="second-time"></div>
+                    </div>
+                    <img class="plan-photos" id="second-photo" src="https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage">
+                </div>
+                <div class="space" id="st-space"></div>
+                <div class="third" id="third">
+                    <img class="pin-img" src="https://maps.google.com/mapfiles/kml/paddle/3.png">
+                    <div class="name-time">
+                        <div class="plan-name" id="third-name"></div>
+                        <div class="plan-time" id="third-time"></div>
+                    </div>
+                    <img class="plan-photos" id="third-photo" src="https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage">
+                </div>
+                <div class="space" id="tf-space"></div>
+                <div class="fourth" id="fourth">
+                    <img class="pin-img" src="https://maps.google.com/mapfiles/kml/paddle/4.png">
+                    <div class="name-time">
+                        <div class="plan-name" id="fourth-name"></div>
+                        <div class="plan-time" id="fourth-time"></div>
+                    </div>
+                    <img class="plan-photos" id="fourth-photo" src="https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage">
+                </div>
             </div>
             <button class="current-location-button" id="current-location-button">現在地を追跡する</button>
             <button class="change-display-button" id="change-display-button">プラン表示に変える</button>
@@ -77,30 +111,6 @@
                         <option value="price">安さ重視</option>
                     </select>
                 </div>
-
-                <!-- <div class="budget-container">
-                    <div class="budget">
-                        <div class="text-titles">予算</div>
-                    </div>
-                    <select class="budget-picker" id="budget">
-                        <option value="0">0円</option>
-                        <option value="1000">1,000円</option>
-                        <option value="2000">2,000円</option>
-                        <option value="3000">3,000円</option>
-                        <option value="4000">4,000円</option>
-                        <option value="5000">5,000円</option>
-                        <option value="6000">6,000円</option>
-                        <option value="7000">7,000円</option>
-                        <option value="8000">8,000円</option>
-                        <option value="9000">9,000円</option>
-                        <option value="10000">10,000円</option>
-                        <option value="11000">11,000円</option>
-                        <option value="12000">12,000円</option>
-                        <option value="13000">13,000円</option>
-                        <option value="14000">14,000円</option>
-                        <option value="15000">15,000円</option>
-                    </select>
-                </div> -->
                 
                 <div class="time-container">
                     <div class="time-wrapper">
@@ -274,21 +284,21 @@
                     <div class="transportation-wrapper">
                         <div class="text-titles">移動手段</div>
                     </div>
-                    <div class="checkbox-group">
-                        <div class="foot-checkbox">
-                            <input type="checkbox" name="foot" class="checkbox" id="foot">
+                    <div class="radio-group">
+                        <div class="foot-radio">
+                            <input type="radio" name="radio" class="radio" id="foot">
                             <label for="foot" class="transportation">徒歩</label>
                         </div>
-                        <div class="train-checkbox">
-                            <input type="checkbox" name="train" class="checkbox" id="train">
+                        <div class="train-radio">
+                            <input type="radio" name="radio" class="radio" id="train">
                             <label for="train" class="transportation">電車</label>
                         </div>
-                        <div class="car-checkbox">
-                            <input type="checkbox" name="car" class="checkbox" id="car">
+                        <div class="car-radio">
+                            <input type="radio" name="radio" class="radio" id="car">
                             <label for="car" class="transportation">車</label>
                         </div>
-                        <div class="bicycle-checkbox">
-                            <input type="checkbox" name="bicycle" class="checkbox" id="bicycle">
+                        <div class="bicycle-radio">
+                            <input type="radio" name="radio" class="radio" id="bicycle">
                             <label for="bicycle" class="transportation">自転車</label>
                         </div>
                     </div>

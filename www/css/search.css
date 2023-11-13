@@ -127,39 +127,6 @@
     background-color: transparent;
 }
 
-/* .budget-container {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 60px;
-    top: 23%;
-    left: 50%;
-    transform: translateX(-50%);
-}
-.budget {
-    display: inline-block;
-    width: 110px;
-    height: 32px;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-color: var(--system-gray500);
-}
-.budget-picker {
-    display: flex;
-    width: 110px;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 8px;
-    padding: 8px 7px;
-    position: relative;
-    color: var(--lightmain);
-    border-radius: 5px;
-    border: 1px solid;
-    border-color: var(--system-gray500);
-    background-color: transparent;
-} */
-
 .time-container {
     position: absolute;
     display: flex;
@@ -316,7 +283,7 @@ input[type="time"] {
     letter-spacing: 0;
     line-height: normal;
 }
-.checkbox {
+.radio {
     position: relative;
     width: 24px;
     height: 24px;
@@ -324,31 +291,31 @@ input[type="time"] {
     margin: 0;
     background-color: transparent;
 }
-.checkbox-group {
+.radio-group {
     display: inline-block;
     width: 246px;
     height: 56px;
 }
-.foot-checkbox,
-.train-checkbox,
-.car-checkbox,
-.bicycle-checkbox {
+.foot-radio,
+.train-radio,
+.car-radio,
+.bicycle-radio {
     position: absolute;
     width: 111px;
     height: 24px;
     margin: 0;
 }
-.foot-checkbox {
+.foot-radio {
     top: 55px;
 }
-.train-checkbox {
+.train-radio {
     top: 55px;
     left: 135px;
 }
-.car-checkbox {
+.car-radio {
     top: 85px;
 }
-.bicycle-checkbox {
+.bicycle-radio {
     top: 85px;
     left: 135px;
 }
