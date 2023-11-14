@@ -506,6 +506,12 @@ function searchLocation() {
                                         position: placeLocation,
                                         icon: "https://maps.google.com/mapfiles/kml/paddle/1.png",
                                     });
+                                    document.getElementById("first").style.display  = "flex";
+                                    document.getElementById("first-name").innerText = filteredResults[0].name;
+                                    document.getElementById("first-time").innerText = stayingTime;
+                                    if (filteredResults[0].photos) {
+                                        document.getElementById("first-photo").src = filteredResults[0].photos[0].getUrl();
+                                    }
                                     break;
                                 case 1:
                                     spotMarker = new google.maps.Marker({
@@ -513,6 +519,13 @@ function searchLocation() {
                                         position: placeLocation,
                                         icon: "https://maps.google.com/mapfiles/kml/paddle/2.png",
                                     });
+                                    document.getElementById("fs-space").style.display = "flex";
+                                    document.getElementById("second").style.display   = "flex";
+                                    document.getElementById("second-name").innerText  = filteredResults[0].name;
+                                    document.getElementById("second-time").innerText  = stayingTime;
+                                    if (filteredResults[0].photos) {
+                                        document.getElementById("second-photo").src = filteredResults[0].photos[0].getUrl();
+                                    }
                                     break;
                                 case 2:
                                     spotMarker = new google.maps.Marker({
@@ -520,6 +533,13 @@ function searchLocation() {
                                         position: placeLocation,
                                         icon: "https://maps.google.com/mapfiles/kml/paddle/3.png",
                                     });
+                                    document.getElementById("st-space").style.display = "flex";
+                                    document.getElementById("third").style.display    = "flex";
+                                    document.getElementById("third-name").innerText   = filteredResults[0].name;
+                                    document.getElementById("third-time").innerText   = stayingTime;
+                                    if (filteredResults[0].photos) {
+                                        document.getElementById("third-photo").src = filteredResults[0].photos[0].getUrl();
+                                    }
                                     break;
                                 case 3:
                                     spotMarker = new google.maps.Marker({
@@ -527,6 +547,13 @@ function searchLocation() {
                                         position: placeLocation,
                                         icon: "https://maps.google.com/mapfiles/kml/paddle/4.png",
                                     });
+                                    document.getElementById("tf-space").style.display = "flex";
+                                    document.getElementById("fourth").style.display   = "flex";
+                                    document.getElementById("fourth-name").innerText  = filteredResults[0].name;
+                                    document.getElementById("fourth-time").innerText  = stayingTime;
+                                    if (filteredResults[0].photos) {
+                                        document.getElementById("fourth-photo").src = filteredResults[0].photos[0].getUrl();
+                                    }
                                     break;
                                 default:
                                     break;
@@ -538,7 +565,6 @@ function searchLocation() {
                                 const priceLevel = result.price_level;
                                 return priceLevel === undefined || priceLevel === 0 || priceLevel === 1;
                             });
-                            console.log(`price_level is ${filteredResults[0].price_level}`);
                             const placeLocation = filteredResults[0].geometry.location;
                             switch (num) {
                                 case 0:
@@ -548,6 +574,12 @@ function searchLocation() {
                                         position: placeLocation,
                                         icon: "https://maps.google.com/mapfiles/kml/paddle/1.png",
                                     });
+                                    document.getElementById("first").style.display  = "flex";
+                                    document.getElementById("first-name").innerText = filteredResults[0].name;
+                                    document.getElementById("first-time").innerText = stayingTime;
+                                    if (filteredResults[0].photos) {
+                                        document.getElementById("first-photo").src = filteredResults[0].photos[0].getUrl();
+                                    }
                                     break;
                                 case 1:
                                     spotMarker = new google.maps.Marker({
@@ -555,6 +587,13 @@ function searchLocation() {
                                         position: placeLocation,
                                         icon: "https://maps.google.com/mapfiles/kml/paddle/2.png",
                                     });
+                                    document.getElementById("fs-space").style.display = "flex";
+                                    document.getElementById("second").style.display   = "flex";
+                                    document.getElementById("second-name").innerText  = filteredResults[0].name;
+                                    document.getElementById("second-time").innerText  = stayingTime;
+                                    if (filteredResults[0].photos) {
+                                        document.getElementById("second-photo").src = filteredResults[0].photos[0].getUrl();
+                                    }
                                     break;
                                 case 2:
                                     spotMarker = new google.maps.Marker({
@@ -562,6 +601,13 @@ function searchLocation() {
                                         position: placeLocation,
                                         icon: "https://maps.google.com/mapfiles/kml/paddle/3.png",
                                     });
+                                    document.getElementById("st-space").style.display = "flex";
+                                    document.getElementById("third").style.display    = "flex";
+                                    document.getElementById("third-name").innerText   = filteredResults[0].name;
+                                    document.getElementById("third-time").innerText   = stayingTime;
+                                    if (filteredResults[0].photos) {
+                                        document.getElementById("third-photo").src = filteredResults[0].photos[0].getUrl();
+                                    }
                                     break;
                                 case 3:
                                     spotMarker = new google.maps.Marker({
@@ -569,6 +615,13 @@ function searchLocation() {
                                         position: placeLocation,
                                         icon: "https://maps.google.com/mapfiles/kml/paddle/4.png",
                                     });
+                                    document.getElementById("tf-space").style.display = "flex";
+                                    document.getElementById("fourth").style.display   = "flex";
+                                    document.getElementById("fourth-name").innerText  = filteredResults[0].name;
+                                    document.getElementById("fourth-time").innerText  = stayingTime;
+                                    if (filteredResults[0].photos) {
+                                        document.getElementById("fourth-photo").src = filteredResults[0].photos[0].getUrl();
+                                    }
                                     break;
                                 default:
                                     break;
@@ -658,15 +711,18 @@ function searchLocation() {
                     }
                 }
 
-                document.getElementById("start-time").innerText = time1;
-                document.getElementById("end-time").innerText   = time2;
+                var stayingTime = "10分";
                 if (sort === "distance") {
                     filteredResults.sort((a, b) => {
-                        const distanceA = google.maps.geometry.spherical.computeDistanceBetween(myLatLng, a.geometry.location);
-                        const distanceB = google.maps.geometry.spherical.computeDistanceBetween(myLatLng, b.geometry.location);
+                        const distanceA = google.maps.geometry.spherical.computeDistanceBetween(latLng, a.geometry.location);
+                        const distanceB = google.maps.geometry.spherical.computeDistanceBetween(latLng, b.geometry.location);
                         return distanceA - distanceB;
                     });
-                    var placeLocation = filteredResults[0].geometry.location;
+                    if (filteredResults) {
+                        var placeLocation = filteredResults[0].geometry.location;
+                    } else {
+                        return [];
+                    }
                     switch (num) {
                         case 0:
                             map.setCenter(placeLocation);
@@ -675,6 +731,12 @@ function searchLocation() {
                                 position: placeLocation,
                                 icon: "https://maps.google.com/mapfiles/kml/paddle/1.png",
                             });
+                            document.getElementById("first").style.display  = "flex";
+                            document.getElementById("first-name").innerText = filteredResults[0].name;
+                            document.getElementById("first-time").innerText = stayingTime;
+                            if (filteredResults[0].photos) {
+                                document.getElementById("first-photo").src = filteredResults[0].photos[0].getUrl();
+                            }
                             break;
                         case 1:
                             spotMarker = new google.maps.Marker({
@@ -682,6 +744,13 @@ function searchLocation() {
                                 position: placeLocation,
                                 icon: "https://maps.google.com/mapfiles/kml/paddle/2.png",
                             });
+                            document.getElementById("fs-space").style.display = "flex";
+                            document.getElementById("second").style.display   = "flex";
+                            document.getElementById("second-name").innerText  = filteredResults[0].name;
+                            document.getElementById("second-time").innerText  = stayingTime;
+                            if (filteredResults[0].photos) {
+                                document.getElementById("second-photo").src = filteredResults[0].photos[0].getUrl();
+                            }
                             break;
                         case 2:
                             spotMarker = new google.maps.Marker({
@@ -689,6 +758,13 @@ function searchLocation() {
                                 position: placeLocation,
                                 icon: "https://maps.google.com/mapfiles/kml/paddle/3.png",
                             });
+                            document.getElementById("st-space").style.display = "flex";
+                            document.getElementById("third").style.display    = "flex";
+                            document.getElementById("third-name").innerText   = filteredResults[0].name;
+                            document.getElementById("third-time").innerText   = stayingTime;
+                            if (filteredResults[0].photos) {
+                                document.getElementById("third-photo").src = filteredResults[0].photos[0].getUrl();
+                            }
                             break;
                         case 3:
                             spotMarker = new google.maps.Marker({
@@ -696,6 +772,13 @@ function searchLocation() {
                                 position: placeLocation,
                                 icon: "https://maps.google.com/mapfiles/kml/paddle/4.png",
                             });
+                            document.getElementById("tf-space").style.display = "flex";
+                            document.getElementById("fourth").style.display   = "flex";
+                            document.getElementById("fourth-name").innerText  = filteredResults[0].name;
+                            document.getElementById("fourth-time").innerText  = stayingTime;
+                            if (filteredResults[0].photos) {
+                                document.getElementById("fourth-photo").src = filteredResults[0].photos[0].getUrl();
+                            }
                             break;
                         default:
                             break;
@@ -723,6 +806,12 @@ function searchLocation() {
                                 position: placeLocation,
                                 icon: "https://maps.google.com/mapfiles/kml/paddle/1.png",
                             });
+                            document.getElementById("first").style.display  = "flex";
+                            document.getElementById("first-name").innerText = filteredResults[0].name;
+                            document.getElementById("first-time").innerText = stayingTime;
+                            if (filteredResults[0].photos) {
+                                document.getElementById("first-photo").src = filteredResults[0].photos[0].getUrl();
+                            }
                             break;
                         case 1:
                             spotMarker = new google.maps.Marker({
@@ -730,6 +819,13 @@ function searchLocation() {
                                 position: placeLocation,
                                 icon: "https://maps.google.com/mapfiles/kml/paddle/2.png",
                             });
+                            document.getElementById("fs-space").style.display = "flex";
+                            document.getElementById("second").style.display   = "flex";
+                            document.getElementById("second-name").innerText  = filteredResults[0].name;
+                            document.getElementById("second-time").innerText  = stayingTime;
+                            if (filteredResults[0].photos) {
+                                document.getElementById("second-photo").src = filteredResults[0].photos[0].getUrl();
+                            }
                             break;
                         case 2:
                             spotMarker = new google.maps.Marker({
@@ -737,6 +833,13 @@ function searchLocation() {
                                 position: placeLocation,
                                 icon: "https://maps.google.com/mapfiles/kml/paddle/3.png",
                             });
+                            document.getElementById("st-space").style.display = "flex";
+                            document.getElementById("third").style.display    = "flex";
+                            document.getElementById("third-name").innerText   = filteredResults[0].name;
+                            document.getElementById("third-time").innerText   = stayingTime;
+                            if (filteredResults[0].photos) {
+                                document.getElementById("third-photo").src = filteredResults[0].photos[0].getUrl();
+                            }
                             break;
                         case 3:
                             spotMarker = new google.maps.Marker({
@@ -744,6 +847,13 @@ function searchLocation() {
                                 position: placeLocation,
                                 icon: "https://maps.google.com/mapfiles/kml/paddle/4.png",
                             });
+                            document.getElementById("tf-space").style.display = "flex";
+                            document.getElementById("fourth").style.display   = "flex";
+                            document.getElementById("fourth-name").innerText  = filteredResults[0].name;
+                            document.getElementById("fourth-time").innerText  = stayingTime;
+                            if (filteredResults[0].photos) {
+                                document.getElementById("fourth-photo").src = filteredResults[0].photos[0].getUrl();
+                            }
                             break;
                         default:
                             break;
@@ -764,6 +874,12 @@ function searchLocation() {
                                 position: placeLocation,
                                 icon: "https://maps.google.com/mapfiles/kml/paddle/1.png",
                             });
+                            document.getElementById("first").style.display  = "flex";
+                            document.getElementById("first-name").innerText = filteredResults[0].name;
+                            document.getElementById("first-time").innerText = stayingTime;
+                            if (filteredResults[0].photos) {
+                                document.getElementById("first-photo").src = filteredResults[0].photos[0].getUrl();
+                            }
                             break;
                         case 1:
                             spotMarker = new google.maps.Marker({
@@ -771,6 +887,13 @@ function searchLocation() {
                                 position: placeLocation,
                                 icon: "https://maps.google.com/mapfiles/kml/paddle/2.png",
                             });
+                            document.getElementById("fs-space").style.display = "flex";
+                            document.getElementById("second").style.display   = "flex";
+                            document.getElementById("second-name").innerText  = filteredResults[0].name;
+                            document.getElementById("second-time").innerText  = stayingTime;
+                            if (filteredResults[0].photos) {
+                                document.getElementById("second-photo").src = filteredResults[0].photos[0].getUrl();
+                            }
                             break;
                         case 2:
                             spotMarker = new google.maps.Marker({
@@ -778,6 +901,13 @@ function searchLocation() {
                                 position: placeLocation,
                                 icon: "https://maps.google.com/mapfiles/kml/paddle/3.png",
                             });
+                            document.getElementById("st-space").style.display = "flex";
+                            document.getElementById("third").style.display    = "flex";
+                            document.getElementById("third-name").innerText   = filteredResults[0].name;
+                            document.getElementById("third-time").innerText   = stayingTime;
+                            if (filteredResults[0].photos) {
+                                document.getElementById("third-photo").src = filteredResults[0].photos[0].getUrl();
+                            }
                             break;
                         case 3:
                             spotMarker = new google.maps.Marker({
@@ -785,6 +915,13 @@ function searchLocation() {
                                 position: placeLocation,
                                 icon: "https://maps.google.com/mapfiles/kml/paddle/4.png",
                             });
+                            document.getElementById("tf-space").style.display = "flex";
+                            document.getElementById("fourth").style.display   = "flex";
+                            document.getElementById("fourth-name").innerText  = filteredResults[0].name;
+                            document.getElementById("fourth-time").innerText  = stayingTime;
+                            if (filteredResults[0].photos) {
+                                document.getElementById("fourth-photo").src = filteredResults[0].photos[0].getUrl();
+                            }
                             break;
                         default:
                             break;
