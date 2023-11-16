@@ -93,6 +93,7 @@
     font-size: 1.3rem;
 }
 .saved-plan-list {
+    display: none;
     max-height: calc(100vh - 100vh * 0.35);
     overflow-y: scroll;
     -ms-overflow-style: none;

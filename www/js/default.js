@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", function() {
     var locsId          = document.getElementById("locs-id");
     var mypageIconImage = document.getElementById("mypage-icon-image");
     var icon            = document.getElementById("icon");
+    var savedPlanTitle  = document.getElementById("saved-plan-title");
+    var savedPlanList   = document.getElementById("saved-plan-list");
     
     var currentUser = new ncmb.User.getCurrentUser();
     if (currentUser) {
@@ -34,6 +36,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     ncmb.User.logout();
                     window.location.href = "index.html";
                 });
+            savedPlanTitle.textContent  = "保存プラン一覧";
+            savedPlanList.style.display = "flex";
         }
     }
 
