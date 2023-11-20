@@ -22,7 +22,8 @@ document.addEventListener("DOMContentLoaded", function() {
             "ユーザー名はマイページで変更できます。",
             "ユーザー名・LOCS IDは全体に公開されます。",
             "LOCS IDはあなただけのIDです。",
-            "作成したプランはマイページに保存できます。",
+            "作成したプランは設定画面で確認できます。",
+            "アカウント作成でプランが保存できます。",
         ];
         const randomTip         = tips[Math.floor(Math.random() * tips.length)];
         const spanElement       = document.querySelector(".random-tips");

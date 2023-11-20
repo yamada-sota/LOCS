@@ -10,10 +10,14 @@
         <link rel="stylesheet" href="css/setting.css">
         <link rel="stylesheet" href="css/mypage.css">
     </head>
+    <script src="components/ncmb/ncmb.min.js"></script>
+    <script>
+        var applicationkey = "4dbb3d327127b2dec06b84deb304f3ce92a90fe3f413b160fbd7ad902ab74926";
+        var clientkey      = "dcd03e138124816b36a669ca227f97268de84662f737a23fc4a85aa2cd327d16"; 
+        var ncmb           = new NCMB(applicationkey, clientkey);
+    </script>
     <script src="js/default.js"></script>
     <script src="js/search.js"></script>
-    <script src="components/ncmb/ncmb.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="js/map.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGEbac2sVu6rkK5CkPSQgHvUExjQGwbYg&libraries=places&callback=initMap" async defer></script>
     <script>
@@ -38,6 +42,7 @@
         }
     </script>
     <body>
+        <div class="generate-plan-1" id="generate-plan-1">プラン生成中...</div>
         <div id="content-globe" class="content-globe">
             <div class="map" id="map"></div>
             <div class="plan" id="plan">
@@ -76,6 +81,7 @@
                     </div>
                     <img class="plan-photos" id="fourth-photo" src="https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage">
                 </div>
+                <button class="save-plan-button" onclick="savePlan()">このプランを保存する</button>
             </div>
             <button class="current-location-button" id="current-location-button">現在地を追跡する</button>
             <button class="change-display-button" id="change-display-button">プラン表示に変える</button>
@@ -87,7 +93,7 @@
         </div>
 
         <div id="slide-in-content" class="slide-in-content">
-            <div class="generate-plan" id="generate-plan">プラン生成中...</div>
+            <div class="generate-plan-2" id="generate-plan-2">プラン生成中...</div>
             <div class="overlap-group">
                 <div class="swipe-to-go-back">⇩スワイプで戻る</div>
 
@@ -108,7 +114,7 @@
                     <select class="sort-pull-down" id="sort">
                         <option value="distance">近さ重視</option>
                         <option value="rate">人気重視</option>
-                        <option value="price">安さ重視</option>
+                        <option value="price">安さ重視(β版)</option>
                     </select>
                 </div>
                 
@@ -132,7 +138,7 @@
                 <div class="keywords-container">
                     <div class="keywords-set-1">
                         <select class="keywords-pull-down-1" id="keywords1">
-                            <option value="">1</option>
+                            <option value="">-</option>
                             <option value="テーマパーク">テーマパーク</option>
                             <option value="公園">公園</option>
                             <option value="水族館">水族館</option>
@@ -168,7 +174,7 @@
                             <option value="ペットショップ">ペットショップ</option>
                         </select>
                         <select class="keywords-pull-down-3" id="keywords3">
-                            <option value="">3</option>
+                            <option value="">-</option>
                             <option value="テーマパーク">テーマパーク</option>
                             <option value="公園">公園</option>
                             <option value="水族館">水族館</option>
@@ -206,7 +212,7 @@
                     </div>
                     <div class="keywords-set-2">
                         <select class="keywords-pull-down-2" id="keywords2">
-                            <option value="">2</option>
+                            <option value="">-</option>
                             <option value="テーマパーク">テーマパーク</option>
                             <option value="公園">公園</option>
                             <option value="水族館">水族館</option>
@@ -242,7 +248,7 @@
                             <option value="ペットショップ">ペットショップ</option>
                         </select>
                         <select class="keywords-pull-down-4" id="keywords4">
-                            <option value="">4</option>
+                            <option value="">-</option>
                             <option value="テーマパーク">テーマパーク</option>
                             <option value="公園">公園</option>
                             <option value="水族館">水族館</option>
