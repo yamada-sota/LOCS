@@ -233,12 +233,15 @@ function handlePinPlacement() {
 }
 
 var spotMarkers  = [];
-var spotNames        = [];
+var spotNames    = [];
 var stayingTimes = [];
 var photoUrls    = [];
 var mapUrls      = [];
 function searchLocation() {
     navigator.geolocation.clearWatch(watchID);
+
+    var planNameField   = document.getElementById("plan-name-field");
+    planNameField.value = "";
 
     var currentLocationButton = document.getElementById("current-location-button");
     var changeDisplayButton   = document.getElementById("change-display-button");
@@ -249,7 +252,7 @@ function searchLocation() {
     var searchBar             = document.getElementById("search-bar");
     var textSearch            = document.getElementById("text-search");
     var slideInContent        = document.getElementById("slide-in-content");
-
+    
     var departure = document.getElementById("departure").value;
     var keyword1  = document.getElementById("keywords1").value;
     var keyword2  = document.getElementById("keywords2").value;
@@ -1084,10 +1087,13 @@ function savePlan() {
     var currentUser = new ncmb.User.getCurrentUser();
     var planId      = currentUser.get("objectId");
 
-    var planName = document.getElementById("plan-name-field").value;
+    var planNameField = document.getElementById("plan-name-field");
+    var planName      = document.getElementById("plan-name-field").value;
     if (planName.length > 0) {
         var confirmPlanName = confirm("プラン名の変更はできません。\n保存してよろしいですか？");
-        if (!confirmPlanName) {
+        if (confirmPlanName) {
+            planNameField.value = "";
+        } else {
             return;
         }
     } else {
@@ -1167,11 +1173,19 @@ function displaySavedPlans(plans) {
         timeCell.textContent = formattedDate;
         nameCell.textContent = planName;
 
+        nameCell.addEventListener("click", function() {
+            displayOverlay(plan);
+        });
+
         row.appendChild(timeCell);
         row.appendChild(nameCell);
 
         tableBody.appendChild(row);
     });
+}
+
+function displayOverlay(plan) {
+    console.log("Displaying overlay for plan:", plan);
 }
 
 // 保存時間を適切な形式にフォーマット
