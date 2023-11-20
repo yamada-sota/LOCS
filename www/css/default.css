@@ -42,10 +42,10 @@ body.loaded {
     position: absolute;
     top: 7.2%;
     left: 0;
-    height: 84.8%;
+    height: calc(84.8% - 68px);
     width: 100%;
     z-index: -1;
-    padding-top: 40px;
+    padding-top: 68px;
     background-color: var(--accent-color050);
 }
 .pin-img {
@@ -78,12 +78,25 @@ body.loaded {
     height: 64px;
     right: 0;
 }
+.plan-name-field {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 17%;
+    width: 60%;
+    height: auto;
+    border: 1px solid var(--accent-color500);
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: var(--text-default-med-font-size);
+}
 .save-plan-button {
     display: flex;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 15%;
+    bottom: 10%;
     padding: 10px 16px;
     border-radius: 6px;
     border: 1px solid;

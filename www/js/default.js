@@ -35,6 +35,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
             savedPlanTitle.textContent  = "保存プラン一覧";
             savedPlanList.style.display = "flex";
+
+            // 保存プラン取得
+            var planId = currentUser.get("objectId");
+            var Plan   = ncmb.DataStore("Plan");
+            Plan.equalTo("planId", planId)
+                .order("createDate", true)
+                .fetchAll()
+                    .then(function (plans) {
+                        displaySavedPlans(plans);
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                    });
         }
     }
 
@@ -481,6 +494,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
+// base64形式の画像データとMIMEタイプを指定して、Blobオブジェクトを生成
 function toBlob(base64, mime_type) {
     var bin = atob(base64.replace(/^.*,/, ''));
     var buffer = new Uint8Array(bin.length);
@@ -496,4 +510,34 @@ function toBlob(base64, mime_type) {
         return false;
     }
     return blob;
+}
+
+// 保存プランをテーブルに表示
+function displaySavedPlans(plans) {
+    var tableBody       = document.getElementById("plan-table-body");
+    tableBody.innerHTML = "";
+
+    plans.forEach(function (plan) {
+        var row      = document.createElement("tr");
+        var timeCell = document.createElement("td");
+        var nameCell = document.createElement("td");
+
+        var createDate    = plan.get("createDate");
+        var formattedDate = formatDate(createDate);
+        var planName      = plan.get("planName");
+
+        timeCell.textContent = formattedDate;
+        nameCell.textContent = planName;
+
+        row.appendChild(timeCell);
+        row.appendChild(nameCell);
+
+        tableBody.appendChild(row);
+    });
+}
+
+// 保存時間を適切な形式にフォーマット
+function formatDate(date) {
+    var options = { year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", second: "numeric" };
+    return new Date(date).toLocaleString("ja-JP", options);
 }

@@ -233,7 +233,7 @@ function handlePinPlacement() {
 }
 
 var spotMarkers  = [];
-var names        = [];
+var spotNames        = [];
 var stayingTimes = [];
 var photoUrls    = [];
 var mapUrls      = [];
@@ -369,8 +369,8 @@ function searchLocation() {
     }
 
     // 配列リセット
-    if (names.length > 0) {
-        names = [];
+    if (spotNames.length > 0) {
+        spotNames = [];
     }
     if (stayingTimes.length > 0) {
         stayingTimes = [];
@@ -503,7 +503,7 @@ function searchLocation() {
                                         break;
                                 }
                                 spotMarkers.push(spotMarker);
-                                names.push(filteredResults[0].name);
+                                spotNames.push(filteredResults[0].name);
                                 stayingTimes.push(stayingTime);
                                 if (filteredResults[0].photos) {
                                     photoUrls.push(filteredResults[0].photos[0].getUrl());
@@ -513,7 +513,7 @@ function searchLocation() {
                                 mapUrls.push(`https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`);
                                 return filteredResults[0];
                             } else {
-                                names.push(null);
+                                spotNames.push(null);
                                 stayingTimes.push(null);
                                 photoUrls.push("https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage");
                                 mapUrls.push(null);
@@ -594,7 +594,7 @@ function searchLocation() {
                                         break;
                                 }
                                 spotMarkers.push(spotMarker);
-                                names.push(filteredResults[maxRatingIndex].name);
+                                spotNames.push(filteredResults[maxRatingIndex].name);
                                 stayingTimes.push(stayingTime);
                                 if (filteredResults[maxRatingIndex].photos) {
                                     photoUrls.push(filteredResults[maxRatingIndex].photos[maxRatingIndex].getUrl());
@@ -604,7 +604,7 @@ function searchLocation() {
                                 mapUrls.push(`https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`);
                                 return filteredResults[maxRatingIndex];
                             } else {
-                                names.push(null);
+                                spotNames.push(null);
                                 stayingTimes.push(null);
                                 photoUrls.push("https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage");
                                 mapUrls.push(null);
@@ -678,7 +678,7 @@ function searchLocation() {
                                         break;
                                 }
                                 spotMarkers.push(spotMarker);
-                                names.push(filteredResults[0].name);
+                                spotNames.push(filteredResults[0].name);
                                 stayingTimes.push(stayingTime);
                                 if (filteredResults[0].photos) {
                                     photoUrls.push(filteredResults[0].photos[0].getUrl());
@@ -688,7 +688,7 @@ function searchLocation() {
                                 mapUrls.push(`https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`);
                                 return filteredResults[0];
                             } else {
-                                names.push(null);
+                                spotNames.push(null);
                                 stayingTimes.push(null);
                                 photoUrls.push("https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage");
                                 mapUrls.push(null);
@@ -848,7 +848,7 @@ function searchLocation() {
                                 break;
                         }
                         spotMarkers.push(spotMarker);
-                        names.push(filteredResults[0].name);
+                        spotNames.push(filteredResults[0].name);
                         stayingTimes.push(stayingTime);
                         if (filteredResults[0].photos) {
                             photoUrls.push(filteredResults[0].photos[0].getUrl());
@@ -858,7 +858,7 @@ function searchLocation() {
                         mapUrls.push(`https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`);
                         return filteredResults[0];
                     } else {
-                        names.push(null);
+                        spotNames.push(null);
                         stayingTimes.push(null);
                         photoUrls.push("https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage");
                         mapUrls.push(null);
@@ -939,7 +939,7 @@ function searchLocation() {
                                 break;
                         }
                         spotMarkers.push(spotMarker);
-                        names.push(filteredResults[maxRatingIndex].name);
+                        spotNames.push(filteredResults[maxRatingIndex].name);
                         stayingTimes.push(stayingTime);
                         if (filteredResults[maxRatingIndex].photos) {
                             photoUrls.push(filteredResults[maxRatingIndex].photos[maxRatingIndex].getUrl());
@@ -949,7 +949,7 @@ function searchLocation() {
                         mapUrls.push(`https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`);
                         return filteredResults[maxRatingIndex];
                     } else {
-                        names.push(null);
+                        spotNames.push(null);
                         stayingTimes.push(null);
                         photoUrls.push("https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage");
                         mapUrls.push(null);
@@ -1023,7 +1023,7 @@ function searchLocation() {
                                 break;
                         }
                         spotMarkers.push(spotMarker);
-                        names.push(filteredResults[0].name);
+                        spotNames.push(filteredResults[0].name);
                         stayingTimes.push(stayingTime);
                         if (filteredResults[0].photos) {
                             photoUrls.push(filteredResults[0].photos[0].getUrl());
@@ -1033,7 +1033,7 @@ function searchLocation() {
                         mapUrls.push(`https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`);
                         return filteredResults[0];
                     } else {
-                        names.push(null);
+                        spotNames.push(null);
                         stayingTimes.push(null);
                         photoUrls.push("https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage");
                         mapUrls.push(null);
@@ -1079,9 +1079,36 @@ function searchLocation() {
     }
 }
 
+// プランを保存
 function savePlan() {
     var currentUser = new ncmb.User.getCurrentUser();
-    var locsId      = currentUser.get("locsId");
+    var planId      = currentUser.get("objectId");
+
+    var planName = document.getElementById("plan-name-field").value;
+    if (planName.length > 0) {
+        var confirmPlanName = confirm("プラン名の変更はできません。\n保存してよろしいですか？");
+        if (!confirmPlanName) {
+            return;
+        }
+    } else {
+        var confirmPlanName = confirm("プラン名は自動で作成されます。\n保存してよろしいですか？");
+        if (confirmPlanName) {
+            if (spotNames[0] != undefined) {
+                planName = spotNames[0];
+            }
+            if (spotNames[1] != undefined) {
+                planName += "_" + spotNames[1];
+            }
+            if (spotNames[2] != undefined) {
+                planName += "_" + spotNames[2];
+            }
+            if (spotNames[3] != undefined) {
+                planName += "_" + spotNames[3];
+            }
+        } else {
+            return;
+        }
+    }
 
     if (currentUser) {
         var anonymous = (authData = currentUser.get("authData")) && authData["anonymous"] && !currentUser.get("password");
@@ -1096,15 +1123,25 @@ function savePlan() {
             acl.setPublicReadAccess(true);
             acl.setUserWriteAccess(currentUser, true);
 
-            plan.set("name", { 1: names[0], 2: names[1], 3: names[2], 4: names[3] })
-                .set("stayingTime", { 1: stayingTimes[0], 2: stayingTimes[1], 3: stayingTimes[2], 4: stayingTimes[3] })
-                .set("photoUrl", { 1: photoUrls[0], 2: photoUrls[1], 3: photoUrls[2], 4: photoUrls[3] })
-                .set("mapUrl", { 1: mapUrls[0], 2: mapUrls[1], 3: mapUrls[2], 4: mapUrls[3] })
-                .set("locsId", locsId)
+            plan.set("spotName", {1: spotNames[0], 2: spotNames[1], 3: spotNames[2], 4: spotNames[3]})
+                .set("stayingTime", {1: stayingTimes[0], 2: stayingTimes[1], 3: stayingTimes[2], 4: stayingTimes[3]})
+                .set("photoUrl", {1: photoUrls[0], 2: photoUrls[1], 3: photoUrls[2], 4: photoUrls[3]})
+                .set("mapUrl", {1: mapUrls[0], 2: mapUrls[1], 3: mapUrls[2], 4: mapUrls[3]})
+                .set("planId", planId)
+                .set("planName", planName)
                 .set("acl", acl)
                 .save()
                 .then(function () {
                     alert("保存しました。\n設定画面で確認できます。");
+                    Plan.equalTo("planId", planId)
+                        .order("createDate", true)
+                        .fetchAll()
+                            .then(function (plans) {
+                                displaySavedPlans(plans);
+                            })
+                            .catch(function (error) {
+                                console.error(error);
+                            });
                 })
                 .catch(function () {
                     alert("保存に失敗しました。");
@@ -1113,3 +1150,32 @@ function savePlan() {
     }
 }
 
+// 保存プランをテーブルに表示
+function displaySavedPlans(plans) {
+    var tableBody       = document.getElementById("plan-table-body");
+    tableBody.innerHTML = "";
+
+    plans.forEach(function (plan) {
+        var row      = document.createElement("tr");
+        var timeCell = document.createElement("td");
+        var nameCell = document.createElement("td");
+
+        var createDate    = plan.get("createDate");
+        var formattedDate = formatDate(createDate);
+        var planName      = plan.get("planName");
+
+        timeCell.textContent = formattedDate;
+        nameCell.textContent = planName;
+
+        row.appendChild(timeCell);
+        row.appendChild(nameCell);
+
+        tableBody.appendChild(row);
+    });
+}
+
+// 保存時間を適切な形式にフォーマット
+function formatDate(date) {
+    var options = { year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", second: "numeric" };
+    return new Date(date).toLocaleString("ja-JP", options);
+}

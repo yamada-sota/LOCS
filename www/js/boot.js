@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
             "LOCS IDはあなただけのIDです。",
             "作成したプランは設定画面で確認できます。",
             "アカウント作成でプランが保存できます。",
+            "分かりやすいプラン名がおすすめです。",
         ];
         const randomTip         = tips[Math.floor(Math.random() * tips.length)];
         const spanElement       = document.querySelector(".random-tips");
