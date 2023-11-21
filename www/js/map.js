@@ -228,8 +228,8 @@ function handlePinPlacement() {
         });
 
         myLatLng = event.latLng;
+        waitingForPin = false;
     });
-    waitingForPin = false;
 }
 
 var spotMarkers  = [];
@@ -459,7 +459,7 @@ function searchLocation() {
                                         if (filteredResults[0].photos) {
                                             document.getElementById("first-photo").src = filteredResults[0].photos[0].getUrl();
                                         }
-                                        document.getElementById("first-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
+                                        document.getElementById("first-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
                                         break;
                                     case 1:
                                         spotMarker = new google.maps.Marker({
@@ -474,7 +474,7 @@ function searchLocation() {
                                         if (filteredResults[0].photos) {
                                             document.getElementById("second-photo").src = filteredResults[0].photos[0].getUrl();
                                         }
-                                        document.getElementById("second-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
+                                        document.getElementById("second-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
                                         break;
                                     case 2:
                                         spotMarker = new google.maps.Marker({
@@ -489,7 +489,7 @@ function searchLocation() {
                                         if (filteredResults[0].photos) {
                                             document.getElementById("third-photo").src = filteredResults[0].photos[0].getUrl();
                                         }
-                                        document.getElementById("third-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
+                                        document.getElementById("third-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
                                         break;
                                     case 3:
                                         spotMarker = new google.maps.Marker({
@@ -504,7 +504,7 @@ function searchLocation() {
                                         if (filteredResults[0].photos) {
                                             document.getElementById("fourth-photo").src = filteredResults[0].photos[0].getUrl();
                                         }
-                                        document.getElementById("fourth-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
+                                        document.getElementById("fourth-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
                                         break;
                                     default:
                                         break;
@@ -554,7 +554,7 @@ function searchLocation() {
                                         if (filteredResults[maxRatingIndex].photos) {
                                             document.getElementById("first-photo").src = filteredResults[maxRatingIndex].photos[0].getUrl();
                                         }
-                                        document.getElementById("first-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`
+                                        document.getElementById("first-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`
                                         break;
                                     case 1:
                                         spotMarker = new google.maps.Marker({
@@ -569,7 +569,7 @@ function searchLocation() {
                                         if (filteredResults[maxRatingIndex].photos) {
                                             document.getElementById("second-photo").src = filteredResults[maxRatingIndex].photos[0].getUrl();
                                         }
-                                        document.getElementById("second-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`
+                                        document.getElementById("second-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`
                                         break;
                                     case 2:
                                         spotMarker = new google.maps.Marker({
@@ -584,7 +584,7 @@ function searchLocation() {
                                         if (filteredResults[maxRatingIndex].photos) {
                                             document.getElementById("third-photo").src = filteredResults[maxRatingIndex].photos[0].getUrl();
                                         }
-                                        document.getElementById("third-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`
+                                        document.getElementById("third-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`
                                         break;
                                     case 3:
                                         spotMarker = new google.maps.Marker({
@@ -599,7 +599,7 @@ function searchLocation() {
                                         if (filteredResults[maxRatingIndex].photos) {
                                             document.getElementById("fourth-photo").src = filteredResults[maxRatingIndex].photos[0].getUrl();
                                         }
-                                        document.getElementById("fourth-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`
+                                        document.getElementById("fourth-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`
                                         break;
                                     default:
                                         break;
@@ -642,7 +642,7 @@ function searchLocation() {
                                         if (filteredResults[0].photos) {
                                             document.getElementById("first-photo").src = filteredResults[0].photos[0].getUrl();
                                         }
-                                        document.getElementById("first-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
+                                        document.getElementById("first-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
                                         break;
                                     case 1:
                                         spotMarker = new google.maps.Marker({
@@ -657,7 +657,7 @@ function searchLocation() {
                                         if (filteredResults[0].photos) {
                                             document.getElementById("second-photo").src = filteredResults[0].photos[0].getUrl();
                                         }
-                                        document.getElementById("second-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
+                                        document.getElementById("second-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
                                         break;
                                     case 2:
                                         spotMarker = new google.maps.Marker({
@@ -672,7 +672,7 @@ function searchLocation() {
                                         if (filteredResults[0].photos) {
                                             document.getElementById("third-photo").src = filteredResults[0].photos[0].getUrl();
                                         }
-                                        document.getElementById("third-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
+                                        document.getElementById("third-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
                                         break;
                                     case 3:
                                         spotMarker = new google.maps.Marker({
@@ -687,7 +687,7 @@ function searchLocation() {
                                         if (filteredResults[0].photos) {
                                             document.getElementById("fourth-photo").src = filteredResults[0].photos[0].getUrl();
                                         }
-                                        document.getElementById("fourth-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
+                                        document.getElementById("fourth-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
                                         break;
                                     default:
                                         break;
@@ -816,7 +816,7 @@ function searchLocation() {
                                 if (filteredResults[0].photos) {
                                     document.getElementById("first-photo").src = filteredResults[0].photos[0].getUrl();
                                 }
-                                document.getElementById("first-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
+                                document.getElementById("first-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
                                 break;
                             case 1:
                                 spotMarker = new google.maps.Marker({
@@ -831,7 +831,7 @@ function searchLocation() {
                                 if (filteredResults[0].photos) {
                                     document.getElementById("second-photo").src = filteredResults[0].photos[0].getUrl();
                                 }
-                                document.getElementById("second-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
+                                document.getElementById("second-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
                                 break;
                             case 2:
                                 spotMarker = new google.maps.Marker({
@@ -846,7 +846,7 @@ function searchLocation() {
                                 if (filteredResults[0].photos) {
                                     document.getElementById("third-photo").src = filteredResults[0].photos[0].getUrl();
                                 }
-                                document.getElementById("third-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
+                                document.getElementById("third-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
                                 break;
                             case 3:
                                 spotMarker = new google.maps.Marker({
@@ -861,7 +861,7 @@ function searchLocation() {
                                 if (filteredResults[0].photos) {
                                     document.getElementById("fourth-photo").src = filteredResults[0].photos[0].getUrl();
                                 }
-                                document.getElementById("fourth-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
+                                document.getElementById("fourth-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
                                 break;
                             default:
                                 break;
@@ -911,7 +911,7 @@ function searchLocation() {
                                 if (filteredResults[maxRatingIndex].photos) {
                                     document.getElementById("first-photo").src = filteredResults[maxRatingIndex].photos[0].getUrl();
                                 }
-                                document.getElementById("first-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`
+                                document.getElementById("first-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`
                                 break;
                             case 1:
                                 spotMarker = new google.maps.Marker({
@@ -926,7 +926,7 @@ function searchLocation() {
                                 if (filteredResults[maxRatingIndex].photos) {
                                     document.getElementById("second-photo").src = filteredResults[maxRatingIndex].photos[0].getUrl();
                                 }
-                                document.getElementById("second-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`
+                                document.getElementById("second-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`
                                 break;
                             case 2:
                                 spotMarker = new google.maps.Marker({
@@ -941,7 +941,7 @@ function searchLocation() {
                                 if (filteredResults[maxRatingIndex].photos) {
                                     document.getElementById("third-photo").src = filteredResults[maxRatingIndex].photos[0].getUrl();
                                 }
-                                document.getElementById("third-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`
+                                document.getElementById("third-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`
                                 break;
                             case 3:
                                 spotMarker = new google.maps.Marker({
@@ -956,7 +956,7 @@ function searchLocation() {
                                 if (filteredResults[maxRatingIndex].photos) {
                                     document.getElementById("fourth-photo").src = filteredResults[maxRatingIndex].photos[0].getUrl();
                                 }
-                                document.getElementById("fourth-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`
+                                document.getElementById("fourth-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`
                                 break;
                             default:
                                 break;
@@ -999,7 +999,7 @@ function searchLocation() {
                                 if (filteredResults[0].photos) {
                                     document.getElementById("first-photo").src = filteredResults[0].photos[0].getUrl();
                                 }
-                                document.getElementById("first-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
+                                document.getElementById("first-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
                                 break;
                             case 1:
                                 spotMarker = new google.maps.Marker({
@@ -1014,7 +1014,7 @@ function searchLocation() {
                                 if (filteredResults[0].photos) {
                                     document.getElementById("second-photo").src = filteredResults[0].photos[0].getUrl();
                                 }
-                                document.getElementById("second-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
+                                document.getElementById("second-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
                                 break;
                             case 2:
                                 spotMarker = new google.maps.Marker({
@@ -1029,7 +1029,7 @@ function searchLocation() {
                                 if (filteredResults[0].photos) {
                                     document.getElementById("third-photo").src = filteredResults[0].photos[0].getUrl();
                                 }
-                                document.getElementById("third-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
+                                document.getElementById("third-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
                                 break;
                             case 3:
                                 spotMarker = new google.maps.Marker({
@@ -1044,7 +1044,7 @@ function searchLocation() {
                                 if (filteredResults[0].photos) {
                                     document.getElementById("fourth-photo").src = filteredResults[0].photos[0].getUrl();
                                 }
-                                document.getElementById("fourth-view-on-plan").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
+                                document.getElementById("fourth-view-on-map").href = `https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`
                                 break;
                             default:
                                 break;
@@ -1100,8 +1100,7 @@ function searchLocation() {
                 }
             }
             
-            generatePlan1.style.display    = "none";
-            slideInContent.style.transform = "translateY(100%)";
+            generatePlan1.style.display = "none";
         })();
     }
 }

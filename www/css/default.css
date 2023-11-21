@@ -16,6 +16,8 @@ body.loaded {
 .generate-plan-1 {
     display: none;
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     color: var(--darkmain);
@@ -63,7 +65,7 @@ body.loaded {
 }
 .space {
     display: none;
-    height: 5%;
+    height: 3%;
 }
 .name-time {
     display: flex;
