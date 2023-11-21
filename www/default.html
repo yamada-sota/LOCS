@@ -51,6 +51,7 @@
                     <div class="name-time">
                         <div class="plan-name" id="first-name"></div>
                         <div class="plan-time" id="first-time"></div>
+                        <a class="view-on-map" id="first-view-on-map" target="_blank">Googleマップで見る</a>
                     </div>
                     <img class="plan-photos" id="first-photo" src="https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage">
                 </div>
@@ -60,6 +61,7 @@
                     <div class="name-time">
                         <div class="plan-name" id="second-name"></div>
                         <div class="plan-time" id="second-time"></div>
+                        <a class="view-on-map" id="second-view-on-map" target="_blank">Googleマップで見る</a>
                     </div>
                     <img class="plan-photos" id="second-photo" src="https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage">
                 </div>
@@ -69,6 +71,7 @@
                     <div class="name-time">
                         <div class="plan-name" id="third-name"></div>
                         <div class="plan-time" id="third-time"></div>
+                        <a class="view-on-map" id="third-view-on-map" target="_blank">Googleマップで見る</a>
                     </div>
                     <img class="plan-photos" id="third-photo" src="https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage">
                 </div>
@@ -78,6 +81,7 @@
                     <div class="name-time">
                         <div class="plan-name" id="fourth-name"></div>
                         <div class="plan-time" id="fourth-time"></div>
+                        <a class="view-on-map" id="fourth-view-on-map" target="_blank">Googleマップで見る</a>
                     </div>
                     <img class="plan-photos" id="fourth-photo" src="https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage">
                 </div>
@@ -328,8 +332,8 @@
                     <div class="locs-id">LOCS ID：<span id="locs-id">-（未設定）</span></div>
                 </div>
             </div>
-            <div id="overlay" class="overlay">
-                <img id="overlay-image" class="overlay-image" src="" alt="user-icon-overlay">
+            <div class="overlay" id="overlay-image">
+                <img class="user-icon-overlay" id="user-icon-overlay" src="" alt="user-icon-overlay">
             </div>
             <div class="edit" id="edit">マイページへ</div>
             <hr class="divider-top">
@@ -351,6 +355,9 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="overlay" id="overlay-plan">
+                <div class="plan-overlay" id="plan-overlay"></div>
             </div>
         </div>
 

@@ -470,26 +470,26 @@ document.addEventListener("DOMContentLoaded", function() {
         document.querySelector(".setting").style.fill            = "var(--accent-color800)";
     });
 
-    var icon         = document.getElementById("icon");
-    var overlay      = document.getElementById("overlay");
-    var overlayImage = document.getElementById("overlay-image");
+    var icon            = document.getElementById("icon");
+    var overlayImage    = document.getElementById("overlay-image");
+    var userIconOverlay = document.getElementById("user-icon-overlay");
 
     icon.addEventListener("click", function() {
         var iconSrc = this.getAttribute("src");
         // オーバーレイの画像にアイコンのsrcを設定
-        overlayImage.setAttribute("src", iconSrc);
+        userIconOverlay.setAttribute("src", iconSrc);
         // オーバーレイ内の画像をクリック⇒非表示にしない
-        overlayImage.addEventListener("click", function(event) {
+        userIconOverlay.addEventListener("click", function(event) {
             event.stopPropagation(); // イベントの伝播を停止
         });
         // オーバーレイを表示
-        overlay.style.display     = "flex";
-        overlayImage.style.width  = "200px";
-        overlayImage.style.height = "200px";
+        overlayImage.style.display   = "flex";
+        userIconOverlay.style.width  = "200px";
+        userIconOverlay.style.height = "200px";
     });
     // オーバーレイをクリック⇒非表示
-    overlay.addEventListener("click", function() {
-        overlay.style.display = "none";
+    overlayImage.addEventListener("click", function() {
+        overlayImage.style.display = "none";
     });
 
 });
@@ -528,6 +528,10 @@ function displaySavedPlans(plans) {
 
         timeCell.textContent = formattedDate;
         nameCell.textContent = planName;
+
+        nameCell.addEventListener("click", function() {
+            displayOverlay(plan);
+        });
 
         row.appendChild(timeCell);
         row.appendChild(nameCell);

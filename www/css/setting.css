@@ -55,9 +55,72 @@
     align-items: center;
     z-index: 9999;
 }
-.overlay-image {
+.user-icon-overlay {
     display: block;
     margin: 0 auto;
+}
+
+.plan-overlay {
+    display: none;
+    position: absolute;
+    flex-direction: column;
+    top: 10%;
+    left: 0;
+    height: 80%;
+    width: 100%;
+    z-index: -1;
+    background-color: var(--accent-color050);
+}
+.plan-title {
+    display: flex;
+    justify-content: center;
+    padding: 5% 0;
+    font-size: 1.3rem;
+}
+.plan-first,
+.plan-second,
+.plan-third,
+.plan-fourth {
+    display: none;
+    flex-direction: row;
+    gap: 5%;
+    align-items: center;
+}
+.plan-space {
+    display: none;
+    height: 5%;
+}
+.view-on-map {
+    font-size: 1rem;
+    color: var(--accent-color900);
+}
+.close-delete-plan {
+    display: flex;
+    position: absolute;
+    bottom: 10%;
+    width: 100%;
+    gap: 10%;
+    justify-content: center;
+}
+.close-plan-button {
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: 1px solid;
+    border-color: var(--lightmain-40);
+    background-color: transparent;
+    font-weight: var(--text-default-med-font-weight);
+    color: var(--lightmain-80);
+    font-size: var(--text-default-med-font-size);
+}
+.delete-plan-button {
+    padding: 10px 16px;
+    border-radius: 6px;
+    border: 1px solid;
+    border-color: var(--lightmain-40);
+    background-color: transparent;
+    font-weight: var(--text-default-med-font-weight);
+    color: var(--lighterror);
+    font-size: var(--text-default-med-font-size);
 }
 
 .edit {
