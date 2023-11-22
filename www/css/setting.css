@@ -88,7 +88,10 @@
 }
 .plan-space {
     display: none;
-    height: 3%;
+    height: 6%;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
 }
 .view-on-map {
     font-size: 1rem;
@@ -97,7 +100,7 @@
 .close-delete-plan {
     display: flex;
     position: absolute;
-    bottom: 10%;
+    bottom: 4%;
     width: 100%;
     gap: 10%;
     justify-content: center;

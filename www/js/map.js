@@ -238,6 +238,8 @@ var stayingTimes = [];
 var photoUrls    = [];
 var mapUrls      = [];
 var tmpResults   = [];
+var travelTimes  = [];
+var travelMode   = "";
 function searchLocation() {
     navigator.geolocation.clearWatch(watchID);
 
@@ -340,16 +342,20 @@ function searchLocation() {
     var carPerHour     = 20;
     var bicyclePerHour = 12;
     if (foot) {
-        radius = hour * footPerHour * 1000;
+        radius     = hour * footPerHour * 1000;
+        travelMode = "WALKING";
     }
     if (train) {
-        radius = hour * trainPerHour * 1000;
+        radius     = hour * trainPerHour * 1000;
+        travelMode = "TRANSIT";
     }
     if (car) {
-        radius = hour * carPerHour * 1000;
+        radius     = hour * carPerHour * 1000;
+        travelMode = "DRIVING";
     }
     if (bicycle) {
-        radius = hour * bicyclePerHour * 1000;
+        radius     = hour * bicyclePerHour * 1000;
+        travelMode = "BICYCLING";
     }
     if (radius > 50000) {
         radius = 50000;
@@ -387,9 +393,6 @@ function searchLocation() {
     }
     if (tmpResults.length > 0) {
         tmpResults = [];
-    }
-    if (travelTimes.length > 0) {
-        travelTimes = [];
     }
 
     currentLocationButton.style.display = "none";
@@ -443,7 +446,7 @@ function searchLocation() {
                             }
                         }
                         
-                        var stayingTime = "--時間--分";
+                        var stayingTime = "滞在：--時間--分";
                         if (sort === "distance") {
                             if (filteredResults) {
                                 filteredResults.sort((a, b) => {
@@ -753,6 +756,7 @@ function searchLocation() {
                         }
                     }
 
+                    calcAndDisplayTravelTimes();
                     generatePlan2.style.display    = "none";
                     slideInContent.style.transform = "translateY(100%)";
                 })();
@@ -803,7 +807,7 @@ function searchLocation() {
                     }
                 }
 
-                var stayingTime = "--時間--分";
+                var stayingTime = "滞在：--時間--分";
                 if (sort === "distance") {
                     if (filteredResults) {
                         filteredResults.sort((a, b) => {
@@ -1113,8 +1117,55 @@ function searchLocation() {
                 }
             }
             
+            calcAndDisplayTravelTimes();
             generatePlan1.style.display = "none";
         })();
+    }
+}
+
+// 移動時間を計算してプランに表示
+function calcAndDisplayTravelTimes() {
+    var directionsService = new google.maps.DirectionsService();
+
+    function calcTravelTime(start, end, callback) {
+        var request = {
+            origin: start,
+            destination: end,
+            travelMode: travelMode,
+        };
+        directionsService.route(request, function(result, status) {
+            if (status == "OK") {
+                var travelTime = result.routes[0].legs[0].duration.text;
+                callback(null, travelTime);
+            } else {
+                callback(status);
+            }
+        });
+    }
+
+    for (let i = 0; i < tmpResults.length - 1; i++) {
+        calcTravelTime(tmpResults[i].geometry.location, tmpResults[i+1].geometry.location, function(error, travelTime) {
+            if (error) {
+                console.error(error);
+            } else {
+                switch(i) {
+                    case 0:
+                        document.getElementById("fs-space").textContent = "移動：約" + travelTime;
+                        travelTimes.push(travelTime);
+                        break;
+                    case 1:
+                        document.getElementById("st-space").textContent = "移動：約" + travelTime;
+                        travelTimes.push(travelTime);
+                        break;
+                    case 2:
+                        document.getElementById("tf-space").textContent = "移動：約" + travelTime;
+                        travelTimes.push(travelTime);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 }
 
@@ -1169,6 +1220,7 @@ function savePlan() {
                 .set("stayingTime", {1: stayingTimes[0], 2: stayingTimes[1], 3: stayingTimes[2], 4: stayingTimes[3]})
                 .set("photoUrl", {1: photoUrls[0], 2: photoUrls[1], 3: photoUrls[2], 4: photoUrls[3]})
                 .set("mapUrl", {1: mapUrls[0], 2: mapUrls[1], 3: mapUrls[2], 4: mapUrls[3]})
+                .set("travelTime", {1: travelTimes[0], 2: travelTimes[1], 3: travelTimes[2]})
                 .set("planId", planId)
                 .set("planName", planName)
                 .set("acl", acl)
@@ -1278,7 +1330,7 @@ function displayOverlay(plan) {
     document.getElementById("plan-first").style.display = "flex";
     if (plan.spotName[2]) {
         planOverlay.innerHTML += `
-            <div class="plan-space" id="plan-fs-space"></div>
+            <div class="plan-space" id="plan-fs-space">移動：約${plan.travelTime[1]}</div>
             <div class="plan-second" id="plan-second">
                 <img class="pin-img" src="https://maps.google.com/mapfiles/kml/paddle/2.png">
                 <div class="name-time">
@@ -1294,7 +1346,7 @@ function displayOverlay(plan) {
     }
     if (plan.spotName[3]) {
         planOverlay.innerHTML += `
-            <div class="plan-space" id="plan-st-space"></div>
+            <div class="plan-space" id="plan-st-space">移動：約${plan.travelTime[2]}</div>
             <div class="plan-third" id="plan-third">
                 <img class="pin-img" src="https://maps.google.com/mapfiles/kml/paddle/3.png">
                 <div class="name-time">
@@ -1310,7 +1362,7 @@ function displayOverlay(plan) {
     }
     if (plan.spotName[4]) {
         planOverlay.innerHTML += `
-            <div class="plan-space" id="plan-tf-space"></div>
+            <div class="plan-space" id="plan-tf-space">移動：約${plan.travelTime[3]}</div>
             <div class="plan-fourth" id="plan-fourth">
                 <img class="pin-img" src="https://maps.google.com/mapfiles/kml/paddle/4.png">
                 <div class="name-time">
