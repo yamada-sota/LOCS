@@ -253,7 +253,6 @@ function searchLocation() {
     var generatePlan1         = document.getElementById("generate-plan-1");
     var generatePlan2         = document.getElementById("generate-plan-2");
     var searchBar             = document.getElementById("search-bar");
-    var textSearch            = document.getElementById("text-search");
     var slideInContent        = document.getElementById("slide-in-content");
     
     var departure = document.getElementById("departure").value;
@@ -411,7 +410,6 @@ function searchLocation() {
         generatePlan2.style.display         = "flex";
         currentLocationButton.style.display = "flex";
         changeDisplayButton.style.display   = "flex";
-        textSearch.textContent              = "再検索";
 
         navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -777,7 +775,6 @@ function searchLocation() {
         confirmPinButton.style.display      = "none";
         currentLocationButton.style.display = "flex";
         changeDisplayButton.style.display   = "flex";
-        textSearch.textContent              = "再検索";
         searchBar.style.display             = "flex";
 
         // 非同期処理を制御するためのPromiseを返す関数

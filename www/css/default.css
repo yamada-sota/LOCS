@@ -159,35 +159,22 @@ body.loaded {
 .search-bar {
     display: flex;
     position: absolute;
-    width: 362px;
-    height: 50px;
-    bottom: 8.5%;
+    width: 60px;
+    height: 60px;
+    bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
     background-color: rgba(245, 245, 245, 0.85);
-    border-radius: 10px;
+    border-radius: 100px;
     border: 1px solid;
     border-color: var(--system-gray400);
 }
 .search-mark {
     position: absolute;
-    width: 24px;
-    height: 24px;
-    top: 12px;
-    left: 14px;
-}
-.text-search {
-    position: absolute;
-    height: 22px;
-    top: 14px;
-    left: 164px;
-    color: var(--system-gray500);
-    font-size: 16px;
-    line-height: 22px;
-    font-weight: bold;
-    text-align: center;
-    letter-spacing: 0;
-    white-space: nowrap;
+    width: 40px;
+    height: 40px;
+    top: 9px;
+    left: 9px;
 }
 
 .tab-bars {
