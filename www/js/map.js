@@ -237,6 +237,7 @@ var spotNames    = [];
 var stayingTimes = [];
 var photoUrls    = [];
 var mapUrls      = [];
+var tmpResults   = [];
 function searchLocation() {
     navigator.geolocation.clearWatch(watchID);
 
@@ -384,6 +385,12 @@ function searchLocation() {
     if (mapUrls.length > 0) {
         mapUrls = [];
     }
+    if (tmpResults.length > 0) {
+        tmpResults = [];
+    }
+    if (travelTimes.length > 0) {
+        travelTimes = [];
+    }
 
     currentLocationButton.style.display = "none";
     changeDisplayButton.style.display   = "none";
@@ -518,6 +525,7 @@ function searchLocation() {
                                     photoUrls.push("https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage");
                                 }
                                 mapUrls.push(`https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`);
+                                tmpResults.push(filteredResults[0]);
                                 return filteredResults[0];
                             } else {
                                 spotNames.push(null);
@@ -613,6 +621,7 @@ function searchLocation() {
                                     photoUrls.push("https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage");
                                 }
                                 mapUrls.push(`https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`);
+                                tmpResults.push(filteredResults[maxRatingIndex]);
                                 return filteredResults[maxRatingIndex];
                             } else {
                                 spotNames.push(null);
@@ -701,6 +710,7 @@ function searchLocation() {
                                     photoUrls.push("https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage");
                                 }
                                 mapUrls.push(`https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`);
+                                tmpResults.push(filteredResults[0]);
                                 return filteredResults[0];
                             } else {
                                 spotNames.push(null);
@@ -875,6 +885,7 @@ function searchLocation() {
                             photoUrls.push("https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage");
                         }
                         mapUrls.push(`https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`);
+                        tmpResults.push(filteredResults[0]);
                         return filteredResults[0];
                     } else {
                         spotNames.push(null);
@@ -970,6 +981,7 @@ function searchLocation() {
                             photoUrls.push("https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage");
                         }
                         mapUrls.push(`https://www.google.com/maps/search/?api=1&query=${filteredResults[maxRatingIndex].geometry.location.lat()}%2C${filteredResults[maxRatingIndex].geometry.location.lng()}&query_place_id=${filteredResults[maxRatingIndex].place_id}&hl=ja`);
+                        tmpResults.push(filteredResults[maxRatingIndex]);
                         return filteredResults[maxRatingIndex];
                     } else {
                         spotNames.push(null);
@@ -1058,6 +1070,7 @@ function searchLocation() {
                             photoUrls.push("https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/NoImage");
                         }
                         mapUrls.push(`https://www.google.com/maps/search/?api=1&query=${filteredResults[0].geometry.location.lat()}%2C${filteredResults[0].geometry.location.lng()}&query_place_id=${filteredResults[0].place_id}&hl=ja`);
+                        tmpResults.push(filteredResults[0]);
                         return filteredResults[0];
                     } else {
                         spotNames.push(null);
@@ -1243,6 +1256,7 @@ function deletePlan(planObjectId) {
     }
 }
 
+// プランのオーバーレイ表示
 function displayOverlay(plan) {
     var overlayPlan           = document.getElementById("overlay-plan");
     var planOverlay           = document.getElementById("plan-overlay");
@@ -1327,7 +1341,7 @@ function displayOverlay(plan) {
     });
 }
 
-// 保存時間を適切な形式にフォーマット
+// 保存時間をフォーマット
 function formatDate(date) {
     var options = { year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", second: "numeric" };
     return new Date(date).toLocaleString("ja-JP", options);
