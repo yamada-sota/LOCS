@@ -1,3 +1,6 @@
+html {
+    touch-action: manipulation;
+}
 body {
     background-color: var(--accent-color200);
     color: var(--lightmain);
