@@ -1145,17 +1145,34 @@ function calcAndDisplayTravelTimes() {
             if (error) {
                 console.error(error);
             } else {
+                var modeText = "";
+                switch (travelMode) {
+                    case "WALKING":
+                        modeText = "徒歩 ";
+                        break;
+                    case "DRIVING":
+                        modeText = "車 ";
+                        break;
+                    case "TRANSIT":
+                        modeText = "電車 ";
+                        break;
+                    case "BICYCLING":
+                        modeText = "自転車 ";
+                        break;
+                    default:
+                        break;
+                }
                 switch(i) {
                     case 0:
-                        document.getElementById("fs-space").textContent = "移動：約" + travelTime;
+                        document.getElementById("fs-space").textContent = modeText + "移動：約" + travelTime;
                         travelTimes.push(travelTime);
                         break;
                     case 1:
-                        document.getElementById("st-space").textContent = "移動：約" + travelTime;
+                        document.getElementById("st-space").textContent = modeText + "移動：約" + travelTime;
                         travelTimes.push(travelTime);
                         break;
                     case 2:
-                        document.getElementById("tf-space").textContent = "移動：約" + travelTime;
+                        document.getElementById("tf-space").textContent = modeText + "移動：約" + travelTime;
                         travelTimes.push(travelTime);
                         break;
                     default:
