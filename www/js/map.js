@@ -1398,6 +1398,9 @@ function displayOverlay(plan) {
     `;
 
     overlayPlan.style.display = "flex";
+    planOverlay.addEventListener("click", function(event) {
+        event.stopPropagation();
+    });
 
     overlayPlan.addEventListener("click", function() {
         overlayPlan.style.display = "none";
