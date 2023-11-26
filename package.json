@@ -5,8 +5,14 @@
     "dependencies": {
         "cordova-plugin-splashscreen": "6.0.0",
         "monaca-plugin-monaca-core": "3.3.1",
+        "ncmb-push-monaca-plugin": "3.1.2",
         "cordova-plugin-geolocation": "4.1.0",
-        "ncmb-push-monaca-plugin": "3.1.2"
+        "cordova-plugin-camera": "6.0.0",
+        "cordova-plugin-device": "2.1.0",
+        "cordova-plugin-device-motion": "2.0.1",
+        "cordova-plugin-device-orientation": "2.0.1",
+        "cordova-plugin-dialogs": "2.0.2",
+        "cordova-custom-config": "5.1.1"
     },
     "scripts": {
         "monaca:preview": "npm run dev",
@@ -16,8 +22,14 @@
         "plugins": {
             "cordova-plugin-splashscreen": {},
             "monaca-plugin-monaca-core": {},
+            "ncmb-push-monaca-plugin": {},
             "cordova-plugin-geolocation": {},
-            "ncmb-push-monaca-plugin": {}
+            "cordova-plugin-camera": {},
+            "cordova-plugin-device": {},
+            "cordova-plugin-device-motion": {},
+            "cordova-plugin-device-orientation": {},
+            "cordova-plugin-dialogs": {},
+            "cordova-custom-config": {}
         }
     },
     "devDependencies": {
