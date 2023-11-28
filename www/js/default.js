@@ -452,12 +452,112 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // マップ画面
     document.querySelector(".item-globe").addEventListener("click", () => {
-        document.querySelector("#content-globe").style.display   = "block";
-        document.querySelector("#content-setting").style.display = "none";
-        document.querySelector(".text-globe").style.color        = "var(--accent-color800)";
-        document.querySelector(".text-setting").style.color      = "var(--system-gray500)";
-        document.querySelector(".globe").style.fill              = "var(--accent-color800)";
-        document.querySelector(".setting").style.fill            = "var(--system-gray500)";
+        if (slideInContent2.style.transform === "translateX(0%)") {
+            var currentUser       = new ncmb.User.getCurrentUser();
+            var anonymous         = (authData = currentUser.get("authData")) && authData["anonymous"] && !currentUser.get("password");
+            var registerOrLogin1  = document.getElementById("register-or-login-1");
+
+            if (anonymous) {
+                if (registerOrLogin1.textContent === "新規登録") {
+                    var emailField = document.getElementById("emailField");
+                    var later      = document.getElementById("later");
+                    if (emailField.value != "") {
+                        var confirmCancel = confirm("入力が途中です。戻りますか？");
+                        if (confirmCancel) {
+                            slideInContent2.style.transform = "translateX(100%)";
+                            emailField.value = "";
+                            later.value      = "";
+                            document.querySelector("#content-globe").style.display   = "block";
+                            document.querySelector("#content-setting").style.display = "none";
+                            document.querySelector(".text-globe").style.color        = "var(--accent-color800)";
+                            document.querySelector(".text-setting").style.color      = "var(--system-gray500)";
+                            document.querySelector(".globe").style.fill              = "var(--accent-color800)";
+                            document.querySelector(".setting").style.fill            = "var(--system-gray500)";
+                        }
+                    } else {
+                        slideInContent2.style.transform = "translateX(100%)";
+                        emailField.value = "";
+                        later.value      = "";
+                        document.querySelector("#content-globe").style.display   = "block";
+                        document.querySelector("#content-setting").style.display = "none";
+                        document.querySelector(".text-globe").style.color        = "var(--accent-color800)";
+                        document.querySelector(".text-setting").style.color      = "var(--system-gray500)";
+                        document.querySelector(".globe").style.fill              = "var(--accent-color800)";
+                        document.querySelector(".setting").style.fill            = "var(--system-gray500)";
+                    }
+                } else if (registerOrLogin1.textContent === "ログイン") {
+                    var emailField    = document.getElementById("emailField");
+                    var passwordField = document.getElementById("passwordField");
+                    var later         = document.getElementById("later");
+                    if (emailField.value != "" || passwordField != "") {
+                        var confirmCancel = confirm("入力が途中です。戻りますか？\n戻ると新規登録からやり直しになります。");
+                        if (confirmCancel) {
+                            slideInContent2.style.transform = "translateX(100%)";
+                            emailField.value    = "";
+                            passwordField.value = "";
+                            later.value         = "";
+                            document.querySelector("#content-globe").style.display   = "block";
+                            document.querySelector("#content-setting").style.display = "none";
+                            document.querySelector(".text-globe").style.color        = "var(--accent-color800)";
+                            document.querySelector(".text-setting").style.color      = "var(--system-gray500)";
+                            document.querySelector(".globe").style.fill              = "var(--accent-color800)";
+                            document.querySelector(".setting").style.fill            = "var(--system-gray500)";
+                        }
+                    } else {
+                        slideInContent2.style.transform = "translateX(100%)";
+                        emailField.value    = "";
+                        passwordField.value = "";
+                        later.value         = "";
+                        document.querySelector("#content-globe").style.display   = "block";
+                        document.querySelector("#content-setting").style.display = "none";
+                        document.querySelector(".text-globe").style.color        = "var(--accent-color800)";
+                        document.querySelector(".text-setting").style.color      = "var(--system-gray500)";
+                        document.querySelector(".globe").style.fill              = "var(--accent-color800)";
+                        document.querySelector(".setting").style.fill            = "var(--system-gray500)";
+                    }
+                }
+            } else {
+                if (inputUserName.value != "" || inputId.value != "") {
+                    var confirmCancel = confirm("編集が途中です。戻りますか？");
+                    if (confirmCancel) {
+                        slideInContent2.style.transform = "translateX(100%)";
+                        inputUserName.value             = "";
+                        inputId.value                   = "";
+                        errorUserName.textContent       = "1～10文字（記号以外）";
+                        errorId.textContent             = "4～15文字（半角英数字のみ）";
+                        errorUserName.style.color       = "var(--lightmain-80)";
+                        errorId.style.color             = "var(--lightmain-80)";
+                        document.querySelector("#content-globe").style.display   = "block";
+                        document.querySelector("#content-setting").style.display = "none";
+                        document.querySelector(".text-globe").style.color        = "var(--accent-color800)";
+                        document.querySelector(".text-setting").style.color      = "var(--system-gray500)";
+                        document.querySelector(".globe").style.fill              = "var(--accent-color800)";
+                        document.querySelector(".setting").style.fill            = "var(--system-gray500)";
+                    }
+                } else {
+                    slideInContent2.style.transform = "translateX(100%)";
+                    inputUserName.value             = "";
+                    inputId.value                   = "";
+                    errorUserName.textContent       = "1～10文字（記号以外）";
+                    errorId.textContent             = "4～15文字（半角英数字のみ）";
+                    errorUserName.style.color       = "var(--lightmain-80)";
+                    errorId.style.color             = "var(--lightmain-80)";
+                    document.querySelector("#content-globe").style.display   = "block";
+                    document.querySelector("#content-setting").style.display = "none";
+                    document.querySelector(".text-globe").style.color        = "var(--accent-color800)";
+                    document.querySelector(".text-setting").style.color      = "var(--system-gray500)";
+                    document.querySelector(".globe").style.fill              = "var(--accent-color800)";
+                    document.querySelector(".setting").style.fill            = "var(--system-gray500)";
+                }
+            }
+        } else {
+            document.querySelector("#content-globe").style.display   = "block";
+            document.querySelector("#content-setting").style.display = "none";
+            document.querySelector(".text-globe").style.color        = "var(--accent-color800)";
+            document.querySelector(".text-setting").style.color      = "var(--system-gray500)";
+            document.querySelector(".globe").style.fill              = "var(--accent-color800)";
+            document.querySelector(".setting").style.fill            = "var(--system-gray500)";
+        }
     });
 
     // 設定画面

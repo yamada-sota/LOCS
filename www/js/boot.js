@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 registerOrLogin1.textContent = "ログイン";
                 registerOrLogin2.textContent = "新規登録画面へ";
                 userInput.innerHTML          = '<input type="email" id="emailField" class="user-field" placeholder="メールアドレス"><input type="password" style="display: block" minlength="8" id="passwordField" class="user-field" placeholder="パスワード">';
-                userContainer.style.bottom   = "20%";
+                userContainer.style.bottom   = "18%";
                 skipButton.style.display     = "none";
                 later.textContent            = "";
             } else if (registerOrLogin1.textContent === "ログイン") {
