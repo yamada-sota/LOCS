@@ -20,6 +20,7 @@
     top: 7%;
     left: 0;
     background-color: var(--accent-color050);
+    border-radius: 60px 60px 0 0;
 }
 
 .generate-plan-2 {
@@ -37,17 +38,8 @@
 }
 
 .swipe-to-go-back {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%,-80%);
-    font-weight: 400;
-    color: var(--system-gray500);
-    font-size: 20px;
-    text-align: center;
-    letter-spacing: 0;
-    line-height: normal;
-    white-space: nowrap;
+    width: 40px;
+    color: var(--lightmain);
 }
 
 .text-titles {
