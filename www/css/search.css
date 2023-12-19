@@ -21,6 +21,7 @@
     left: 0;
     background-color: var(--accent-color050);
     border-radius: 60px 60px 0 0;
+    box-shadow: 0px -1px 2px 0px rgba(0, 0, 0, 0.2), inset 0px -3px 6px -2px rgba(0, 0, 0, 0.3);
 }
 
 .generate-plan-2 {
@@ -40,6 +41,7 @@
 .swipe-to-go-back {
     width: 40px;
     color: var(--lightmain);
+    border-radius: 10px;
 }
 
 .text-titles {
@@ -151,6 +153,8 @@
     border-radius: 6px;
     border: 1px solid;
     border-color: var(--system-gray500);
+    width: 110px;
+    height: 37px;
 }
 .time-drum-roll {
     width: 177px;
@@ -160,6 +164,7 @@
 }
 .time-picker-1 {
     position: absolute;
+    width: 66px;
     height: 32px;
     top: 0;
     left: 0;
@@ -172,6 +177,7 @@
 }
 .time-picker-2 {
     position: absolute;
+    width: 66px;
     height: 32px;
     top: 0;
     left: 95px;
