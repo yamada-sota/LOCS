@@ -440,6 +440,16 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("delete-account").addEventListener("click", () => {
         var confirmDeleteAccount = confirm("アカウント削除\n続行しますか？");
         if (confirmDeleteAccount) {
+            var fileName    = currentUser.get("objectId");
+            var outputImage = document.getElementById("mypage-icon-image");
+            if (outputImage.src != "https://mbaas.api.nifcloud.com/2013-09-01/applications/1er2zvbAsWIdFAEI/publicFiles/Avatar") {
+                ncmb.File.delete(fileName)
+                    .then(function(){
+                    })
+                    .catch(function(){
+                        alert("アイコンファイルの削除に失敗しました。");
+                    });
+            }
             currentUser.delete()
                 .then(function(){
                     window.location.href = "index.html";
