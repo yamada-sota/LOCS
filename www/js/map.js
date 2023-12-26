@@ -1288,6 +1288,7 @@ function displaySavedPlans(plans) {
 
 // プランを削除
 function deletePlan(planObjectId) {
+    var overlayPlan       = document.getElementById("overlay-plan");
     var confirmDeletePlan = confirm("削除してよろしいですか？");
     if (confirmDeletePlan) {
         var Plan        = ncmb.DataStore("Plan");
@@ -1309,6 +1310,7 @@ function deletePlan(planObjectId) {
                                         console.error(error);
                                     });
                             alert("削除しました。");
+                            overlayPlan.style.display = "none";
                         })
                         .catch(function () {
                             alert("削除に失敗しました。");
